@@ -1,6 +1,14 @@
 body {
     font-family: 'Lato', sans-serif;
     color: rgb(55, 57, 66);
+    padding-top: 120px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 .top {
     width: 100%;
@@ -52,7 +60,7 @@ body {
     width: 100%;
 }
 .connect a, .disconnect a {
-    color: #fff;
+    color: rgb(223, 223, 223);
 }
 .connect a:hover, .disconnect a:hover {
     transition: ease .5s;
@@ -87,11 +95,45 @@ body {
     border: 1px solid #DF4949;
 }
 .fa-search {
-    font-size: 1.15em;
+    font-size: 1em;
     transform: translateX(-28px);
     cursor: pointer;
     transition: ease .5s;
 }
 .fa-search:hover {
     color: #DF4949;
+}
+
+
+
+main {
+    min-height: calc(100vh - 190px);
+}
+
+
+
+
+
+
+
+footer {
+    height: 70px;
+    line-height: 70px;
+    background-color: rgb(53, 49, 59);
+    color: rgb(223, 223, 223);
+    text-align: center;
+}
+footer a {
+    color: rgb(223, 223, 223);
+    margin: 0 .5em;
+    transition: ease .5s;
+}
+footer a:hover {
+    color: #DF4949;
+}
+footer a:last-child {
+    margin-right: 0;
+}
+.copy {
+    margin-right: .5em;
 }
