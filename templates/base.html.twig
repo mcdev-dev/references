@@ -29,7 +29,7 @@
 
   <body>
 
-    <header>
+    <header class="fixed-top">
         <div class="top">
             <div class="social_media">
                 <a href=""><i class="fab fa-facebook-f"></i></a>
@@ -43,12 +43,23 @@
                     <i class="fas fa-search"></i>
                 </form>
             </div>
-            <div class="connect"><a href="">Se connecter</a></div>
+            <div class="connect"><a href="{{ path('connexion') }}">Se connecter</a></div>
             <div class="disconnect"><a href="">Se déconnecter</a></div>
             <div class="register"><a href="{{ path('inscription') }}">S'inscrire</a></div>
         </div>
-        <nav class="navbar navbar-expand-md fixed-top">
-
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{{ path('home') }}"><img src="{{ asset('photo/logotype_lcz.svg') }}" alt=""></a>
+                </div>
+                <ul class="navigation">
+                    <li><a href="">Accueil</a></li>
+                    <li><a href="">Fabrique urbaine collaborative</a></li>
+                    <li><a href="">Habitat participatif</a></li>
+                    <li><a href="">Références</a></li>
+                    <li><a href="">Contact</a></li>
+                </ul>
+            </div>
         </nav>
 
     </header>
