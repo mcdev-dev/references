@@ -43,9 +43,15 @@
                     <i class="fas fa-search"></i>
                 </form>
             </div>
-            <div class="connect"><a href="{{ path('connexion') }}">Se connecter</a></div>
-            <div class="disconnect"><a href="">Se déconnecter</a></div>
-            <div class="register"><a href="{{ path('inscription') }}">S'inscrire</a></div>
+            <div class="authentication"> 
+                {% if is_granted('ROLE_USER') %}  
+                    <div class="disconnect"><a href="{{ path('deconnexion') }}"><i class="fas fa-power-off"></i>Déconnexion</a></div>
+                {% endif %}
+                {% if not is_granted('ROLE_USER') %}
+                    <div class="connect"><a href="{{ path('connexion') }}">Se connecter</a></div>
+                {% endif %}
+                <div class="register"><a href="{{ path('inscription') }}">S'inscrire</a></div>
+            </div>
         </div>
         <nav class="navbar">
             <div class="container">
@@ -53,7 +59,7 @@
                     <a href="{{ path('home') }}"><img src="{{ asset('photo/logotype_lcz.svg') }}" alt=""></a>
                 </div>
                 <ul class="navigation">
-                    <li><a href="">Accueil</a></li>
+                    <li class="{{ (title == 'Accueil') ? 'navActive' : '' }}"><a href="{{ path('home') }}">Accueil</a></li>
                     <li><a href="">Fabrique urbaine collaborative</a></li>
                     <li><a href="">Habitat participatif</a></li>
                     <li><a href="">Références</a></li>
@@ -66,14 +72,15 @@
 
     <main>
         <div class="container">
+            {% if title != 'Inscription' and title != 'Connexion' %}
+                {% for alerte in app.flashes('success') %}
+                    <div class="alert alert-success">{{ alerte | raw }}</div>
+                {% endfor %}
 
-            {% for alerte in app.flashes('success') %}
-                <div class="alert alert-success">{{ alerte }}</div>
-            {% endfor %}
-
-            {% for alerte in app.flashes('errors') %}
-                <div class="alert alert-danger">{{ alerte }}</div>
-            {% endfor %}
+                {% for alerte in app.flashes('errors') %}
+                    <div class="alert alert-danger">{{ alerte | raw }}</div>
+                {% endfor %}
+            {% endif %}
 
             {% block content %}
 

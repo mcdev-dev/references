@@ -5,15 +5,12 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class UserType extends AbstractType
 {
@@ -22,26 +19,14 @@ class UserType extends AbstractType
         $builder
             ->add('username', TextType::class)
             ->add('password', PasswordType::class)
+            ->add('confirmPassword', PasswordType::class)
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
             ->add('email', EmailType::class)
-            ->add('civilite', ChoiceType::class, [
-                'choices' => [
-                    'Monsieur' => 'm',
-                    'Madame' => 'f'
-                ]
+            ->add('abonneNewsletter', CheckboxType::class, [
+                'required' => false
             ])
-            ->add('ville', TextType::class)
-            /*->add('role', ChoiceType::class, [
-                'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
-                    'Administrateur' => 'ROLE_ADMIN',
-                    'Super admin' => 'ROLE_SUPER_ADMIN'
-                ]
-            ])*/
-            ->add('codePostal', IntegerType::class)
-            ->add('adresse', TextareaType::class)
-            ->add('imageFile', VichImageType::class)
+            //->add('UserCoordonnees', UserCoordonneesType::class)
         ;
     }
 

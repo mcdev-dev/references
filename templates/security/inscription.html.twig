@@ -7,12 +7,41 @@
 <div class="row justify-content-md-center">
     <div class="col-md-6">
         <h2 class="text-center title">Inscription</h2>
-        <hr>
+        <hr class="mt-4 mb-4">
 
         {{ form_start(registrationForm) }}
+        
+        {{ form_errors(registrationForm.username) }}
+        {{ form_widget(registrationForm.username, { 'attr' : { 'placeholder' : 'Nom d\'utilisateur', 'class' : 'form-group' } }) }}
+        
+        {{ form_errors(registrationForm.password) }}
+        {{ form_widget(registrationForm.password, { 'attr' : { 'placeholder' : 'Mot de passe', 'class' : 'form-group' } }) }}
+
+        {{ form_errors(registrationForm.confirmPassword) }}
+        {{ form_widget(registrationForm.confirmPassword, { 'attr' : { 'placeholder' : 'Confirmation du mot de passe', 'class' : 'form-group' } }) }}
+        
+        {{ form_errors(registrationForm.nom) }}
+        {{ form_widget(registrationForm.nom, { 'attr' : { 'placeholder' : 'Nom', 'class' : 'form-group' } }) }}
+        
+        {{ form_errors(registrationForm.prenom) }}
+        {{ form_widget(registrationForm.prenom, { 'attr' : { 'placeholder' : 'Prénom', 'class' : 'form-group' } }) }}
+        
+        {{ form_errors(registrationForm.email) }}
+        {{ form_widget(registrationForm.email, { 'attr' : { 'placeholder' : 'Email', 'class' : 'form-group' } }) }}
+
+        {{ form_row(registrationForm.abonneNewsletter, { 'label' : 'En cochant cette case, j\'accepte de recevoir la newsletter de LesCityZens.' }) }}
+
+        <div class="form-group mx-auto col-4">
+            <button type="submit" class="btn btnSubmit col-12">S'inscrire</button>
+        </div>
+
+        <hr class="mt-4 mb-4">
+
+        <div class="text-center">Vous avez déjà un compte LesCityZens ? <a class="doHover ml-2 text-uppercase" href="{{ path('connexion') }}">Se connecter</a></div>
 
         {{ form_end(registrationForm) }}
 
+        <br>
     </div>
 </div>
     

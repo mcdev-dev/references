@@ -2,16 +2,23 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @Vich\Uploadable
+ * @UniqueEntity(
+ *      fields={"username"},
+ *      message="Désolé, ce nom d'utilisateur est déjà utilisé.")
+ * @UniqueEntity(
+ *      fields={"email"},
+ *      message="Désolé, cet email est déjà utilisé.")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -22,73 +29,71 @@ class User
 
     /**
      * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
+     * @Assert\Regex(
+     *      pattern="#^[\w.-]{3,20}$#", 
+     *      message="Votre nom d'utilisateur doit comporter entre 3 et 20 caractères (a à z, A à Z, 0 à 9 et .,-,_).")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
      */
     private $password;
 
     /**
+     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
+     * @Assert\EqualTo(
+     *      propertyPath="password",
+     *      message="Erreur sur le mot de passe")
+     */
+    public $confirmPassword;
+
+    /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
+     * @Assert\Regex(
+     *      pattern="~^[a-zA-ZÀ-ÖØ-öø-ÿœŒ ]+$~u", 
+     *      message="Votre nom doit comporter entre 3 et 20 caractères.")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
+     * @Assert\Regex(
+     *      pattern="~^[a-zA-ZÀ-ÖØ-öø-ÿœŒ ]+$~u", 
+     *      message="Votre nom doit comporter entre 3 et 20 caractères.")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
+     * @Assert\Email(checkMX="true", message="Veuillez entrer un email valide.")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=5)
-     */
-    private $civilite;
-
-    /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $ville;
-
-    /**
      * @ORM\Column(type="string", length=100)
      */
-    private $role;
+    private $role = 'ROLE_USER'; // !IMPORTANT
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=5, nullable=true)
      */
-    private $codePostal;
+    private $abonneNewsletter;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCoordonnees", mappedBy="users")
      */
-    private $adresse;
+    private $userCoordonnees;
 
-    /**
-     * 
-     * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="imageName")
-     * 
-     * @var File
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $imageName;
-
-    /**
-     * @ORM\Column(type="datetime")
-     *
-     * @var \DateTime
-     */
-    private $updatedAt;
+    public function __construct()
+    {
+        $this->userCoordonnees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -155,30 +160,6 @@ class User
         return $this;
     }
 
-    public function getCivilite(): ?string
-    {
-        return $this->civilite;
-    }
-
-    public function setCivilite(string $civilite): self
-    {
-        $this->civilite = $civilite;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
     public function getRole(): ?string
     {
         return $this->role;
@@ -191,63 +172,59 @@ class User
         return $this;
     }
 
-    public function getCodePostal(): ?int
+    public function getAbonneNewsletter(): ?string
     {
-        return $this->codePostal;
+        return $this->abonneNewsletter;
     }
 
-    public function setCodePostal(int $codePostal): self
+    public function setAbonneNewsletter(?string $abonneNewsletter): self
     {
-        $this->codePostal = $codePostal;
+        $this->abonneNewsletter = $abonneNewsletter;
 
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getRoles(): array
     {
-        return $this->adresse;
-    }
+        // guarantee every user at least has ROLE_USER
+        $roles[] = $this->role;
 
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
+        return array_unique($roles);
     }
+    public function getSalt(){}
+    public function eraseCredentials(){}
 
     /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
+     * @return Collection|UserCoordonnees[]
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function getUserCoordonnees(): Collection
     {
-        $this->imageFile = $imageFile;
+        return $this->userCoordonnees;
+    }
 
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+    public function addUserCoordonnee(UserCoordonnees $userCoordonnee): self
+    {
+        if (!$this->userCoordonnees->contains($userCoordonnee)) {
+            $this->userCoordonnees[] = $userCoordonnee;
+            $userCoordonnee->setUsers($this);
         }
+
+        return $this;
     }
 
-    public function getImageFile(): ?File
+    public function removeUserCoordonnee(UserCoordonnees $userCoordonnee): self
     {
-        return $this->imageFile;
+        if ($this->userCoordonnees->contains($userCoordonnee)) {
+            $this->userCoordonnees->removeElement($userCoordonnee);
+            // set the owning side to null (unless already changed)
+            if ($userCoordonnee->getUsers() === $this) {
+                $userCoordonnee->setUsers(null);
+            }
+        }
+
+        return $this;
     }
 
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
+    
 
 }
