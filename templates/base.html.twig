@@ -60,8 +60,8 @@
                 {% endif %}
                 {% if not is_granted('ROLE_USER') %}
                     <div class="connect"><a href="{{ path('connexion') }}">Se connecter</a></div>
+                    <div class="register"><a href="{{ path('inscription') }}">S'inscrire</a></div>
                 {% endif %}
-                <div class="register"><a href="{{ path('inscription') }}">S'inscrire</a></div>
             </div>
         </div>
         <nav class="navbar">
