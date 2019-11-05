@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Contact' %}
+
+{% block content %}
+<div class="row justify-content-md-center">
+    <div class="col-md-8">
+        <h3 class="text-center title">Vous avez une question ? Contactez-nous!</h3><br>
+        <h5 class="title mt-2">Informations personnelles</h5>
+        <hr class="mb-4">
+    
+        {{ form_start(contactForm) }}
+            <div class="row">
+                <div class="form-group col-md-6">
+                    {{ form_errors(contactForm.Firstname) }}
+                    {{ form_widget(contactForm.Firstname, {'attr': {'placeholder': 'Prénom *'}}) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_errors(contactForm.Lastname) }}
+                    {{ form_widget(contactForm.Lastname, {'attr': {'placeholder': 'Nom *'}}) }}
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="form-group col-md-4">
+                    {{ form_errors(contactForm.FromEmail) }}
+                    {{ form_widget(contactForm.FromEmail, {'attr': {'placeholder': 'Email *'}}) }}
+                </div>
+                
+                <div class="form-group col-md-5">
+                    {{ form_errors(contactForm.Company) }}
+                    {{ form_widget(contactForm.Company, {'attr': {'placeholder': 'Société'}}) }}    
+                </div>
+                    
+                <div class="form-group col-md-3">
+                    {{ form_errors(contactForm.PhoneNumber) }}       
+                    {{ form_widget(contactForm.PhoneNumber, {'attr': {'placeholder': 'Téléphone'}}) }}
+                </div>
+            </div>
+    
+            <h5 class="title mt-4">Votre demande concerne</h5>
+            <hr class="mb-4">
+            {{ form_errors(contactForm.Subject) }}
+            {{ form_widget(contactForm.Subject, { 'attr' : { 'placeholder': 'Sujet *', 'class' : 'form-group' } }) }}
+            
+            {{ form_errors(contactForm.Content) }}
+            {{ form_widget(contactForm.Content, { 'attr': { 'placeholder': 'Message *', 'class' : 'form-group' } }) }}
+        
+        <hr class="mt-4">
+        <div class="champsObligatoires">
+            <p>* Champs obligatoires.</p>
+            <p>Ces champs sont obligatoires et sont destinés à Les CityZens, responsable du traitement, aux fins d’effectuer l’ensemble des opérations relatives à notre relation commerciale.</p>
+        </div>    
+
+        <div class="form-group mx-auto col-lg-5 col-md-6 mt-4">
+            <button type="submit" class="btn btnSubmit col-12">Nous contacter</button>
+        </div>
+    
+    
+        {{ form_end(contactForm) }}
+    
+        <br>
+    </div>
+</div>
+    
+{% endblock %}

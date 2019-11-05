@@ -8,6 +8,7 @@ use Symfony\Component\Mime\Email;
 use App\Repository\ContactEmailRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -16,40 +17,35 @@ class ContactEmailController extends AbstractController
     /**
      * @Route("/contact/email", name="contact_email")
      */
-    public function contactEmail(Request $request, MailerInterface $mailer)
+    public function contactEmail(Request $request, MailerInterface $mailer, ObjectManager $manager)
     {
-        $emailInfo = new ContactEmail();
-        $form = $this->createForm(ContactEmailType::class, $emailInfo);
+        $email = new ContactEmail;
+        $form = $this->createForm(ContactEmailType::class, $email);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            $entityManager = $this->getDoctrine()->getManager();
             
             $email = (new Email())
                 ->to("rnguyen@lescityzens.fr")
-                ->from($emailInfo->getFromEmail())
+                ->from($email->getFromEmail())
                 // ->replyTo("rnguyen@lescityzens.fr")
-                ->subject($emailInfo->getSubject())
-
-                ->text($emailInfo->getContent());
+                ->subject($email->getSubject())
+                ->text($email->getContent());
 
 
             $mailer->send($email);
 
-            $entityManager->persist($emailInfo);
-            $entityManager->flush();
+            $manager->persist($email);
+            $manager->flush();
 
-            return $this->render('contact_email/confirm.html.twig', [
-                'title' => 'Page de contact',
-                'message' => 'Votre email a bien été envoyé.'
-            ]);
+            $this->addFlash('success', 'Votre email a été envoyé avec succès.');
+            return $this->redirectToRoute('home');
         }
 
-        return $this->render('contact_email/index.html.twig', [
-            'title' => 'Page de contact',
-            'form' => $form->createView(),
+        return $this->render('contact_email/contact.html.twig', [
+            'contactForm' => $form->createView(),
         ]);
     }
 }

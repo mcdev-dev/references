@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactEmailRepository")
@@ -18,21 +19,35 @@ class ContactEmail
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs")
+     * @Assert\Regex(
+     *      pattern="#^[\w.-]{5,50}$#",
+     *      message="Le sujet doit comporter entre 5 et 50 caractères (a à z, A à Z, 0 à 9 et .,-,_).")
      */
     private $Subject;
 
     /**
      * @ORM\Column(type="string", length=25)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs")
+     * @Assert\Regex(
+     *      pattern="~^[a-zA-ZÀ-ÖØ-öø-ÿœŒ ]+$~u", 
+     *      message="Veuillez entrer un prénom valide.")
      */
     private $Firstname;
 
     /**
      * @ORM\Column(type="string", length=25)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs")
+     * @Assert\Regex(
+     *      pattern="~^[a-zA-ZÀ-ÖØ-öø-ÿœŒ ]+$~u", 
+     *      message="Veuillez entrer un nom valide.")
      */
     private $Lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez remplir ce champs")
+     * @Assert\Email(checkMX="true", message="Veuillez entrer un email valide.")
      */
     private $FromEmail;
 
@@ -48,6 +63,7 @@ class ContactEmail
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Veuillez remplir ce champs")
      */
     private $Content;
 

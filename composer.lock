@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16aca11bf6b6f72263a08e1b1bef3bcf",
+    "content-hash": "ba94d77b43170528801851d86cd18b6f",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3799,16 +3799,16 @@
         },
         {
             "name": "symfony/mailer",
-            "version": "v4.3.5",
+            "version": "v4.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
-                "reference": "135418bd4b558a2be90ba92e35f586934f3798e9"
+                "reference": "a2e19255ce8de3a9c4e5228fde33ca9390af787c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/135418bd4b558a2be90ba92e35f586934f3798e9",
-                "reference": "135418bd4b558a2be90ba92e35f586934f3798e9",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/a2e19255ce8de3a9c4e5228fde33ca9390af787c",
+                "reference": "a2e19255ce8de3a9c4e5228fde33ca9390af787c",
                 "shasum": ""
             },
             "require": {
@@ -3857,7 +3857,7 @@
             ],
             "description": "Symfony Mailer Component",
             "homepage": "https://symfony.com",
-            "time": "2019-09-25T14:27:22+00:00"
+            "time": "2019-10-30T12:58:49+00:00"
         },
         {
             "name": "symfony/mailgun-mailer",

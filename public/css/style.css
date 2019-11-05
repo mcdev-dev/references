@@ -13,7 +13,9 @@ li {
 textarea {
     min-height: 120px;
 }
-
+.nav-link {
+    padding: 0 1em;
+}
 .alert-danger {
     color: #D9326F !important;
     background-color: rgb(252, 240, 255) !important;
@@ -59,7 +61,6 @@ header {
     background-color: rgb(43, 42, 59);
     color: rgb(137, 135, 141);
     padding: 0 0 0 2em;
-    overflow: hidden;
     position: relative;
     z-index: 2;
 }
@@ -78,14 +79,13 @@ header {
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.authentication div:last-child a {
+
+.register a {
     overflow: hidden;
     display: block;
     padding: 0 1em;
     background-color: #D9326F;
     color: rgb(255, 204, 204);
-}
-.register a {
     position: relative;
     cursor: pointer;
     z-index: 1;
@@ -111,6 +111,9 @@ header {
     padding: 0 1em;
     cursor: pointer;
     transition: ease-out .5s;
+    height: 44px;
+    line-height: 44px;
+    overflow: hidden;
 }
 .disconnect i {
     color: #D9326F;
@@ -269,6 +272,33 @@ nav{
     margin-top: 1em;
     overflow: hidden;
     border-radius: 5px;
+}
+.champsObligatoires {
+    font-size: 0.85em;
+}
+.admin i {
+    margin-right: 0.5em;
+}
+.dropdown-item {
+    color: inherit !important;
+    text-transform: initial !important;
+    font-weight: 400 !important;
+    font-size: 1em !important;
+    padding: 0 1em !important;
+    letter-spacing: 0 !important;
+    transition: ease .5s;
+}
+.dropdown-item:hover {
+    color: #D9326F !important;
+}
+.dropdown-item i {
+    font-size: 1.35em !important;
+}
+.dropdown-menu {
+    top: 8px !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
 }
 
 
