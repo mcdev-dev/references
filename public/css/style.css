@@ -1,7 +1,6 @@
 body {
     font-family: 'Lato', sans-serif;
     color: rgb(55, 57, 66);
-    padding-top: calc(120px + 148px);
 }
 ul {
     margin: 0;
@@ -33,8 +32,54 @@ textarea {
 
 header {
     width: 100%;
+    padding-top: 44px;
     z-index: 1000;
 }
+
+.scrollBtn {
+    width: 150px;
+    height: 52px;
+    position: fixed;
+    right: 0;
+    bottom: 106px;
+    z-index: 1000;
+}
+.scroller{
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+    margin: 0 auto;
+    border-radius: 50%;
+    font-size: 1.25em;
+    text-align: center;
+    background-color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgb(186, 186, 186);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 2;
+}
+.textScroll {
+    font-size: .8em;
+    text-align: center;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 80%;
+    padding: 0.25em;
+    border-radius: 3px;
+    opacity: 0;
+    pointer-events: none;
+    color: #fff;
+    background-color: rgb(43, 42, 59);
+    z-index: 1;
+}
+
 .navActive {
     color: #D9326F !important;
     position: relative;
@@ -61,7 +106,9 @@ header {
     background-color: rgb(43, 42, 59);
     color: rgb(137, 135, 141);
     padding: 0 0 0 2em;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 2;
 }
 .top a {
@@ -166,8 +213,9 @@ header {
 }
 nav{
     background-color: #fff;
-    box-shadow: 0 2px 8px rgb(194, 194, 194);
+    box-shadow: 0 1px 4px rgb(194, 194, 194);
     position: relative;
+    margin-bottom: 48px;
     z-index: 1;
 }
 .logo {
@@ -301,10 +349,21 @@ nav{
     overflow: hidden;
 }
 
+.mapContact {
+    width: 100%;
+    min-height: 200px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+}
+.lczMap iframe {
+    width: 100% !important;
+}
+
 
 
 main {
-    min-height: calc(100vh - 336px);
+    min-height: calc(100vh - 333px);
 }
 
 

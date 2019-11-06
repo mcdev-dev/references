@@ -45,6 +45,9 @@
             
             {{ form_errors(contactForm.Content) }}
             {{ form_widget(contactForm.Content, { 'attr': { 'placeholder': 'Message *', 'class' : 'form-group' } }) }}
+
+            {#{ form_errors(contactForm.captchaCode) }#}
+            {#{ form_row(contactForm.captchaCode) }#}
         
         <hr class="mt-4">
         <div class="champsObligatoires">
@@ -63,4 +66,17 @@
     </div>
 </div>
     
+{% endblock %}
+
+{% block contentFluid %}
+    <div class="mapContact">
+        <div class="container mt-4 mb-4">
+            <h3 class="text-center title mb-4">Où nous trouver ?</h3>
+            <div class="lczMap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.4300523931424!2d2.3766830157448036!3d48.86907777928849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66de58c1b48ad%3A0xfc5e7e4100eb7ebc!2s11%20Rue%20du%20Moulin%20Joly%2C%2075011%20Paris!5e0!3m2!1sfr!2sfr!4v1573031882679!5m2!1sfr!2sfr" width="800" height="200" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            </div>
+            <div class="text-center mb-2 mt-4">11bis, Rue du Moulin Joly</div>
+            <div class="text-center">75011 Paris</div>
+        </div>
+    </div>
 {% endblock %}

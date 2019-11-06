@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints as CaptchaAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactEmailRepository")
@@ -66,6 +67,23 @@ class ContactEmail
      * @Assert\NotBlank(message="Veuillez remplir ce champs")
      */
     private $Content;
+
+    /**
+   * @CaptchaAssert\ValidCaptcha(
+   *    message = "La validation CAPTCHA a échoué, essayez à nouveau."
+   * )
+   */
+  protected $captchaCode;
+
+  public function getCaptchaCode()
+  {
+    return $this->captchaCode;
+  }
+
+  public function setCaptchaCode($captchaCode)
+  {
+    $this->captchaCode = $captchaCode;
+  }
 
     public function getId(): ?int
     {

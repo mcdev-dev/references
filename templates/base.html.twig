@@ -29,7 +29,7 @@
 
   <body>
 
-    <header class="fixed-top">
+    <header>
         <div class="top">
             <div class="social_media">
                 <a href=""><i class="fab fa-facebook-f"></i></a>
@@ -81,6 +81,11 @@
 
     </header>
 
+    <div class="scrollBtn">
+        <div class="scroller"><i class="fas fa-arrow-up"></i></div>
+        <div class="textScroll">Retour en haut</div>
+    </div>
+
     <main>
         <div class="container">
             {% if title != 'Inscription' and title != 'Connexion' %}
@@ -98,6 +103,9 @@
             {% endblock %}
 
         </div>
+
+        {% block contentFluid %}
+        {% endblock %}
     </main>
 
     <footer>
