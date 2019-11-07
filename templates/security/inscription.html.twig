@@ -29,6 +29,18 @@
         {{ form_errors(registrationForm.email) }}
         {{ form_widget(registrationForm.email, { 'attr' : { 'placeholder' : 'Email', 'class' : 'form-group' } }) }}
 
+        <!-- {% form_theme registrationForm '@EWZRecaptcha/Form/ewz_recaptcha_widget.html.twig' %}
+        {{ form_errors(registrationForm.recaptcha) }}
+        {{ form_widget(registrationForm.recaptcha, { 'attr': {
+            'options' : {
+                'theme': 'light',
+                'type': 'image',
+                'size': 'normal',
+                'defer': true,
+                'async': true,
+            }}})
+        }} -->
+
         {{ form_row(registrationForm.abonneNewsletter, { 'label' : 'En cochant cette case, j\'accepte de recevoir la newsletter de LesCityZens.' }) }}
 
         <div class="form-group mx-auto col-md-4">
