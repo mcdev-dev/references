@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">  
-    <!-- lesCityZens CSS style -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- lesCityZens screen CSS style -->
+    <link rel="stylesheet" media="screen and (min-width: 992px)" href="{{ asset('css/style.css') }}">
+    <!-- lesCityZens mobile CSS style -->
+    <link rel="stylesheet" media="screen and (max-width:767.98px)" href="{{ asset('css/mobile.css') }}">
 
     <!-- jQuery CDN -->
     <script
@@ -67,14 +69,31 @@
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
-                    <a href="{{ path('home') }}"><img src="{{ asset('photo/logotype_lcz.svg') }}" alt=""></a>
+                    <div class="burgerLine">
+                        <div class="line1"></div>
+                        <div class="line2"></div>
+                        <div class="line3"></div>
+                    </div>
+                    <div class="logotype">
+                        <a href="{{ path('home') }}"><img src="{{ asset('photo/logotype_lcz.svg') }}" alt=""></a>
+                    </div>
+                    <div class="iconeProfile">
+                        <div class="userCircle">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="profiLine">
+                            <div class="line1"></div>
+                            <div class="line2"></div>
+                            <div class="line3"></div>
+                        </div>
+                    </div>
                 </div>
                 <ul class="navigation">
-                    <li class="{{ (title == 'Accueil') ? 'navActive' : '' }}"><a href="{{ path('home') }}">Accueil</a></li>
-                    <li class="{{ (title == 'Fabrique urbaine collaborative') ? 'navActive' : '' }}"><a href="">Fabrique urbaine collaborative</a></li>
-                    <li class="{{ (title == 'Habitat participatif') ? 'navActive' : '' }}"><a href="">Habitat participatif</a></li>
-                    <li class="{{ (title == 'Références') ? 'navActive' : '' }}"><a href="">Références</a></li>
-                    <li class="{{ (title == 'Contact') ? 'navActive' : '' }}"><a href="{{ path('contact_email') }}">Contact</a></li>
+                    <li class="{{ (title == 'Accueil') ? 'menuActive' : '' }}"><a href="{{ path('home') }}">Accueil</a></li>
+                    <li class="{{ (title == 'Fabrique urbaine collaborative') ? 'menuActive' : '' }}"><a href="">Fabrique urbaine collaborative</a></li>
+                    <li class="{{ (title == 'Habitat participatif') ? 'menuActive' : '' }}"><a href="">Habitat participatif</a></li>
+                    <li class="{{ (title == 'Références') ? 'menuActive' : '' }}"><a href="">Références</a></li>
+                    <li class="{{ (title == 'Contact') ? 'menuActive' : '' }}"><a href="{{ path('contact_email') }}">Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -109,8 +128,8 @@
     </main>
 
     <footer>
-        <div class="container">
-            <span class="copy">&copy; {{ 'now' | date('Y') }} Les CityZens</span> | <a href="">Presse</a> | <a href="">Mentions légales</a> | <a href="">Politique de confidentialité</a>
+        <div class="container pied">
+            <span class="copy">&copy; {{ 'now' | date('Y') }} Les CityZens</span> <span class="pipe">|</span> <a href="">Presse</a> <span class="pipe">|</span> <a href="">Mentions légales</a> <span class="pipe">|</span> <a href="">Politique de confidentialité</a>
         </div>
     </footer>
 

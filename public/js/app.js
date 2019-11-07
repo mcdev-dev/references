@@ -24,49 +24,100 @@ $(function() {
     }
     viewProfileImage();
 
-    function srollBtn() 
+    if($(window).width() > 992) 
     {
-        $('.scroller').mouseenter(() => {
-            $('.textScroll').fadeIn().animate({
-                top : '-40px',
-                opacity : 1,
-                pointerEvents: 'all'
-            }, 250);
-            $('.scroller i').css({
-                color : '#D9326F'
-            });
-        });
-        $('.scroller').mouseleave(() => {
-            $('.textScroll').animate({
-                top : '-10px',
-                opacity : 0,
-                pointerEvents: 'none'
-            }, 125);
-            $('.scroller i').css({
-                color : ''
-            });
-        });
-        
-        $('.scroller').click(() => 
+        function srollBtn() 
         {
-            let cible = $('html, body');
-            $(cible).animate({
-                scrollTop : $(cible).offset().top
-            }, 1000);
+            $('.scroller').mouseenter(() => {
+                $('.textScroll').fadeIn().animate({
+                    top : '-40px',
+                    opacity : 1,
+                    pointerEvents: 'all'
+                }, 250);
+                $('.scroller i').css({
+                    color : '#D9326F'
+                });
+            });
+            $('.scroller').mouseleave(() => {
+                $('.textScroll').animate({
+                    top : '-10px',
+                    opacity : 0,
+                    pointerEvents: 'none'
+                }, 125);
+                $('.scroller i').css({
+                    color : ''
+                });
+            });
+            
+            $('.scroller').click(() => 
+            {
+                let cible = $('html, body');
+                $(cible).animate({
+                    scrollTop : $(cible).offset().top
+                }, 1000);
+    
+                $('.textScroll').fadeOut();
+            });
+    
+            $(window).scroll(() => {
+                if($(this).scrollTop() > 40) {
+                    $('.scrollBtn').fadeIn('slow');
+                } else {
+                    $('.scrollBtn').fadeOut('slow');
+                }
+            });
+    
+        }
+        srollBtn();
+    }
+    
+    if($(window).width() < 992) 
+    {
+        function srollBtn() 
+        {
+            $('.scroller').click(() => 
+            {
+                let cible = $('html, body');
+                $(cible).animate({
+                    scrollTop : $(cible).offset().top
+                }, 1000);
+            });
+    
+            $(window).scroll(() => {
+                if($(this).scrollTop() > 40) {
+                    $('.scrollBtn').fadeIn('slow');
+                } else {
+                    $('.scrollBtn').fadeOut('slow');
+                }
+            });
+    
+        }
+        srollBtn();
 
-            $('.textScroll').fadeOut();
-        });
+        function burger() {
 
-        $(window).scroll(() => {
-            if($(this).scrollTop() > 40) {
-                $('.scrollBtn').fadeIn('slow');
-            } else {
-                $('.scrollBtn').fadeOut('slow');
-            }
-        });
+            // click on burger
+            let burgerBtn = $('.burgerLine');
+            let navLinks = $('.navigation');
+            let iconeProfileBtn = $('.iconeProfile');
+            let top = $('.top');
+            burgerBtn.click(() => {
+                $(navLinks).toggleClass('navActive');
+                $(burgerBtn).toggleClass('toggleBurger');
+            });
+            iconeProfileBtn.click(() => {
+                $(top).toggleClass('topActive');
+                $('.userCircle').toggleClass('toggleUser');
+                $(iconeProfileBtn).toggleClass('toggleProfil');
+            });
+    
+        }
+        burger();
+    
+
+
 
     }
-    srollBtn();
 
 
 
