@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue as RecaptchaTrue;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -26,6 +28,10 @@ class UserType extends AbstractType
             ->add('abonneNewsletter', CheckboxType::class, [
                 'required' => false
             ])
+            /* ->add('recaptcha', EWZRecaptchaType::class, array(
+                'mapped'      => false,
+                'constraints' => array(new RecaptchaTrue())
+            )) */
             //->add('UserCoordonnees', UserCoordonneesType::class)
         ;
     }
