@@ -6,11 +6,9 @@ use App\Entity\ContactEmail;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -25,12 +23,8 @@ class ContactEmailType extends AbstractType
         ->add('Lastname', TextType::class)
         ->add('FromEmail', EmailType::class)
         ->add('Company', TextType::class, ['required' => false])
-        ->add('PhoneNumber', IntegerType::class, ['required' => false])
+        ->add('PhoneNumber', TelType::class, ['required' => false])
         ->add('Content', TextareaType::class)
-        /*->add('captchaCode', CaptchaType::class, array(
-            'captchaConfig' => 'ContactCaptcha',
-            'label' => 'Retapez les caractères de l\'image'
-          ))*/
         ;
     }
 

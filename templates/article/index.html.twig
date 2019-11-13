@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Listes des articles' %}
+
+{% block content %}
+    <div class="row">
+        <h3 class="title col-md-8">Gestion des articles</h3>
+        <div class="col-md-4"><a class="btn btnSubmit col-12" href="{{ path('article_add') }}">Ajouter un article</a></div>
+    </div><br><br>
+
+    {% if articles is not empty %}
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th class="align-top">Photo</th>
+                    <th class="align-top">Titre</th>
+                    <th class="align-top">Catégorie</th>
+                    <th class="align-top">Contenu</th>
+                    <th class="align-top">Date de publication</th>
+                    <th class="align-top" colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td><img src="{{ asset('images/photos/') ~ article.imageName }}" alt="{{ article.titre }}" width="240"></td>
+                        <td>{{ article.titre }}</td>
+                        <td>{{ article.categorie }}</td>
+                        <td>{{ article.contenu | striptags | truncate(200,true) | raw }}</td>
+                        <td>{{ article.createAt | date('d/m/Y à H:i') }}</td>
+                        <td><a href="{{ path('article_update', { 'id' : article.id }) }}"><i class="fas fa-pencil-alt"></i></a></td>
+                        <td><a href="{{ path('article_delete', { 'id' : article.id }) }}"><i class="fas fa-trash-alt"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {% else %}
+            <div class="alert alert-danger"><strong>Désolé !</strong> Il n'existe aucun article pour l'instant. Veuillez en rajouter.</div>
+
+    {% endif %}
+    
+    
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Ajouter ou modifier un article' %}
+
+{% block content %}
+    <div class="forwardPage"><i class="fas fa-arrow-left"></i><a href="{{ path('article') }}">Gestion des articles</a></div>
+
+    <h2 class="title">{{ action }} un article</h2><br>
+    {{ form_start(articleForm) }}
+
+    {{ form_row(articleForm.titre, { 'label' : 'Titre de l\'article' }) }}
+
+    {{ form_row(articleForm.imageFile, { 'label' : 'Image pour illustrer l\'article' }) }}
+
+    {{ form_row(articleForm.contenu, { 'label' : 'Contenu de l\'article' }) }}
+
+    {{ form_row(articleForm.categorie) }}
+
+    {% if action == 'Ajouter' %}
+        <button type="submit" class="btn mb-4 btnSubmit">Ajouter</button>
+    {% else %}
+        <button type="submit" class="btn mb-4 btnSubmit">Modifier</button>
+    {% endif %}
+    {{ form_end(articleForm) }}
+    
+{% endblock %}

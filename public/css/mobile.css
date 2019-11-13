@@ -1,6 +1,7 @@
 body {
     font-family: 'Lato', sans-serif;
     color: rgb(55, 57, 66);
+    overflow-x: hidden !important;
 }
 ul {
     margin: 0;
@@ -33,15 +34,18 @@ textarea {
 header {
     width: 100%;
     z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .scrollBtn {
-    width: 82px;
+    width: 84px;
     height: 52px;
     position: fixed;
     right: 0;
     bottom: 230px;
-    z-index: 1000;
+    z-index: 900;
 }
 .scroller{
     width: 52px;
@@ -68,7 +72,6 @@ header {
 
 .top {
     position: absolute;
-    top: 112px;
     left: 0;
     width: 100%;
     height: 100vh;
@@ -163,7 +166,6 @@ nav{
     background-color: #fff;
     box-shadow: 0 1px 4px rgb(194, 194, 194);
     position: relative;
-    margin-bottom: 48px;
     z-index: 1;
 }
 .logo {
@@ -179,9 +181,12 @@ nav{
     margin: 1em auto;
     display: block;
 }
+
+/* Icone du profil */
 .iconeProfile {
-    font-size: 30px;
+    font-size: 26px;
     color: rgb(43, 42, 59);
+    cursor: pointer;
     position: relative;
 }
 .profiLine {
@@ -196,6 +201,9 @@ nav{
 }
 .toggleUser {
     opacity: 0;
+}
+.flowY {
+    overflow: hidden;
 }
 .profiLine div {
     width: 28px;
@@ -221,6 +229,8 @@ nav{
     transform: rotate(45deg) translate(-6px, -8px);
     opacity: 1;
 }
+/* Fin icone du profil */
+
 /* Menu Burger */
 .burgerLine{
     cursor: pointer;
@@ -274,7 +284,7 @@ nav{
     text-transform: uppercase;
     transform: translateX(-200%);
     transition: transform ease-in .6s;
-    z-index: 1;
+    z-index: 7;
 }
 .navActive {
     transform: translateX(0%);
@@ -293,13 +303,35 @@ nav{
     padding: .85em .5em;
     text-align: center;
 }
-.navigation > li a {
+.ddToggle i {
+    margin-left: .5em;
+}
+.angleDown {
+    transform: rotate(180deg);
+    transition: ease-in .3s;
+}
+.navigation > li > a, .navigation > li > div {
     color: inherit;
     text-decoration: none;
     font-weight: 700;
     font-size: .9em;
     text-transform: uppercase;
     letter-spacing: .3px;
+    cursor: pointer;
+}
+.submenu {
+    text-transform: initial;
+}
+.submenu li a {
+    display: block;
+    padding: 0.5em;
+    color: inherit;
+}
+.fixedTop {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 /* Fin Menu Burger */
 .title {
@@ -380,7 +412,7 @@ nav{
 
 .mapContact {
     width: 100%;
-    min-height: 200px;
+    min-height: auto;
     background-color: #f8f9fa;
     display: flex;
     align-items: center;
@@ -393,6 +425,10 @@ nav{
 
 main {
     min-height: calc(100vh - 333px);
+    padding-top: 160px;
+}
+toto {
+    margin: 0 15px;
 }
 
 

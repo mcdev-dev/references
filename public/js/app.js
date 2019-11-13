@@ -24,8 +24,36 @@ $(function() {
     }
     viewProfileImage();
 
+    function viewArticleImage() 
+    {
+        $('.vich-image').after('<div id="view"></div>');
+
+        $('#article_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="'+ e.target.result +'" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    }
+    viewArticleImage();
+
+    
     if($(window).width() > 992) 
     {
+        function changeAngleRow() 
+        {
+            let angle = $('#angle');
+            $('.ddToggle').mouseenter(() => {
+                $(angle).addClass('angleDown');
+            });
+            $('.ddToggle').mouseleave(() => {
+                $(angle).removeClass('angleDown');
+            });
+        }
+        changeAngleRow();
+
         function srollBtn() 
         {
             $('.scroller').mouseenter(() => {
@@ -73,6 +101,15 @@ $(function() {
     
     if($(window).width() < 992) 
     {
+        function changeAngleRow() 
+        {
+            let angle = $('#angle');
+            $('.ddToggle').click(() => {
+                $(angle).toggleClass('angleDown');
+            });
+        }
+        changeAngleRow();
+
         function srollBtn() 
         {
             $('.scroller').click(() => 
@@ -94,6 +131,7 @@ $(function() {
         }
         srollBtn();
 
+        
         function burger() {
 
             // click on burger
@@ -101,26 +139,82 @@ $(function() {
             let navLinks = $('.navigation');
             let iconeProfileBtn = $('.iconeProfile');
             let top = $('.top');
-            burgerBtn.click(() => {
+
+            burgerBtn.click(() => 
+            {
                 $(navLinks).toggleClass('navActive');
                 $(burgerBtn).toggleClass('toggleBurger');
+                $('body, html').toggleClass('flowY');
             });
-            iconeProfileBtn.click(() => {
+            iconeProfileBtn.click(() => 
+            {
+                let element = $('#navBar');
+                let bottom = element.offset().top + element.outerHeight();
+                $(top).css({
+                    top : bottom
+                });
+
                 $(top).toggleClass('topActive');
                 $('.userCircle').toggleClass('toggleUser');
                 $(iconeProfileBtn).toggleClass('toggleProfil');
+                $('body, html').toggleClass('flowY');
             });
     
         }
         burger();
+
+        function navbarFixed() 
+        {
+            //let navbarPosition = $('#navBar').offset().top;
+            $(window).scroll(() => 
+            {
+                if($(window).scrollTop() > 116) {
+                    $('#navBar').addClass('fixedTop');
+                    $('body').css('paddingTop', '100px');
+                } else {
+                    $('#navBar').removeClass('fixedTop');
+                    $('body').css('paddingTop', '');
+                }
+            });
+        }
+        navbarFixed();
+
+        function burgerDeroulant() 
+        {
+            $('.submenu').hide();
+
+            let menuNav = $('.navigation li div');
+            
+            $(menuNav).each((key, value) => 
+            {
+                $(value).click(() => {
+
+                    if($(value).next('ul.submenu:visible').length != 0) 
+                    {
+                        $(value).next('ul.submenu').slideUp();
+                    } else 
+                    {
+                        $('.navigation ul.submenu').slideUp();
+                        $(value).next('ul.submenu').slideDown();
+                    }
+                });
+            });
+        }
+        burgerDeroulant();
+
+
+
+    } // $(window).width() < 992
+
     
 
 
 
-    }
-
-
-
-
+    
+    /*window.addEventListener('scroll', function() {
+        let scrolled = this.scrollY;
+        console.log(scrolled);
+        
+    });*/
 
 }); // Chargement du DOM
