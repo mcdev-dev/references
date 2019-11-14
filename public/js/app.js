@@ -39,6 +39,15 @@ $(function() {
     }
     viewArticleImage();
 
+    function confirmDelete() 
+    {
+        $('.confirm').click(() => 
+        {
+            return confirm('Êtes-vous certain de vouloir supprimer cet article ?');
+        });
+    }
+    confirmDelete();
+
     
     if($(window).width() > 992) 
     {
@@ -97,6 +106,7 @@ $(function() {
     
         }
         srollBtn();
+
     }
     
     if($(window).width() < 992) 

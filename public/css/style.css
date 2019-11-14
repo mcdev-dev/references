@@ -30,10 +30,18 @@ textarea {
     border-radius: 3px !important;
     font-weight: 500 !important;
 }
+button a {
+    color: inherit;
+}
+button a:hover {
+    color: inherit;
+    text-decoration: none;
+}
 
 header {
     width: 100%;
     padding-top: 44px;
+    position: relative;
     z-index: 1100;
 }
 
@@ -472,12 +480,120 @@ td a:hover {
 }
 
 
-
-
 main {
     min-height: calc(100vh - 333px);
 }
-
+.categView {
+    height: 300px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.categView img {
+    transform: translateY(-30px);
+}
+.tBefore {
+    position: relative;
+}
+.tBefore::before {
+    position: absolute;
+    content: '';
+    top: 130%;
+    left: 0;
+    width: 56px;
+    height: 8px;
+    background-color: #D9326F;
+}
+.imgTab {
+    background-color: #023373;
+}
+.fondoAccueil1 {
+    padding: 2em 0;
+    color: #fff;
+    text-align: center;
+    background-color: #D9326F;
+    margin-top: -48px;
+}
+.fondoAccueil2 {
+    padding: 2em 6em;
+    color: #fff;
+    text-align: center;
+    background-color: #023373;
+}
+.fondoAccueil3 {
+    padding: 2em 6em;
+    color: #fff;
+    text-align: center;
+    background-color: #1CD8AE;
+}
+.fondoAccueil1 img, .fondoAccueil2 img, .fondoAccueil3 img {
+    margin-top: 1em;
+}
+.titleArtBgW {
+    font-weight: 300 !important;
+    font-size: 3em;
+    margin-bottom: 1em;
+    position: relative;
+}
+.titleArtBgW::before {
+    position: absolute;
+    content: '';
+    top: 130%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 6px;
+    background-color: #fff;
+}
+.titleArtBgColor {
+    font-weight: 300 !important;
+    font-size: 3em;
+    margin-bottom: 1em;
+    position: relative;
+}
+.titleArtBgColor::before {
+    position: absolute;
+    content: '';
+    top: 130%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 6px;
+    background-color: #D9326F;
+}
+.titleArtBgW2 {
+    font-weight: 300 !important;
+    font-size: 3em;
+    margin-bottom: 1em;
+    position: relative;
+}
+.titleArtBgW2::before {
+    position: absolute;
+    content: '';
+    top: 115%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 6px;
+    background-color: #fff;
+}
+.partnersLogo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0;
+}
+.logoSpondor {
+    width: 180px;
+    margin: 1em;
+    display: block;
+}
+.logoSpondor img {
+    width: 100%;
+}
 
 
 

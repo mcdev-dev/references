@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">  
     <!-- lesCityZens screen CSS style -->
     <link rel="stylesheet" media="screen and (min-width: 992px)" href="{{ asset('css/style.css') }}">
@@ -96,7 +96,7 @@
                     <li class="{{ (title == 'Habitat participatif') ? 'menuActive' : '' }}"><a href="">Habitat participatif</a></li>
                     <li class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }}"><div class="ddToggle">Références<i id="angle" class="fas fa-angle-up"></i></div>
                         <ul class="submenu">
-                            <li><a href="{*{ path('article_index') }*}">Références de logements participatifs</a></li>
+                            <li><a href="{{ path('logements_participatifs') }}">Références de logements participatifs</a></li>
                             <li><a href="">Références en urbanisme collaboratif et concertation</a></li>
                         </ul>
                     </li>

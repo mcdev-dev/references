@@ -39,11 +39,14 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/article/add, roles: ROLE_ADMIN }
+        - { path: ^/article/update, roles: ROLE_ADMIN }
+        - { path: ^/article/delete, roles: ROLE_ADMIN }
+        - { path: ^/article/viewAll, roles: ROLE_ADMIN }
 
-        - {path : ^/connexion, allow_if: "not has_role('ROLE_USER')"  }
-        - {path : ^/inscription, allow_if: "not has_role('ROLE_USER')" }
+        - { path : ^/inscription, allow_if: "not has_role('ROLE_USER')" }
         
-        - {path : ^/admin/stats, roles: ROLE_SUPER_ADMIN }
+        - { path : ^/admin/stats, roles: ROLE_SUPER_ADMIN }
 
     role_hierarchy:
         # un membre avec le ROLE_ADMIN aura également le ROLE_USER

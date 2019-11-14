@@ -19,6 +19,30 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function getCategorie($value) 
+    {
+        return $this->createQueryBuilder('a')
+        ->select('a', 'c')
+        ->distinct(true)
+        ->orderBy('a.id')
+        ->join('a.categorie', 'c')
+        ->andWhere('c.title = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getResult();
+    }
+
+    /*public function getLogementsParticipatifs($value) 
+    {
+        return $this->createQueryBuilder('a')
+        ->select('a', 'c')
+        ->distinct(true)
+        ->orderBy('a.id', 'DESC')
+        ->join('a.categorie', 'c')
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

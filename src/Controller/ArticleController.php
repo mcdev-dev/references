@@ -13,13 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/article", name="article")
+     * @Route("/article/viewAll", name="article")
      */
     public function index(ArticleRepository $articleRepo)
     {
         $articles = $articleRepo->findAll();
 
-        return $this->render('article/index.html.twig', 
+        return $this->render('article/liste_article.html.twig', 
         [
             'articles' => $articles,
         ]);

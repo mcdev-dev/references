@@ -102,6 +102,9 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "erusev/parsedown": {
+        "version": "1.7.3"
+    },
     "excelwebzone/recaptcha-bundle": {
         "version": "1.5",
         "recipe": {
@@ -117,6 +120,18 @@
     },
     "fig/link-util": {
         "version": "1.0.0"
+    },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
+        },
+        "files": [
+            "config/packages/fos_ckeditor.yaml"
+        ]
     },
     "google/recaptcha": {
         "version": "1.1",
@@ -168,6 +183,9 @@
     },
     "psr/log": {
         "version": "1.1.1"
+    },
+    "raphy/markdown-bundle": {
+        "version": "1.2.4"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

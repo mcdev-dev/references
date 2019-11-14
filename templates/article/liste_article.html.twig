@@ -23,13 +23,15 @@
             <tbody>
                 {% for article in articles %}
                     <tr>
-                        <td><img src="{{ asset('images/photos/') ~ article.imageName }}" alt="{{ article.titre }}" width="240"></td>
+                        <td><div class="imgTab">
+                            <img src="{{ asset('images/photos/') ~ article.imageName }}" alt="{{ article.titre }}" width="240">
+                        </div></td>
                         <td>{{ article.titre }}</td>
                         <td>{{ article.categorie }}</td>
                         <td>{{ article.contenu | striptags | truncate(200,true) | raw }}</td>
                         <td>{{ article.createAt | date('d/m/Y à H:i') }}</td>
                         <td><a href="{{ path('article_update', { 'id' : article.id }) }}"><i class="fas fa-pencil-alt"></i></a></td>
-                        <td><a href="{{ path('article_delete', { 'id' : article.id }) }}"><i class="fas fa-trash-alt"></i></a></td>
+                        <td><a class="confirm" href="{{ path('article_delete', { 'id' : article.id }) }}"><i class="fas fa-trash-alt"></i></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
