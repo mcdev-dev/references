@@ -532,9 +532,6 @@ main {
     text-align: center;
     background-color: #1CD8AE;
 }
-.fondoAccueil3 img {
-    width: 75%;
-}
 .fondoAccueil1 img, .fondoAccueil2 img, .fondoAccueil3 img {
     margin-top: 1em;
 }
@@ -662,101 +659,21 @@ main {
 .animate_fabrique_urbaine {
     display: flex;
     justify-content: center;
-    padding-top: 2em;
+    margin-top: 2em;
     overflow: hidden;
 }
 .animate_fabrique_urbaine h3 {
     font-weight: 300;
-    margin-right: 1em;
-    padding-right: 0.5em;
+    margin-right: 1.5em;
     opacity: 0;
     margin-left: 12em;
-    background-color: #fff;
-    position: relative;
-    z-index: 1;
     /*transition: ease-in 5s;*/
-}
-.animate_fabrique_urbaine h3::before {
-    position: absolute;
-    content: '';
-    height: 100%;
-    width: 200%;
-    left: -200%;
-    top: 0;
-    background-color: #fff;
-
 }
 .animate_fabrique_urbaine ul li {
     font-weight: 600;
     font-size: 1.35em;
-    transform: translateX(-400%);
-    z-index: -1;
-    position: relative;
-}
-
-.animate_fabrique_urbaineRight {
-    display: flex;
-    justify-content: center;
-    padding-top: 2em;
-    overflow: hidden;
-}
-.animate_fabrique_urbaineRight h3 {
-    font-weight: 300;
-    margin-left: 1em;
-    padding-left: 0.5em;
-    opacity: 0;
-    margin-right: 12em;
-    padding-bottom: 3em;
-    background-color: #fff;
-    position: relative;
-    z-index: 1;
-    /*transition: ease-in 5s;*/
-}
-.animate_fabrique_urbaineRight h3::before {
-    position: absolute;
-    content: '';
-    height: 100%;
-    width: 100%;
-    right: -100%;
-    top: 0;
-    background-color: #fff;
-
-}
-.animate_fabrique_urbaineRight ul li {
-    font-weight: 600;
-    font-size: 1.35em;
-    text-align: right;
-    transform: translateX(-400%);
-    z-index: -1;
-    position: relative;
-}
-.animate_fabrique_urbaineLast {
-    font-weight: 300;
-    text-align: center;
-    opacity: 0;
-    /*transition: ease-in .5s;*/
-}
-
-@keyframes listElem {
-    from {
-        opacity: 0;
-        transform: translateX(-400%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes listElemRight {
-    from {
-        opacity: 0;
-        transform: translateX(400%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    transform: translateX(-300%);
+    display: none;
 }
 
 

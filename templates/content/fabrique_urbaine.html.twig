@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Fabrique urbaine collaborative' %}
+
+{% block contentFluid %}
+    {% for article in article %}
+        <div class="fondoAccueil2L">
+            <div class="container">
+                <h1 class="titleArtBgColor2">{{ article.titre }}</h1>
+                <img src="{{ asset('images/photos/') ~ article.imageName }}" alt="{{ article.titre }}" class="img-fluid">
+            </div>
+        </div><br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="exergue">Pour des villes plus intelli-gentes !</div>
+                </div>
+                <div class="col-md-9">
+                    <div class="content">{{ article.contenu | raw }}</div>
+                </div>
+            </div>
+            <div class="animate_fabrique_urbaine">
+                <h3>Que vous soyez…</h3>
+                <ul>
+                    <li>Collectivité locale</li>
+                    <li>Promoteur</li>
+                    <li>Développeur</li>
+                    <li>Bailleur social</li>
+                    <li>Coopérative HLM ou d’habitants</li>
+                    <li>Aménageur</li>
+                    <li id="lastLi">Habitant</li>
+                </ul>
+            </div>
+            <div class="animate_fabrique_urbaineRight">
+                <ul>
+                    <li>Dans le neuf</li>
+                    <li>De réhabilitation ou de requalification urbaine</li>
+                    <li>De programmation</li>
+                </ul>
+                <h3>Pour un projet immobilier et urbain…</h3>
+            </div>
+            <h3 class="animate_fabrique_urbaineLast">Nous sommes là pour vous aider à mettre en oeuvre vos ambitions de ville collaborative.</h3>
+        </div><br>
+    {% endfor %}
+
+{% endblock %}

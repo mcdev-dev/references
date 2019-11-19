@@ -29,6 +29,20 @@ class ContentController extends AbstractController
     }
 
     /**
+     * @Route("/fabrique_urbaine_collaborative", name="fabrique_urbaine")
+     */
+    public function fabriqueUrbaineCollaborative(ArticleRepository $articleRepo) 
+    {
+        $article = $articleRepo->findBy([ 'titre' => 'Venez participer à la Fabrique urbaine collaborative !' ]);
+
+        return $this->render('content/fabrique_urbaine.html.twig', 
+        [
+            'article' => $article,
+        ]);
+
+    }
+
+    /**
      * @Route("/references_logements_participatifs", name="logements_participatifs")
      */
     public function logementsParticipatifs(ArticleRepository $articleRepo)

@@ -1,105 +1,76 @@
-$(function () {
+$(function() {
 
-    function submitSearchBtn() {
-        $('.fa-search').click(() => {
+    function submitSearchBtn() 
+    {
+        $('.fa-search').click(() => 
+        {
             $('#query').submit();
         });
     }
     submitSearchBtn();
 
-    function viewProfileImage() {
+    function viewProfileImage() 
+    {
         $('.vich-image').after('<div id="view"></div>');
 
         $('#user_imageFile_file').on('change', (e) => {
             //$('.camera span').html(e.target.files[0].name);
             let reader = new FileReader();
             reader.onload = (e) => {
-                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+                $('#view').html('<img src="'+ e.target.result +'" class="img-fluid">');
             }
             reader.readAsDataURL(e.target.files[0]);
         });
     }
     viewProfileImage();
 
-    function viewArticleImage() {
+    function viewArticleImage() 
+    {
         $('.vich-image').after('<div id="view"></div>');
 
         $('#article_imageFile_file').on('change', (e) => {
             //$('.camera span').html(e.target.files[0].name);
             let reader = new FileReader();
             reader.onload = (e) => {
-                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+                $('#view').html('<img src="'+ e.target.result +'" class="img-fluid">');
             }
             reader.readAsDataURL(e.target.files[0]);
         });
     }
     viewArticleImage();
 
-    function confirmDelete() {
-        $('.confirm').click(() => {
+    function confirmDelete() 
+    {
+        $('.confirm').click(() => 
+        {
             return confirm('Êtes-vous certain de vouloir supprimer cet article ?');
         });
     }
     confirmDelete();
 
-    function fabriqueUrbaine() {
+    function fabriqueUrbaine() 
+    {
         let titre = $('.animate_fabrique_urbaine h3');
         let listElement = $('.animate_fabrique_urbaine ul li');
-        let titreRight = $('.animate_fabrique_urbaineRight h3');
-        let listElementRight = $('.animate_fabrique_urbaineRight ul li');
 
-        let cible = $('.animate_fabrique_urbaine').offset().top;
-        //alert(cible)
-
-        $(window).scroll(() => {
-            if ($('html, body').scrollTop() >= cible - 600) {
-                titre.animate({
-                    opacity: 1
-                }, 2000).animate({
-                    marginLeft: 0
-                }, 1000);
-
-                listElement.each((key, value) => {
-                    $(value).css({
-                        animation: `listElem 1.5s ease forwards ${key / 1 + 2.5}s`
-                    });
-
-                });
-
-                listElement.one('animationend', () => {
-
-                    // code to execute after animation ends
-                    titreRight.animate({
-                        opacity: 1
-                    }, 2000).animate({
-                        marginRight: 0
-                    }, 1000);
-
-                    listElementRight.each((key, value) => {
-                        $(value).css({
-                            animation: `listElemRight 3s ease forwards ${key / 1 + 3.5}s`
-                        });
-                    });
-
-                });
-
-                listElementRight.one('animationend', () => {
-                    $('.animate_fabrique_urbaineLast').animate({
-                        opacity: 1
-                    }, 2000);
-                });
-
-
-            }
-
+        titre.animate({
+            opacity : 1
+        }, 2000).animate({
+            marginLeft : 0
+        }, 1000, () => {
+            listElement.animate({
+                display : 'block',
+            })
         });
 
     }
     fabriqueUrbaine();
 
-
-    if ($(window).width() > 992) {
-        function changeAngleRow() {
+    
+    if($(window).width() > 992) 
+    {
+        function changeAngleRow() 
+        {
             let angle = $('#angle');
             $('.ddToggle').mouseenter(() => {
                 $(angle).addClass('angleDown');
@@ -110,52 +81,56 @@ $(function () {
         }
         changeAngleRow();
 
-        function srollBtn() {
+        function srollBtn() 
+        {
             $('.scroller').mouseenter(() => {
                 $('.textScroll').fadeIn().animate({
-                    top: '-40px',
-                    opacity: 1,
+                    top : '-40px',
+                    opacity : 1,
                     pointerEvents: 'all'
                 }, 250);
                 $('.scroller i').css({
-                    color: '#D9326F'
+                    color : '#D9326F'
                 });
             });
             $('.scroller').mouseleave(() => {
                 $('.textScroll').animate({
-                    top: '-10px',
-                    opacity: 0,
+                    top : '-10px',
+                    opacity : 0,
                     pointerEvents: 'none'
                 }, 125);
                 $('.scroller i').css({
-                    color: ''
+                    color : ''
                 });
             });
-
-            $('.scroller').click(() => {
+            
+            $('.scroller').click(() => 
+            {
                 let cible = $('html, body');
                 $(cible).animate({
-                    scrollTop: $(cible).offset().top
+                    scrollTop : $(cible).offset().top
                 }, 1000);
-
+    
                 $('.textScroll').fadeOut();
             });
-
+    
             $(window).scroll(() => {
-                if ($(this).scrollTop() > 40) {
+                if($(this).scrollTop() > 40) {
                     $('.scrollBtn').fadeIn('slow');
                 } else {
                     $('.scrollBtn').fadeOut('slow');
                 }
             });
-
+    
         }
         srollBtn();
 
     }
-
-    if ($(window).width() < 992) {
-        function changeAngleRow() {
+    
+    if($(window).width() < 992) 
+    {
+        function changeAngleRow() 
+        {
             let angle = $('#angle');
             $('.ddToggle').click(() => {
                 $(angle).toggleClass('angleDown');
@@ -163,26 +138,28 @@ $(function () {
         }
         changeAngleRow();
 
-        function srollBtn() {
-            $('.scroller').click(() => {
+        function srollBtn() 
+        {
+            $('.scroller').click(() => 
+            {
                 let cible = $('html, body');
                 $(cible).animate({
-                    scrollTop: $(cible).offset().top
+                    scrollTop : $(cible).offset().top
                 }, 1000);
             });
-
+    
             $(window).scroll(() => {
-                if ($(this).scrollTop() > 40) {
+                if($(this).scrollTop() > 40) {
                     $('.scrollBtn').fadeIn('slow');
                 } else {
                     $('.scrollBtn').fadeOut('slow');
                 }
             });
-
+    
         }
         srollBtn();
 
-
+        
         function burger() {
 
             // click on burger
@@ -191,16 +168,18 @@ $(function () {
             let iconeProfileBtn = $('.iconeProfile');
             let top = $('.top');
 
-            burgerBtn.click(() => {
+            burgerBtn.click(() => 
+            {
                 $(navLinks).toggleClass('navActive');
                 $(burgerBtn).toggleClass('toggleBurger');
                 $('body, html').toggleClass('flowY');
             });
-            iconeProfileBtn.click(() => {
+            iconeProfileBtn.click(() => 
+            {
                 let element = $('#navBar');
                 let bottom = element.offset().top + element.outerHeight();
                 $(top).css({
-                    top: bottom
+                    top : bottom
                 });
 
                 $(top).toggleClass('topActive');
@@ -208,14 +187,16 @@ $(function () {
                 $(iconeProfileBtn).toggleClass('toggleProfil');
                 $('body, html').toggleClass('flowY');
             });
-
+    
         }
         burger();
 
-        function navbarFixed() {
+        function navbarFixed() 
+        {
             //let navbarPosition = $('#navBar').offset().top;
-            $(window).scroll(() => {
-                if ($(window).scrollTop() > 116) {
+            $(window).scroll(() => 
+            {
+                if($(window).scrollTop() > 116) {
                     $('#navBar').addClass('fixedTop');
                     $('body').css('paddingTop', '100px');
                 } else {
@@ -226,17 +207,21 @@ $(function () {
         }
         navbarFixed();
 
-        function burgerDeroulant() {
+        function burgerDeroulant() 
+        {
             $('.submenu').hide();
 
             let menuNav = $('.navigation li div');
-
-            $(menuNav).each((key, value) => {
+            
+            $(menuNav).each((key, value) => 
+            {
                 $(value).click(() => {
 
-                    if ($(value).next('ul.submenu:visible').length != 0) {
+                    if($(value).next('ul.submenu:visible').length != 0) 
+                    {
                         $(value).next('ul.submenu').slideUp();
-                    } else {
+                    } else 
+                    {
                         $('.navigation ul.submenu').slideUp();
                         $(value).next('ul.submenu').slideDown();
                     }
@@ -249,11 +234,11 @@ $(function () {
 
     } // $(window).width() < 992
 
+    
 
 
 
-
-
+    
     /*window.addEventListener('scroll', function() {
         let scrolled = this.scrollY;
         console.log(scrolled);
