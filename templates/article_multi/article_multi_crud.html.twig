@@ -3,28 +3,39 @@
 {% set title = 'Ajouter ou modifier un article' %}
 
 {% block content %}
-<div class="forwardPage">
-    <i class="fas fa-arrow-left"></i>
-    <a href="{{ path('article') }}">Gestion des articles</a>
-</div>
+	<div class="forwardPage">
+		<i class="fas fa-arrow-left"></i>
+		<a href="{{ path('article_multi') }}">Gestion des articles</a>
+	</div>
 
-<h2 class="title">{{ action }}
-    un article</h2><br>
-{{ form_start(articleMultiForm) }}
+	<h2 class="title">{{ action }}
+		un article</h2><br>
+	{{ form_start(articleMultiForm) }}
 
-{{ form_row(articleMultiForm.titre, { 'label' : 'Titre de l\'article' }) }}
+	{{ form_row(articleMultiForm.titre, { 'label' : 'Titre de l\'article' }) }}
 
-{#{ form_row(articleMultiForm.imageFile, { 'label' : 'Image pour illustrer l\'article' }) }#}
+	{{ form_row(articleMultiForm.description, { 'label' : 'Contenu de l\'article' }) }}
 
-{{ form_row(articleMultiForm.description, { 'label' : 'Contenu de l\'article' }) }}
+	{{ form_row(articleMultiForm.transport, { 'label' : 'Contenu de l\'article' }) }}
 
+	{{ form_row(articleMultiForm.santeServicesSociaux, { 'label' : 'Contenu de l\'article' }) }}
 
+	{{ form_row(articleMultiForm.servicesAdmin, { 'label' : 'Contenu de l\'article' }) }}
 
-{% if action == 'Ajouter' %}
-<button type="submit" class="btn mb-4 btnSubmit">Ajouter</button>
-{% else %}
-<button type="submit" class="btn mb-4 btnSubmit">Modifier</button>
-{% endif %}
-{{ form_end(articleMultiForm) }}
+	{{ form_row(articleMultiForm.education, { 'label' : 'Contenu de l\'article' }) }}
+
+	{{ form_row(articleMultiForm.sports, { 'label' : 'Contenu de l\'article' }) }}
+
+	{% form_theme articleMultiForm 'article_multi/_form_theme.html.twig' %}
+
+	{{ form_row(articleMultiForm.images, { 'label' : 'Image pour illustrer l\'article' }) }}
+
+	{% if action == 'Ajouter' %}
+		<button type="submit" class="btn mb-4 btnSubmitMulti">Ajouter</button>
+	{% else %}
+		<button type="submit" class="btn mb-4 btnSubmitMulti">Modifier</button>
+	{% endif %}
+
+	{{ form_end(articleMultiForm) }}
 
 {% endblock %}

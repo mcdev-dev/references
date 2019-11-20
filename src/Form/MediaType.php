@@ -4,8 +4,8 @@ namespace App\Form;
 
 use App\Entity\Media;
 use Symfony\Component\Form\AbstractType;
-use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MediaType extends AbstractType
@@ -13,9 +13,15 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile', VichFileType::class)
+            ->add('imageFile', VichImageType::class, 
+            [
+                'required' => false,
+                'download_uri' => true,
+                'image_uri' => true,
+                'label' => false
+            ])
             //->add('updatedAt')
-            //->add('articleMulti')
+            //->add('articles')
         ;
     }
 

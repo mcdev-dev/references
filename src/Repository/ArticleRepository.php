@@ -6,6 +6,10 @@ use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
+use Elastica\Query;
+use Elastica\Query\BoolQuery;
+use FOS\ElasticaBundle\Repository;
+
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
  * @method Article|null findOneBy(array $criteria, array $orderBy = null)
@@ -30,6 +34,11 @@ class ArticleRepository extends ServiceEntityRepository
         ->setParameter('val', $value)
         ->getQuery()
         ->getResult();
+    }
+
+    public function searchArticle()
+    {
+        
     }
 
     /*public function getLogementsParticipatifs($value) 

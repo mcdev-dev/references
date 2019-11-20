@@ -9,6 +9,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ArticleMultiType extends AbstractType
 {
@@ -16,7 +17,12 @@ class ArticleMultiType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class)
-            //->add('images', MediaType::class)
+            ->add('images', CollectionType::class, [
+                'entry_type' => MediaType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true
+            ])
             ->add('description', CKEditorType::class)
             ->add('transport', CKEditorType::class)
             ->add('santeServicesSociaux', CKEditorType::class)

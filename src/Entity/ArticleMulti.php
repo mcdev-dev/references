@@ -55,9 +55,14 @@ class ArticleMulti
     private $sports;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="articleMulti")
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="articleMulti", cascade={"persist", "remove"})
      */
     private $images;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createAt;
 
     public function __construct()
     {
@@ -183,4 +188,17 @@ class ArticleMulti
 
         return $this;
     }
+
+    public function getCreateAt(): ?\DateTimeInterface
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeInterface $createAt): self
+    {
+        $this->createAt = $createAt;
+
+        return $this;
+    }
+
 }

@@ -42,60 +42,30 @@ $(function () {
     }
     confirmDelete();
 
-    function fabriqueUrbaine() {
-        let titre = $('.animate_fabrique_urbaine h3');
-        let listElement = $('.animate_fabrique_urbaine ul li');
-        let titreRight = $('.animate_fabrique_urbaineRight h3');
-        let listElementRight = $('.animate_fabrique_urbaineRight ul li');
+    function multiImagesUpload() {
+        $('.add-another-collection-widget').click((e) => {
+            let thisElement = '.add-another-collection-widget';
+            var list = $($(thisElement).attr('data-list-selector'));
+            // Try to find the counter of the list or use the length of the list
+            var counter = list.data('widget-counter') | list.children().length;
 
-        let cible = $('.animate_fabrique_urbaine').offset().top;
-        //alert(cible)
+            // grab the prototype template
+            var newWidget = list.attr('data-prototype');
+            // replace the "__name__" used in the id and name of the prototype
+            // with a number that's unique to your emails
+            // end name attribute looks like name="contact[emails][2]"
+            newWidget = newWidget.replace(/__name__/g, counter);
+            // Increase the counter
+            counter++;
+            // And store it, the length cannot be used if deleting widgets is allowed
+            list.data('widget-counter', counter);
 
-        $(window).scroll(() => {
-            if ($('html, body').scrollTop() >= cible - 600) {
-                titre.animate({
-                    opacity: 1
-                }, 2000).animate({
-                    marginLeft: 0
-                }, 1000);
-
-                listElement.each((key, value) => {
-                    $(value).css({
-                        animation: `listElem 1.5s ease forwards ${key / 1 + 2.5}s`
-                    });
-
-                });
-
-                listElement.one('animationend', () => {
-
-                    // code to execute after animation ends
-                    titreRight.animate({
-                        opacity: 1
-                    }, 2000).animate({
-                        marginRight: 0
-                    }, 1000);
-
-                    listElementRight.each((key, value) => {
-                        $(value).css({
-                            animation: `listElemRight 3s ease forwards ${key / 1 + 3.5}s`
-                        });
-                    });
-
-                });
-
-                listElementRight.one('animationend', () => {
-                    $('.animate_fabrique_urbaineLast').animate({
-                        opacity: 1
-                    }, 2000);
-                });
-
-
-            }
-
+            // create a new list element and add it to the list
+            var newElem = $(list.attr('data-widget-tags')).html(newWidget);
+            newElem.appendTo(list);
         });
-
     }
-    fabriqueUrbaine();
+    multiImagesUpload();
 
 
     if ($(window).width() > 992) {
@@ -249,7 +219,10 @@ $(function () {
 
     } // $(window).width() < 992
 
+    function articleSearch() {
 
+    }
+    articleSearch();
 
 
 

@@ -1,146 +1,190 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Suez+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">  
-    <!-- lesCityZens screen CSS style -->
-    <link rel="stylesheet" media="screen and (min-width: 992px)" href="{{ asset('css/style.css') }}">
-    <!-- lesCityZens tablet CSS style -->
-    <link rel="stylesheet" media="(min-width: 768px) and (max-width:991.98px)" href="{{ asset('css/tablet.css') }}">
-    <!-- lesCityZens mobile CSS style -->
-    <link rel="stylesheet" media="screen and (max-width:767.98px)" href="{{ asset('css/mobile.css') }}">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Suez+One&display=swap" rel="stylesheet">
+		<link
+		rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+		<!-- lesCityZens screen CSS style -->
+		<link
+		rel="stylesheet" media="screen and (min-width: 992px)" href="{{ asset('css/style.css') }}">
+		<!-- lesCityZens tablet CSS style -->
+		<link
+		rel="stylesheet" media="(min-width: 768px) and (max-width:991.98px)" href="{{ asset('css/tablet.css') }}">
+		<!-- lesCityZens mobile CSS style -->
+		<link
+		rel="stylesheet" media="screen and (max-width:767.98px)" href="{{ asset('css/mobile.css') }}">
 
-    <!-- jQuery CDN -->
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
-    <!-- Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
-    <!-- lesCityZens JS App -->
-    <script src="{{ asset('js/app.js') }}"></script>
+		<!-- jQuery CDN -->
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<!-- Popper.js, then Bootstrap JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <title>{{ title }}</title>
-  </head>
+		<!-- lesCityZens JS App -->
+		<script src="{{ asset('js/app.js') }}"></script>
 
-  <body>
+		<title>{{ title }}</title>
+	</head>
 
-    <header>
-        <div class="top">
-            <div class="social_media">
-                <a href=""><i class="fab fa-facebook-f"></i></a>
-                <a href=""><i class="fab fa-twitter"></i></a>
-                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                <a href=""><i class="fab fa-youtube"></i></a>
-            </div>
-            <div class="search_bar">
-                <form id="query" action="" method="post">
-                    <input type="text" name="rechercher" id="rechercher">
-                    <i class="fas fa-search"></i>
-                </form>
-            </div>
-            <div class="authentication">
-                {% if is_granted('ROLE_ADMIN') %}  
-                    <div class="admin nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-tools"></i>Admin</a>
-                        <div class="dropdown-menu aria-labelledby="navbarDropdown"">
-                            <a class="dropdown-item" href="#"><i class="fas fa-users-cog"></i>Gestion des utilisateurs</a>
-                            <a class="dropdown-item" href="#"><i class="far fa-address-book"></i>Gestion des contacts</a>
-                            <a class="dropdown-item" href="{{ path('article') }}"><i class="fas fa-file-signature"></i>Gestion des contenus</a>
-                        </div>
-                    </div>
-                {% endif %}
-                
-                {% if is_granted('ROLE_USER') %}  
-                    <div class="disconnect"><a href="{{ path('deconnexion') }}"><i class="fas fa-power-off"></i>Déconnexion</a></div>
-                {% endif %}
-                {% if not is_granted('ROLE_USER') %}
-                    <div class="connect"><a href="{{ path('connexion') }}">Se connecter</a></div>
-                    <div class="register"><a href="{{ path('inscription') }}">S'inscrire</a></div>
-                {% endif %}
-            </div>
-        </div>
-        <nav id="navBar" class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <div class="burgerLine">
-                        <div class="line1"></div>
-                        <div class="line2"></div>
-                        <div class="line3"></div>
-                    </div>
-                    <div class="logotype">
-                        <a href="{{ path('home') }}"><img src="{{ asset('photo/logotype_lcz.svg') }}" alt=""></a>
-                    </div>
-                    <div class="iconeProfile">
-                        <div class="userCircle">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="profiLine">
-                            <div class="line1"></div>
-                            <div class="line2"></div>
-                            <div class="line3"></div>
-                        </div>
-                    </div>
-                </div>
-                <ul class="navigation">
-                    <li class="{{ (title == 'Accueil') ? 'menuActive' : '' }}"><a href="{{ path('home') }}">Accueil</a></li>
-                    <li class="{{ (title == 'Fabrique urbaine collaborative') ? 'menuActive' : '' }}"><a href="{{ path('fabrique_urbaine') }}">Fabrique urbaine collaborative</a></li>
-                    <li class="{{ (title == 'Habitat participatif') ? 'menuActive' : '' }}"><a href="">Habitat participatif</a></li>
-                    <li class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }}"><div class="ddToggle">Références<i id="angle" class="fas fa-angle-up"></i></div>
-                        <ul class="submenu">
-                            <li><a href="{{ path('logements_participatifs') }}">Références de logements participatifs</a></li>
-                            <li><a href="">Références en urbanisme collaboratif et concertation</a></li>
-                        </ul>
-                    </li>
-                    <li class="{{ (title == 'Contact') ? 'menuActive' : '' }}"><a href="{{ path('contact_email') }}">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
+	<body>
 
-    </header>
+		<header>
+			<div class="top">
+				<div class="social_media">
+					<a href="">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+					<a href="">
+						<i class="fab fa-twitter"></i>
+					</a>
+					<a href="">
+						<i class="fab fa-linkedin-in"></i>
+					</a>
+					<a href="">
+						<i class="fab fa-youtube"></i>
+					</a>
+				</div>
+				<div class="search_bar">
+					<form id="query">
+						<input type="text" name="query" id="search-input" data="{{ path('article_search') }}">
+						<i class="fas fa-search"></i>
+					</form>
+				</div>
+				<div class="authentication">
+					{% if is_granted('ROLE_ADMIN') %}
+						<div class="admin nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-tools"></i>Admin</a>
+							<div class="dropdown-menu aria-labelledby=" navbardropdown"">
+								<a class="dropdown-item" href="#">
+									<i class="fas fa-users-cog"></i>Gestion des utilisateurs</a>
+								<a class="dropdown-item" href="#">
+									<i class="far fa-address-book"></i>Gestion des contacts</a>
+								<a class="dropdown-item" href="{{ path('article') }}">
+									<i class="fas fa-file-signature"></i>Gestion des contenus</a>
+							</div>
+						</div>
+					{% endif %}
 
-    <div class="scrollBtn">
-        <div class="scroller"><i class="fas fa-arrow-up"></i></div>
-        <div class="textScroll">Retour en haut</div>
-    </div>
+					{% if is_granted('ROLE_USER') %}
+						<div class="disconnect">
+							<a href="{{ path('deconnexion') }}">
+								<i class="fas fa-power-off"></i>Déconnexion</a>
+						</div>
+					{% endif %}
+					{% if not is_granted('ROLE_USER') %}
+						<div class="connect">
+							<a href="{{ path('connexion') }}">Se connecter</a>
+						</div>
+						<div class="register">
+							<a href="{{ path('inscription') }}">S'inscrire</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+			<nav id="navBar" class="navbar {{ (title != 'Accueil' and title != 'Fabrique urbaine collaborative') ? 'navBarShadow' : '' }}">
+				<div class="container">
+					<div class="logo">
+						<div class="burgerLine">
+							<div class="line1"></div>
+							<div class="line2"></div>
+							<div class="line3"></div>
+						</div>
+						<div class="logotype">
+							<a href="{{ path('home') }}"><img src="{{ asset('photo/logotype_lcz.svg') }}" alt=""></a>
+						</div>
+						<div class="iconeProfile">
+							<div class="userCircle">
+								<i class="fas fa-user-circle"></i>
+							</div>
+							<div class="profiLine">
+								<div class="line1"></div>
+								<div class="line2"></div>
+								<div class="line3"></div>
+							</div>
+						</div>
+					</div>
+					<ul class="navigation">
+						<li class="{{ (title == 'Accueil') ? 'menuActive' : '' }}">
+							<a href="{{ path('home') }}">Accueil</a>
+						</li>
+						<li class="{{ (title == 'Fabrique urbaine collaborative') ? 'menuActive' : '' }}">
+							<a href="{{ path('fabrique_urbaine') }}">Fabrique urbaine collaborative</a>
+						</li>
+						<li class="{{ (title == 'Habitat participatif') ? 'menuActive' : '' }}">
+							<a href="">Habitat participatif</a>
+						</li>
+						<li class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }}">
+							<div class="ddToggle">Références<i id="angle" class="fas fa-angle-up"></i>
+							</div>
+							<ul class="submenu">
+								<li>
+									<a href="{{ path('logements_participatifs') }}">Références de logements participatifs</a>
+								</li>
+								<li>
+									<a href="">Références en urbanisme collaboratif et concertation</a>
+								</li>
+							</ul>
+						</li>
+						<li class="{{ (title == 'Contact') ? 'menuActive' : '' }}">
+							<a href="{{ path('contact_email') }}">Contact</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
 
-    <main>
-        <div class="container">
-            {% if title != 'Inscription' and title != 'Connexion' %}
-                {% for alerte in app.flashes('success') %}
-                    <div class="alert alert-success">{{ alerte | raw }}</div><br>
-                {% endfor %}
+		</header>
 
-                {% for alerte in app.flashes('errors') %}
-                    <div class="alert alert-danger">{{ alerte | raw }}</div><br>
-                {% endfor %}
-            {% endif %}
+		<div class="scrollBtn">
+			<div class="scroller">
+				<i class="fas fa-arrow-up"></i>
+			</div>
+			<div class="textScroll">Retour en haut</div>
+		</div>
 
-            {% block content %}
+		<main>
+			<div class="container">
+				{% if title != 'Inscription' and title != 'Connexion' %}
+					{% for alerte in app.flashes('success') %}
+						<div class="alert alert-success">{{ alerte | raw }}</div><br>
+					{% endfor %}
 
-            {% endblock %}
+					{% for alerte in app.flashes('errors') %}
+						<div class="alert alert-danger">{{ alerte | raw }}</div><br>
+					{% endfor %}
+				{% endif %}
 
-        </div>
+				{% block content %}{% endblock %}
 
-        {% block contentFluid %}
-        {% endblock %}
-    </main>
+			</div>
 
-    <footer>
-        <div class="container pied">
-            <span class="copy">&copy; {{ 'now' | date('Y') }} Les CityZens</span> <span class="pipe">|</span> <a href="">Presse</a> <span class="pipe">|</span> <a href="">Mentions légales</a> <span class="pipe">|</span> <a href="">Politique de confidentialité</a>
-        </div>
-    </footer>
+			{% block contentFluid %}{% endblock %}
+		</main>
 
-    
-  </body>
+		<footer>
+			<div class="container pied">
+				<span class="copy">&copy;
+					{{ 'now' | date('Y') }}
+					Les CityZens</span>
+				<span class="pipe">|</span>
+				<a href="">Presse</a>
+				<span class="pipe">|</span>
+				<a href="">Mentions légales</a>
+				<span class="pipe">|</span>
+				<a href="">Politique de confidentialité</a>
+			</div>
+		</footer>
+
+		{% block javascripts %}{% endblock %}
+
+
+	</body>
 </html>

@@ -199,7 +199,7 @@ header {
     display: flex;
     align-items: center;
 }
-#rechercher {
+#search-input {
     width: 100%;
     height: 26px;
     line-height: 26px;
@@ -212,7 +212,7 @@ header {
     color: rgb(190, 187, 194);
     transition: ease .5s;
 }
-#rechercher:focus {
+#search-input:focus {
     border: 1px solid #D9326F;
 }
 .fa-search {
@@ -227,10 +227,12 @@ header {
 /* Ménu */
 nav{
     background-color: #fff;
-    /*box-shadow: 0 1px 4px rgb(194, 194, 194);*/
     position: relative;
     margin-bottom: 48px;
     z-index: 1;
+}
+.navBarShadow{
+    box-shadow: 0 1px 4px rgb(194, 194, 194);
 }
 .logo {
     width: 100%;
@@ -353,6 +355,7 @@ nav{
     position: relative;
     cursor: pointer;
     z-index: 1;
+    overflow: hidden;
     transition: ease .5s;
 }
 .btnSubmit:hover {
@@ -370,6 +373,36 @@ nav{
     transition: ease .5s;
 }
 .btnSubmit:hover::before {
+    width: 100%;
+}
+
+.btnSubmitMulti {
+    padding: .5em 1em;
+    background-color: rgb(50, 217, 186);
+    color: rgb(16, 92, 79);
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    transition: ease .5s;
+}
+.btnSubmitMulti:hover {
+    color: rgb(16, 92, 79);
+}
+.btnSubmitMulti::before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #39fdc9;
+    z-index: -1;
+    transition: ease .5s;
+}
+.btnSubmitMulti:hover::before {
     width: 100%;
 }
 .invalid-feedback .d-block {

@@ -1,1 +1,9 @@
+Lien pour installer et mettre en place FOSCKEditorBundle :
 https://symfony.com/doc/master/bundles/FOSCKEditorBundle/index.html
+
+Lien pour uploader plusieurs images avec vichuploaderbundle :
+https://jean-pierre.lambelet.net/uploader-plusieurs-fichiers-dans-une-entity-avec-symfony4-et-vichuploaderbundle%EF%BB%BF/
+
+Parcourrir un arrayCollection :
+https://stackoverflow.com/questions/37379526/an-exception-has-been-thrown-during-the-rendering-of-a-template
+

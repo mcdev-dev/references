@@ -8,6 +8,7 @@ use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
@@ -92,6 +93,19 @@ class ArticleController extends AbstractController
             $this->addFlash('success', 'L\'article <strong>' . $article->getTitre() . '</strong> a été supprimé avec succès.');
             return $this->redirectToRoute('article');
         }
+    }
+
+    /**
+     * @Route("/article/search", methods="GET", name="article_search")
+     *
+     * @param RepositoryManagerInterface $manager
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function searchArticle(ArticleRepository $repo, Request $request)
+    {
+        
     }
 
 }

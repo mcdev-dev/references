@@ -107,4 +107,5 @@ class Media
 
         return $this;
     }
+
 }
