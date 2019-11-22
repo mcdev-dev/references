@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div id="calendar-holder"></div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+    
+    <script type="text/javascript">
+        
+        function create_event(event)
+        {
+            var data = { titre: event.title, beginAt: event.start, endAt:event.end, description: event.desc };
+            
+            $.ajax({
+                url: "{{ path('event_new_from_calendar') }}",
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            var calendarEl = document.getElementById('calendar-holder');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'dayGridMonth',
+                editable: true,
+                eventSources: [
+                    {
+                        url: "{{ path('fc_load_events') }}",
+                        method: "POST",
+                        extraParams: {
+                            filters: JSON.stringify({})
+                        },
+                        failure: () => {
+                            // alert("There was an error while fetching FullCalendar!");
+                        },
+                    },
+                ],
+                eventRender: function(info) 
+                {
+                    if (!info.isMirror) {
+                        $(info.el).tooltip({
+                            title: function() {
+                                str = "description : " + info.event.extendedProps.description;
+                                if (info.event.extendedProps.location)
+                                    str += " lieu : " + info.event.extendedProps.location;
+                                return str;
+                            }
+                        });
+                    }
+                },
+                locale: 'fr',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                },
+                buttonText: {
+                        today:    "Aujourd'hui",
+                        month:    'Mois',
+                        week:     'Semaine',
+                        day:      'Jour',
+                        list:     'Liste'
+                },
+                plugins: [ 'interaction', 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+                timeZone: 'UTC',
+                selectable: true,
+                select: function (info)
+                {
+                    var title = prompt("Entrez le titre de l'évènement:");
+                    var desc = prompt("Entrez une description de l'évènement");
+
+                    if (title && desc) 
+                    {
+                        create_event({ 'title': title, 'desc': desc, 'start': info.startStr, 'end': info.endStr });
+                    };
+
+                    calendar.unselect();
+                    window.location.reload();
+                },
+                eventDrop: function(info)
+                {
+                    var event = info.event;
+
+                    var data = 
+                    {
+                        titre: event.title, 
+                        beginAt: event.start, 
+                        endAt: event.end
+                    };
+                
+                    if (event.extendedProps.location)
+                        data.lieu = event.extendedProps.location;
+                    if (event.extendedProps.telephone)
+                        data.telephone = event.extendedProps.telephone;
+                    if (event.extendedProps.description)
+                        data.description = event.extendedProps.description;
+                    
+                    var url = "{{ path('event_edit_from_calendar', { 'id': 'placeholder' }) }}";
+                    url = url.replace('placeholder', event.id);
+
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function() 
+                        {
+                            calendar.rerenderEvents();
+                        },
+                    });
+                },
+
+                eventResize: function(info)
+                {
+                    var event = info.event;
+
+                    var data = 
+                    {
+                        titre: event.title, 
+                        beginAt: event.start, 
+                        endAt: event.end
+                    };
+                
+                    if (event.extendedProps.location)
+                        data.lieu = event.extendedProps.location;
+                    if (event.extendedProps.telephone)
+                        data.telephone = event.extendedProps.telephone;
+                    if (event.extendedProps.description)
+                        data.description = event.extendedProps.description;
+                    
+                    var url = "{{ path('event_edit_from_calendar', { 'id': 'placeholder' }) }}";
+                    url = url.replace('placeholder', event.id);
+
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function() 
+                        {
+                            calendar.rerenderEvents();
+                        },
+                    });
+                },
+            });
+
+            calendar.render();
+        });
+    </script>
+{% endblock %}
