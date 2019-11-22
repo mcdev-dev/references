@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Ajouter ou modifier un article' %}
+
+{% block content %}
+	<h4>Vous recherchez
+		<strong>"
+			{{ saisie }}
+			".</strong>
+	</h4>
+	<div class="alert alert-success mt-4 mb-4">
+		{% if nbResponse == 0 %}
+			Nous n'avons trouvé
+		{% else %}
+			Nous avons trouvé
+		{% endif %}
+		<strong>
+			{{ (nbResponse == 0) ? 'aucun' : nbResponse }}
+			{% if nbResponse < 2 %}
+				article
+			{% else %}
+				articles
+			{% endif %}
+		</strong>
+		{% if nbResponse < 2 %}
+			correspondant
+		{% else %}
+			correspondants
+		{% endif %}
+		à votre recherche.</div><br>
+	{% for article in response %}
+		<div class="row mlSubstrate">
+			<div class="col-md-5">
+				<a href="{{ path('article_actualite', { 'id' : article.id }) }}">
+					<img src="{{ asset('images/photos/' ~ article.imageName) }}" alt="{{ article.titre }}" class="img-fluid">
+				</a>
+			</div>
+			<div class="col-md-7">
+				<a href="{{ path('article_actualite', { 'id' : article.id }) }}">
+					<h4 class="title">{{ article.titre }}</h4>
+					<p>{{ article.contenu | striptags | truncate(400,true) | raw }}</p>
+				</a>
+			</div>
+		</div>
+		<hr>
+	{% endfor %}
+
+
+{% endblock %}

@@ -53,10 +53,11 @@
 					</a>
 				</div>
 				<div class="search_bar">
-					<form id="query">
-						<input type="text" name="query" id="search-input" data="{{ path('article_search') }}">
+					<form id="search" action="{{ path('article_search') }}" method="get">
+						<input type="text" name="query" id="search-input">
 						<i class="fas fa-search"></i>
 					</form>
+					<div id="result"></div>
 				</div>
 				<div class="authentication">
 					{% if is_granted('ROLE_ADMIN') %}
@@ -70,6 +71,8 @@
 									<i class="far fa-address-book"></i>Gestion des contacts</a>
 								<a class="dropdown-item" href="{{ path('article') }}">
 									<i class="fas fa-file-signature"></i>Gestion des contenus</a>
+								<a class="dropdown-item" href="{{ path('article_actu') }}">
+									<i class="far fa-newspaper"></i>Gestion des actualités</a>
 							</div>
 						</div>
 					{% endif %}

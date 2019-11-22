@@ -2,7 +2,7 @@ $(function () {
 
     function submitSearchBtn() {
         $('.fa-search').click(() => {
-            $('#query').submit();
+            $('#search').submit();
         });
     }
     submitSearchBtn();
@@ -25,6 +25,15 @@ $(function () {
         $('.vich-image').after('<div id="view"></div>');
 
         $('#article_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        $('#article_actu_imageFile_file').on('change', (e) => {
             //$('.camera span').html(e.target.files[0].name);
             let reader = new FileReader();
             reader.onload = (e) => {
@@ -220,7 +229,35 @@ $(function () {
     } // $(window).width() < 992
 
     function articleSearch() {
+        let searchBar = $('#search-input');
+        let affResult = $('#result');
 
+        searchBar.on('keyup', () => {
+            affResult.fadeIn();
+            let saisie = $(searchBar).val();
+            let url = $('#search').attr('action');
+
+            $.ajax({
+                method: 'get',
+                url: url,
+                data: { saisie: saisie },
+                dataType: 'json',
+                cache: false,
+                success: (response) => {
+                    console.log(response);
+                    if (response.errors) {
+                        $(affResult).html('<div class="alert alert-danger">' + response.errors + '</div>');
+                    } else {
+                        $(affResult).html(response.results);
+                    }
+
+                }
+            });
+        });
+
+        searchBar.on('blur', () => {
+            affResult.fadeOut();
+        });
     }
     articleSearch();
 

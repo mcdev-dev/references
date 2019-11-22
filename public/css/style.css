@@ -194,7 +194,7 @@ header {
 .social_media a:hover {
     color: #D9326F;
 }
-#query {
+#search {
     width: 400px;
     display: flex;
     align-items: center;
@@ -792,6 +792,110 @@ main {
     }
 }
 
+#result {
+    min-height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 2em 8em;
+    overflow-y: scroll;
+    /*border-radius: 5px;*/
+    display: none;
+    background-color: #fff;
+    /*box-shadow: 0 1px 4px rgb(194, 194, 194);*/
+}
+#result a {
+    text-transform: inherit;
+    line-height: 1.7;
+}
+.mlSubstrate a {
+    text-decoration: none;
+    color: inherit;
+}
+.mlSubstrate a p {
+    font-weight: 400;
+}
+.content p img {
+    width: 100%;
+}
+.content p a, .content ul li a {
+    color: inherit;
+    text-decoration: underline;
+    transition: ease-in .5s;
+}
+.content p a:hover, .content ul li a:hover {
+    color: #D9326F;
+}
+.actuReturn a {
+    color: #828588;
+    transition: ease-in .5s;
+    text-transform: uppercase;
+}
+.actuReturn a:hover {
+    color: #D9326F;
+    text-decoration: none;
+}
+.actuReturn i {
+    color: #D9326F;
+}
+.actuBlock a {
+    color: inherit;
+    text-decoration: none;
+    position: relative;
+}
+.actuBlock h4 {
+    font-weight: 700;
+}
+.actuBlock {
+    border-radius: 5px;
+    min-height: 400px;
+    transition: ease-in .3s;
+}
+.actuBlock:hover {
+    box-shadow: 0 1px 4px rgb(194, 194, 194);
+}
+.contentActu {
+    opacity: 0;
+    display: none;
+    color: rgb(151, 153, 157);
+    transition: all ease-in .3s;
+}
+.actuBlock:hover .contentActu {
+    opacity: 1;
+    display: block;
+}
+.actuPos {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    background-color: #fff;
+    margin: 0 15px;
+}
+.actuBlock:hover .actuPos {
+    bottom: 10px;
+}
+.actuImg {
+    overflow: hidden;
+}
+.actuImg img {
+    transition: ease-in .3s;
+}
+.actuBlock:hover .actuImg img {
+    transform: translateY(-40px);
+}
+.close {
+    color: #4f5052;
+    transition: ease-in .5s;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.close:hover {
+    color: #D9326F;
+    text-decoration: none;
+}
 
 
 

@@ -28,9 +28,15 @@ class Categorie
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleActu", mappedBy="categorie")
+     */
+    private $articleActus;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->articleActus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,6 +96,37 @@ class Categorie
         return $this->title;
         // to show the id of the Category in the select
         // return $this->id;
+    }
+
+    /**
+     * @return Collection|ArticleActu[]
+     */
+    public function getArticleActus(): Collection
+    {
+        return $this->articleActus;
+    }
+
+    public function addArticleActus(ArticleActu $articleActus): self
+    {
+        if (!$this->articleActus->contains($articleActus)) {
+            $this->articleActus[] = $articleActus;
+            $articleActus->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleActus(ArticleActu $articleActus): self
+    {
+        if ($this->articleActus->contains($articleActus)) {
+            $this->articleActus->removeElement($articleActus);
+            // set the owning side to null (unless already changed)
+            if ($articleActus->getCategorie() === $this) {
+                $articleActus->setCategorie(null);
+            }
+        }
+
+        return $this;
     }
 
 }

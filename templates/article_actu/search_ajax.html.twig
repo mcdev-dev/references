@@ -1,0 +1,20 @@
+<div class="close">
+	<i class="far fa-window-close"></i>
+</div>
+
+{% for result in results %}
+	<div class="row mlSubstrate">
+		<div class="col-md-2">
+			<a href="{{ path('article_actualite', { 'id' : result.id }) }}">
+				<img src="{{ asset('images/photos/' ~ result.imageName) }}" alt="{{ result.titre }}" class="img-fluid">
+			</a>
+		</div>
+		<div class="col-md-10">
+			<a href="{{ path('article_actualite', { 'id' : result.id }) }}">
+				<h6 class="title">{{ result.titre }}</h6>
+				<p>{{ result.contenu | striptags | truncate(200,true) | raw }}</p>
+			</a>
+		</div>
+	</div>
+	<hr>
+{% endfor %}

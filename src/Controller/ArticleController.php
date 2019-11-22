@@ -18,7 +18,7 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $articleRepo)
     {
-        $articles = $articleRepo->findAll();
+        $articles = $articleRepo->findByDesc();
 
         return $this->render('article/liste_article.html.twig', 
         [
@@ -95,17 +95,5 @@ class ArticleController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/article/search", methods="GET", name="article_search")
-     *
-     * @param RepositoryManagerInterface $manager
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function searchArticle(ArticleRepository $repo, Request $request)
-    {
-        
-    }
 
 }
