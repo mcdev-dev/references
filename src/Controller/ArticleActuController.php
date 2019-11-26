@@ -120,38 +120,45 @@ class ArticleActuController extends AbstractController
     }
 
     /**
-     * @Route("/article/search", methods="GET", name="article_search")
+     * @Route("/article/search", name="article_search")
      * 
      */
     public function searchArticle(ArticleActuRepository $repo, Request $request)
     { 
-        $query = preg_replace('#[^a-zA-Z ?0-9]#i', '', $request->query->get('query'));
+        $query = preg_replace('#[^a-zA-Z ?0-9]#i', '', $request->get('query'));
         $results = $repo->searchArticle($query);
         
         if($request->isXmlHttpRequest()) 
         {
             $content = $this->renderView('article_actu/search_ajax.html.twig', [
+                'saisie' => $query,
                 'results' => $results
             ]);
             
-            if($content) {
+            if(count($results) > 0) {
                 return new JsonResponse([
                     'results' => $content
                 ], 200);
             } else {
                 return new JsonResponse([
                     'errors' => '<strong>Désolé !</strong> Aucun résultat trouvé.'
-                ], 403);
+                ]);
             }
 
         } else 
         {
-            return $this->render('article_actu/search_results.html.twig', 
-                [
-                    'saisie' => $query,
-                    'response' => $results,
-                    'nbResponse' => count($results)
-                ]);
+            if($request->getMethod() == 'POST') 
+            {
+                return $this->render('article_actu/search_results.html.twig', 
+                    [
+                        'saisie' => $query,
+                        'response' => $results,
+                        'nbResponse' => count($results)
+                    ]);
+            } else {
+                throw $this->createNotFoundException('Aïe! La Page n\'existe pas !');
+            }
+
         }
         
 

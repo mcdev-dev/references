@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Autres photos de l\'article' %}
+
+{% block content %}
+    <div class="mb-4">
+        <a href="{{ path('article_multi') }}">
+            <div class="undo"></div>
+        </a>
+    </div>
+
+    <div class="large mb-2">
+        <a href="{{ asset('images/photos/') ~ photos.images[0].imageName }}">
+        <img id="large" src="{{ asset('images/photos/') ~ photos.images[0].imageName }}" alt="{{ photos.titre }}" class="img-fluid mb-4"></a>
+    </div>
+    <div class="row voirLarge mb-4">
+        {% for article in photos.images %}
+            <div class="thumbnailVoir">
+                <img src="{{ asset('images/photos/') ~ article.imageName }}" alt="" class="img-fluid mb-4 thumbnailImg">
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

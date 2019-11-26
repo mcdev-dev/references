@@ -3,9 +3,11 @@
 {% set title = 'Ajouter ou modifier un article' %}
 
 {% block content %}
-<div class="forwardPage">
-	<i class="fas fa-arrow-left"></i>
-	<a href="{{ path('article_actu') }}">Gestion des actualités</a>
+
+<div class="mb-4">
+	<a href="{{ path('article_actu') }}">
+		<div class="undo"></div>
+	</a>
 </div>
 
 <h2 class="title">{{ action }}

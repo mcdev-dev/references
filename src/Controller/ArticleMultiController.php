@@ -18,10 +18,25 @@ class ArticleMultiController extends AbstractController
      */
     public function index(ArticleMultiRepository $repo)
     {
+        $photos = null;
         return $this->render('article_multi/articles_multi_list.html.twig', 
         [
-            'articlesMulti' => $articles = $repo->findAll(),
+            'articlesMulti' => $repo->findAll(),
+            'photos' => $photos,
         ]);
+    }
+
+    /**
+     * @Route("/article/photos/{id}", name="autre_photos")
+     * Route d'affichage des autres photos
+     */
+    public function otherPhotos($id, ArticleMulti $article) 
+    {
+        return $this->render('article_multi/articles_autre_photos.html.twig', 
+        [
+            'photos' => $article,
+        ]);
+
     }
 
     /**
@@ -36,6 +51,7 @@ class ArticleMultiController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) 
         {
+            $article->setCreateAt(new \DateTime);
             $images = $article->getImages();
             foreach($images as $key => $value) {
                 $value->setArticleMulti($article);
@@ -113,6 +129,17 @@ class ArticleMultiController extends AbstractController
         }
 
         return $this->redirectToRoute('article_multi');
+    }
+
+    /**
+     * @Route("/habitat-participatif/projet/{id}", name="habitat_participatif_projet")
+     * Route d'affichage du projet
+     */
+    public function projetAction($id, ArticleMulti $articleMulti) 
+    {
+        return $this->render('article_multi/habitat_participatif_projet.html.twig', [
+            'articleMulti' => $articleMulti
+        ]);
     }
 
 }

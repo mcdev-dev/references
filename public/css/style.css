@@ -44,7 +44,13 @@ header {
     position: relative;
     z-index: 1100;
 }
-
+.carousel-inner {
+    height: 480px;
+    overflow: hidden;
+}
+.carousel-item img {
+    transform: translateY(-36px);
+}
 .scrollBtn {
     width: 150px;
     height: 52px;
@@ -565,6 +571,13 @@ main {
     text-align: center;
     background-color: #1CD8AE;
 }
+.fondoAccueil3L {
+    margin-top: -48px;
+    padding: 2em 0;
+    color: #fff;
+    text-align: center;
+    background-color: #1CD8AE;
+}
 .fondoAccueil3 img {
     width: 75%;
 }
@@ -601,6 +614,19 @@ main {
     left: 0;
     right: 0;
     margin: auto;
+    width: 100px;
+    height: 6px;
+    background-color: #D9326F;
+}
+.titleArtBgColorNautral {
+    font-weight: 300 !important;
+    position: relative;
+}
+.titleArtBgColorNautral::before {
+    position: absolute;
+    content: '';
+    top: 107%;
+    left: 0;
     width: 100px;
     height: 6px;
     background-color: #D9326F;
@@ -891,11 +917,175 @@ main {
     transition: ease-in .5s;
     text-transform: uppercase;
     cursor: pointer;
+    position: absolute;
+    top: 1em;
+    right: 4em;
 }
 .close:hover {
     color: #D9326F;
     text-decoration: none;
 }
+.carte_habitat_participatif {
+    background-color: rgb(43, 42, 59);
+    height: 260px;
+    padding: 0 !important;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.carte_habitat_participatif a {
+    text-decoration: none;
+}
+.titleHabitatCard {
+    width: 80%;
+    margin: 1.5em auto 0 auto;
+    font-size: 1.65em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all ease-in .5s;
+    z-index: 1;
+}
+.titleHabitatCard::before {
+    position: absolute;
+    content: '';
+    top: 110%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 20%;
+    height: 8px;
+    background-color: #D9326F;
+}
+.titleHabitatCard::after {
+    position: absolute;
+    content: url('../photo/plus.svg');
+    bottom: 112.5%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 48px;
+    height: 48px;
+}
+.carte_habitat_participatif:hover .titleHabitatCard {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+.imgCardHP {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    transition: all ease-in .5s;
+}
+.carte_habitat_participatif:hover .imgCardHP {
+    opacity: .2;
+    transform: scale(1.2);
+}
+
+.head1 {
+    font-size: 2.65em;
+}
+.titleProject {
+    width: 70%;
+    margin: auto;
+    /*overflow: hidden;*/
+}
+.titleProject h1 {
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.85rem;
+}
+.titleProject h2 {
+    font-weight: 600;
+    margin: 1.35rem 0;
+}
+.titleProject ul {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+.titleProject ul li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 1em;
+}
+.titleProject ul li::before {
+    position: absolute;
+    content: url('../photo/check.svg');
+    top: 2px;
+    left: 0;
+    width: 16px;
+    height: 16px;
+}
+.titleProject h3 {
+    font-weight: 300;
+    margin-bottom: 1em;
+}
+.titleProject p, .titleProject li, .titleProject blockquote {
+    font-size: 1.0625em;
+    font-weight: 400;
+    line-height: 1.6;
+}
+.titleProject p {
+    margin-bottom: 1.5rem;
+}
+element.style, .elementor-column-wrap, .elementor-element-populated, .elementor-icon-box-content {
+    padding: 0 !important;
+    width: 100% !important;
+}
+.carteHP {
+    justify-content: center;
+}
+.undo {
+    background: url('../photo/left_arrow.svg') no-repeat;
+    width: 52px;
+    height: 40px;
+    transition: ease .5s;
+}
+.undo:hover {
+    background: url('../photo/left_arrow_hover.svg') no-repeat;
+}
+
+.notifications {
+    font-size: 1.3em;
+    padding: 0 .5em;
+}
+.alignMiddle {
+    align-items: center;
+}
+/* View other photos */
+.large {
+    height: 480px;
+    margin: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+.large img {
+    width: 100%;
+    transform: translateY(-48px);
+}
+.voirLarge {
+    margin: 0;
+    overflow: hidden;
+    justify-content: center;
+}
+.thumbnailVoir {
+    z-index: 1;
+    width: 22.5%;
+    margin: .5em;
+    overflow: hidden !important;
+    cursor: pointer;
+}
+/* View other photos */
 
 
 

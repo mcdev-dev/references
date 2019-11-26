@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use App\Repository\ArticleMultiRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -38,6 +39,19 @@ class ContentController extends AbstractController
         return $this->render('content/fabrique_urbaine.html.twig', 
         [
             'article' => $article,
+        ]);
+
+    }
+
+    /**
+     * @Route("/habitat-participatif/plateforme", name="habitat_participatif")
+     * Route d'affichage de habitat participatif
+     */
+    public function habitatParticipatif(ArticleMultiRepository $repo) 
+    {
+        return $this->render('article_multi/habitat_participatif_list.html.twig', 
+        [
+            'articles' => $repo->findAll()
         ]);
 
     }

@@ -53,7 +53,7 @@
 					</a>
 				</div>
 				<div class="search_bar">
-					<form id="search" action="{{ path('article_search') }}" method="get">
+					<form id="search" action="{{ path('article_search') }}" method="post">
 						<input type="text" name="query" id="search-input">
 						<i class="fas fa-search"></i>
 					</form>
@@ -78,6 +78,11 @@
 					{% endif %}
 
 					{% if is_granted('ROLE_USER') %}
+						<div class="notifications">
+							<a href="">
+								<i class="fas fa-bell"></i>
+							</a>
+						</div>
 						<div class="disconnect">
 							<a href="{{ path('deconnexion') }}">
 								<i class="fas fa-power-off"></i>Déconnexion</a>
@@ -93,7 +98,7 @@
 					{% endif %}
 				</div>
 			</div>
-			<nav id="navBar" class="navbar {{ (title != 'Accueil' and title != 'Fabrique urbaine collaborative') ? 'navBarShadow' : '' }}">
+			<nav id="navBar" class="navbar {{ (title != 'Accueil' and title != 'Fabrique urbaine collaborative' and title != 'Habitat participatif') ? 'navBarShadow' : '' }}">
 				<div class="container">
 					<div class="logo">
 						<div class="burgerLine">
@@ -123,7 +128,7 @@
 							<a href="{{ path('fabrique_urbaine') }}">Fabrique urbaine collaborative</a>
 						</li>
 						<li class="{{ (title == 'Habitat participatif') ? 'menuActive' : '' }}">
-							<a href="">Habitat participatif</a>
+							<a href="{{ path('habitat_participatif') }}">Habitat participatif</a>
 						</li>
 						<li class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }}">
 							<div class="ddToggle">Références<i id="angle" class="fas fa-angle-up"></i>

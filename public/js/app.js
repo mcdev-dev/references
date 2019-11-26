@@ -41,6 +41,60 @@ $(function () {
             }
             reader.readAsDataURL(e.target.files[0]);
         });
+
+        $('#article_multi_images_0_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        $('#article_multi_images_1_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        $('#article_multi_images_2_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        $('#article_multi_images_3_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        $('#article_multi_images_4_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        $('#article_multi_images_5_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
     }
     viewArticleImage();
 
@@ -75,6 +129,22 @@ $(function () {
         });
     }
     multiImagesUpload();
+
+    function viewOtherPhotos() {
+        let large = $('#large');
+        let thumbnail = $('.thumbnailImg');
+
+        thumbnail.each((key, value) => {
+            $(value).click((e) => {
+                e.preventDefault();
+                let src = $(value).attr('src');
+                //console.log(src);
+                $(large).attr('src', src);
+                $(large).parent().attr('href', src);
+            });
+        });
+    }
+    viewOtherPhotos();
 
 
     if ($(window).width() > 992) {
@@ -238,13 +308,12 @@ $(function () {
             let url = $('#search').attr('action');
 
             $.ajax({
-                method: 'get',
+                method: 'post',
                 url: url,
                 data: { saisie: saisie },
                 dataType: 'json',
-                cache: false,
                 success: (response) => {
-                    console.log(response);
+                    //console.log(response);
                     if (response.errors) {
                         $(affResult).html('<div class="alert alert-danger">' + response.errors + '</div>');
                     } else {

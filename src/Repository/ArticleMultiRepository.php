@@ -19,6 +19,30 @@ class ArticleMultiRepository extends ServiceEntityRepository
         parent::__construct($registry, ArticleMulti::class);
     }
 
+    public function getCategorie($value) 
+    {
+        return $this->createQueryBuilder('a')
+        ->select('a', 'c')
+        ->distinct(true)
+        ->orderBy('a.id', 'DESC')
+        ->join('a.categorie', 'c')
+        ->andWhere('c.title = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function findOtherPhotos() 
+    {
+        return $this->createQueryBuilder('a')
+        ->select('a', 'm')
+        ->distinct(true)
+        ->orderBy('a.id', 'DESC')
+        ->join('a.images', 'm')
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return ArticleMulti[] Returns an array of ArticleMulti objects
     //  */

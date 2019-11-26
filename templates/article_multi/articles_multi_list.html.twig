@@ -4,10 +4,7 @@
 
 {% block content %}
 	<div class="row">
-		<h3 class="title col-md-4">Gestion des articles</h3>
-		<div class="col-md-4">
-			<a class="btn btnSubmit col-12" href="{{ path('article_add') }}">Ajouter un article</a>
-		</div>
+		<h3 class="title col-md-8">Gestion des articles</h3>
 		<div class="col-md-4">
 			<a class="btn btnSubmitMulti col-12" href="{{ path('article_multi_add') }}">Ajouter un article multi</a>
 		</div>
@@ -28,12 +25,11 @@
 				{% for article in articlesMulti %}
 					{#{ dump(article.images) }#}
 					<tr>
-						<td>
-							{% for image in article.images %}
-								<div class="imgTab mb-3">
-									<img src="{{ asset('images/photos/') ~ image.imageName }}" alt="{{ article.titre }}" width="240">
-								</div>
-							{% endfor %}
+						<td class="text-center">
+							<div class="imgTab mb-3">
+								<img src="{{ asset('images/photos/') ~ article.images[0].imageName }}" alt="{{ article.titre }}" width="240">
+							</div>
+							<a href="{{ path('autre_photos', { 'id' : article.id }) }}">Voir les autres photos</a>
 						</td>
 						<td width="160">{{ article.titre }}</td>
 						<td>{{ article.description | striptags | truncate(200,true) | raw }}</td>

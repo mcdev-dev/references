@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Habitat participatif' %}
+
+{% block contentFluid %}
+
+	<div class="fondoAccueil3L">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<h1 class="titleArtBgColorNautral text-left">Envie de vous lancer dans l’<strong>HABITAT PARTICIPATIF ?</strong><br>
+						Rejoignez un de nos projets !</h1>
+				</div>
+				<div class="col-md-8">
+					<img src="{{ asset('photo/habitat_particpatif.svg') }}" alt="habitat participatif" class="img-fluid">
+				</div>
+			</div>
+		</div>
+	</div><br><br>
+
+	<div class="container mb-4">
+		<div class="row carteHP">
+			{% for article in articles %}
+				<div class="col-md-5 carte_habitat_participatif mr-4 mb-4">
+					<a href="{{ path('habitat_participatif_projet', { 'id' : article.id }) }}">
+						<div class="titleHabitatCard">
+							{{ article.titre }}
+						</div>
+						<div class="imgCardHP">
+							<img src="{{ asset('images/photos/') ~ article.images[0].imageName }}" alt="{{ article.titre }}" class="img-fluid">
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div><br>
+{% endblock %}
