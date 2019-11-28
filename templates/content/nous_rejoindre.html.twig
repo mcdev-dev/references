@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Rejoignez-nous' %}
+
+{% block content %}
+	<div class="row justify-content-md-center">
+		<div class="col-lg-8">
+			<h3 class="text-center title">Envie de rejoindre l'équipe ?</h3>
+			<h3 class="text-center title">Envoyez-nous votre CV</h3><br>
+			<h5 class="title mt-2">Informations personnelles</h5>
+			<hr class="mb-4">
+
+			{{ form_start(form) }}
+			<div class="row">
+				<div class="form-group col-md-6">
+					{{ form_errors(form.prenom) }}
+					{{ form_widget(form.prenom, {'attr': {'placeholder': 'Prénom *'}}) }}
+				</div>
+				<div class="form-group col-md-6">
+					{{ form_errors(form.nom) }}
+					{{ form_widget(form.nom, {'attr': {'placeholder': 'Nom *'}}) }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-md-8">
+					{{ form_errors(form.email) }}
+					{{ form_widget(form.email, {'attr': {'placeholder': 'Email *'}}) }}
+				</div>
+
+				<div class="form-group col-md-4">
+					{{ form_errors(form.telephone) }}
+					{{ form_widget(form.telephone, {'attr': {'placeholder': 'Téléphone'}}) }}
+				</div>
+			</div>
+
+			<h5 class="title mt-4">Votre demande concerne</h5>
+			<hr class="mb-4">
+			{{ form_errors(form.subject) }}
+			{{ form_widget(form.subject, { 'attr' : { 'placeholder': 'Sujet *', 'class' : 'form-group' } }) }}
+
+			{{ form_errors(form.message) }}
+			{{ form_widget(form.message, { 'attr': { 'placeholder': 'Message *', 'class' : 'form-group' } }) }}
+
+			{{ form_errors(form.cv) }}
+			{{ form_row(form.cv) }}
+			{{ form_errors(form.lettreMotivation) }}
+			{{ form_row(form.lettreMotivation) }}
+			{{ form_errors(form.book) }}
+			{{ form_row(form.book) }}
+
+			{#{ form_errors(form.captchaCode) }#}
+			{#{ form_row(form.captchaCode) }#}
+
+			<hr class="mt-4"> <div class="champsObligatoires">
+				<p>* Champs obligatoires.</p>
+				<p>Ces champs sont obligatoires et sont destinés à Les CityZens, responsable du traitement, aux fins d’effectuer l’ensemble des opérations relatives à notre relation commerciale.</p>
+			</div>
+
+			<div class="form-group mx-auto col-lg-5 col-md-6 mt-4">
+				<button type="submit" class="btn btnSubmit col-12">Rejoignez-nous</button>
+			</div>
+
+
+			{{ form_end(form) }}
+
+			<br>
+		</div>
+	</div>
+{% endblock %}

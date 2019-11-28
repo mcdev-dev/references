@@ -6,6 +6,7 @@ use App\Entity\Media;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MediaType extends AbstractType
@@ -18,7 +19,18 @@ class MediaType extends AbstractType
                 'required' => false,
                 'download_uri' => true,
                 'image_uri' => true,
-                'label' => false
+                'label' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '20M',
+                        'mimeTypes' => [
+                            'image/pdf',
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez choisir un fichier PDF, JPEG ou PNG'
+                    ])
+                ]
             ])
             //->add('updatedAt')
             //->add('articles')

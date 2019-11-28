@@ -19,7 +19,7 @@ class CategorieType extends AbstractType
                 'label' => 'Catégorie de l\'article',
                 'constraints' => [
                     new Assert\NotBlank(array(
-						'message' => 'Veuillez insérer une catégorie.'
+						'message' => 'Veuillez renseigner une catégorie.'
 					)),
                 ]
             ])

@@ -23,7 +23,7 @@
 				</div>
 				{% for image in articleMulti.images %}
 					{% if not loop.first %}
-						<!-- !IMPORTANT : Cette condition permet de ne pas afficher le premier élément du tableau. -->
+						<!-- !IMPORTANT : La condition "if not loop.first" permet de ne pas afficher le premier élément du tableau. -->
 						<div class="carousel-item">
 							<img src="{{ asset('images/photos/') ~ image.imageName }}" class="d-block w-100" alt="articleMulti.titre">
 						</div>
@@ -45,31 +45,10 @@
 		{{ articleMulti.description | raw }}
 		<a class="btn btnSubmit mt-4 mb-4" href="{{ path('connexion') }}">Participer</a>
 		{{ articleMulti.transport | raw }}
-		<div class="row alignMiddle">
-			<div class="col-md-6">
-				{{ articleMulti.santeServicesSociaux | raw }}
-			</div>
-			<div class="col-md-6">
-				<img src="{{ asset('photo/undraw_doctors_hwty.svg') }}" alt="Santé et services sociaux" class="img-fluid">
-			</div>
-		</div>
+		{{ articleMulti.santeServicesSociaux | raw }}
 		{{ articleMulti.servicesAdmin | raw }}
-		<div class="row alignMiddle">
-			<div class="col-md-6">
-				{{ articleMulti.education | raw }}
-			</div>
-			<div class="col-md-6">
-				<img src="{{ asset('photo/undraw_exams_g4ow.svg') }}" alt="Santé et services sociaux" class="img-fluid">
-			</div>
-		</div>
-		<div class="row alignMiddle">
-			<div class="col-md-6">
-				<img src="{{ asset('photo/undraw_track_and_field_33qn.svg') }}" alt="Santé et services sociaux" class="img-fluid">
-			</div>
-			<div class="col-md-6">
-				{{ articleMulti.sports | raw }}
-			</div>
-		</div>
+		{{ articleMulti.education | raw }}
+		{{ articleMulti.sports | raw }}
 
 	</div>
 

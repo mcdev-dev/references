@@ -23,6 +23,7 @@ $(function () {
 
     function viewArticleImage() {
         $('.vich-image').after('<div id="view"></div>');
+        $('#view').after('<span id="fileName"></span>');
 
         $('#article_imageFile_file').on('change', (e) => {
             //$('.camera span').html(e.target.files[0].name);
@@ -95,6 +96,34 @@ $(function () {
             }
             reader.readAsDataURL(e.target.files[0]);
         });
+
+        $('#join_us_cv_imageFile_file').on('change', (e) => {
+            $('#join_us_cv_imageFile_file').after(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#join_us_cv_imageFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        $('#join_us_lettreMotivation_imageFile_file').on('change', (e) => {
+            $('#join_us_lettreMotivation_imageFile_file').after(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#join_us_lettreMotivation_imageFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        $('#join_us_book_imageFile_file').on('change', (e) => {
+            $('#join_us_book_imageFile_file').after(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#join_us_book_imageFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
     }
     viewArticleImage();
 
