@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\JoinUs;
 use App\Entity\Article;
-use App\Form\JoinUsType;
 use App\Repository\ArticleRepository;
 use App\Repository\ArticleMultiRepository;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -70,22 +67,6 @@ class ContentController extends AbstractController
         return $this->render('content/logements_participatifs.html.twig',
         [
             'articles' => $articles,
-        ]);
-    }
-
-    /**
-     * @Route("/rejoignez-nous/", name="nous_rejoindre")
-     * Route de la page Rejoignez-nous
-     */
-    public function rejoignezNousAction(Request $request) 
-    {
-        $article = new JoinUs;
-        $form = $this->createForm(JoinUsType::class, $article);
-        $form->handleRequest($request);
-
-        return $this->render('content/nous_rejoindre.html.twig', 
-        [
-            'form' => $form->createView(),
         ]);
     }
 

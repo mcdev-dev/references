@@ -24,9 +24,11 @@ class MediaType extends AbstractType
                     new File([
                         'maxSize' => '20M',
                         'mimeTypes' => [
-                            'image/pdf',
                             'image/jpeg',
                             'image/png',
+                            'image/svg',
+                            'application/pdf',
+                            'application/x-pdf',
                         ],
                         'mimeTypesMessage' => 'Veuillez choisir un fichier PDF, JPEG ou PNG'
                     ])

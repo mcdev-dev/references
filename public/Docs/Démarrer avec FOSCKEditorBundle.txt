@@ -7,3 +7,6 @@ https://jean-pierre.lambelet.net/uploader-plusieurs-fichiers-dans-une-entity-ave
 Parcourrir un arrayCollection :
 https://stackoverflow.com/questions/37379526/an-exception-has-been-thrown-during-the-rendering-of-a-template
 
+Petits réglages pour symfony sous Mac OSX :
+https://www.teddypayet.com/Petits-reglages-pour-symfony-sous-Mac-OSX
+
