@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Candidature' %}
+
+{% block content %}
+
+	<div class="mb-4">
+		<a class="undo" href="{{ path('join_us_list') }}">
+			<i class="icon-logout1"></i>
+		</a>
+	</div>
+	<h2 class="title text-center">Candidature n°
+		{{ candidature.id }}</h2><br><br>
+	<ul class="list-group list-group-horizontal-lg candidatureView mt-4 mb-4">
+		<li class="list-group-item">
+			<strong>Nom :
+			</strong>
+			{{ candidature.nom }}</li>
+		<li class="list-group-item">
+			<strong>Prénom :
+			</strong>
+			{{ candidature.prenom }}</li>
+	</ul>
+
+	<ul class="list-group list-group-horizontal-lg candidatureView mt-4 mb-4">
+		<li class="list-group-item">
+			<strong>Email :
+			</strong>
+			{{ candidature.email }}</li>
+		<li class="list-group-item">
+			<strong>Téléphone :
+			</strong>
+			{{ (candidature.telephone | length != 0) ? candidature.telephone : "Le candidat n'a pas pu fournir le numéro de téléphone." }}</li>
+	</ul>
+
+	<ul class="list-group list-group-horizontal-lg candidatureView mt-4 mb-4">
+		<li class="list-group-item">
+			<strong>Sujet :
+			</strong>
+			{{ candidature.subject }}</li>
+		<li class="list-group-item">
+			<strong>Message :
+			</strong>
+			{{ candidature.message }}</li>
+	</ul>
+
+	{% if candidature.cv | split('.') | last == 'pdf' %}
+		<object class="viewCandidatPdf mb-4" data="{{ asset('images/photos/') ~ candidature.cv }}" type="application/pdf" height="600" width="800">{{ candidature.cv }}</object>
+	{% else %}
+		<div class="candidatureViewImg">
+			<img src="{{ asset('images/photos/') ~ candidature.cv }}" alt="" class="img-fluid">
+		</div>
+	{% endif %}
+
+	{% if candidature.lettreMotivation | split('.') | last == 'pdf' %}
+		<object class="viewCandidatPdf mb-4" data="{{ asset('images/photos/') ~ candidature.lettreMotivation }}" type="application/pdf" height="600" width="800">{{ candidature.lettreMotivation }}</object>
+	{% else %}
+		<div class="candidatureViewImg">
+			<img src="{{ asset('images/photos/') ~ candidature.lettreMotivation }}" alt="" class="img-fluid">
+		</div>
+	{% endif %}
+
+	{% if candidature.book | split('.') | last == 'pdf' %}
+		<object class="viewCandidatPdf mb-4" data="{{ asset('images/photos/') ~ candidature.book }}" type="application/pdf" height="600" width="800">{{ candidature.book }}</object>
+	{% else %}
+		<div class="candidatureViewImg">
+			<img src="{{ asset('images/photos/') ~ candidature.book }}" alt="" class="img-fluid">
+		</div>
+	{% endif %}
+
+{% endblock %}

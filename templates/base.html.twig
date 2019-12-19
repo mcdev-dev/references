@@ -10,10 +10,9 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Suez+One&display=swap" rel="stylesheet">
-		<link
-        rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-        
-        {% block stylesheets %}{% endblock %}
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+		<!-- Ico-moon Stylesheet -->
+		<link rel="stylesheet" href="{{ asset('css/icomoon/style.css') }}">
 
 		<!-- lesCityZens screen CSS style -->
 		<link
@@ -27,6 +26,9 @@
 
 		<!-- jQuery CDN -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<!-- jQuery Ui CDN -->
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+			integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 		<!-- Popper.js, then Bootstrap JS -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -58,38 +60,52 @@
 				<div class="search_bar">
 					<form id="search" action="{{ path('article_search') }}" method="post">
 						<input type="text" name="query" id="search-input">
-						<i class="fas fa-search"></i>
+						<i class="icon-magnifiying-glass glassIcon"></i>
 					</form>
 					<div id="result"></div>
 				</div>
 				<div class="authentication">
 					{% if is_granted('ROLE_ADMIN') %}
 						<div class="admin nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-tools"></i>Admin</a>
+							<a class="nav-link dropdown-toggle admin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="icon-setting-lines"></i>Admin</a>
 							<div class="dropdown-menu aria-labelledby=" navbardropdown"">
+								<a class="dropdown-item" href="{{ path('user_list') }}">
+									<i class="icon-networking"></i>Gestion des utilisateurs</a>
 								<a class="dropdown-item" href="#">
-									<i class="fas fa-users-cog"></i>Gestion des utilisateurs</a>
-								<a class="dropdown-item" href="#">
-									<i class="far fa-address-book"></i>Gestion des contacts</a>
+									<i class="icon-management"></i>Gestion des contacts</a>
 								<a class="dropdown-item" href="{{ path('article') }}">
-									<i class="fas fa-file-signature"></i>Gestion des contenus</a>
+									<i class="icon-editorial-design"></i>Gestion des contenus</a>
 								<a class="dropdown-item" href="{{ path('article_actu') }}">
-									<i class="far fa-newspaper"></i>Gestion des actualités</a>
+									<i class="icon-form"></i>Gestion des actualités</a>
+								<a class="dropdown-item" href="{{ path('join_us_list') }}">
+									<i class="icon-file"></i>Gestion des candidatures</a>
 							</div>
 						</div>
 					{% endif %}
 
 					{% if is_granted('ROLE_USER') %}
-						<div class="notifications">
-							<a href="">
-								<i class="fas fa-bell"></i>
+					<div class="notifications">
+						<a class="bell" href="">
+							<i class="icon-bell"></i>
+						</a>
+					</div>
+					<div class="admin nav-item dropdown userMr">
+						<a class="nav-link dropdown-toggle admin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							{{ render(url('user_name')) }}</a>
+						<div id="userDropdown" class="dropdown-menu aria-labelledby=" navbardropdown"">
+							<a class="dropdown-item" href="{{ path('user_profile') }}">
+								<i class="icon-user"></i>
+								Mon Compte
+							</a>
+							<a class="dropdown-item" href="{{ path('deconnexion') }}">
+								<i class="icon-turn-off"></i>
+								Déconnexion
 							</a>
 						</div>
-						<div class="disconnect">
-							<a href="{{ path('deconnexion') }}">
-								<i class="fas fa-power-off"></i>Déconnexion</a>
-						</div>
+					</div>
+						
 					{% endif %}
 					{% if not is_granted('ROLE_USER') %}
 						<div class="connect">
@@ -133,8 +149,8 @@
 						<li class="{{ (title == 'Habitat participatif') ? 'menuActive' : '' }}">
 							<a href="{{ path('habitat_participatif') }}">Habitat participatif</a>
 						</li>
-						<li class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }}">
-							<div class="ddToggle">Références<i id="angle" class="fas fa-angle-up"></i>
+						<li class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }} ddToggle">
+							<div>Références<i id="angle" class="fas fa-angle-up"></i>
 							</div>
 							<ul class="submenu">
 								<li>
@@ -192,7 +208,7 @@
 				<span class="pipe">|</span>
 				<a href="">Politique de confidentialité</a>
 				<span class="pipe">|</span>
-				<a href="{{ path('nous_rejoindre') }}">Rejoignez-nous</a>
+				<a href="{{ path('join_us_add') }}">Rejoignez-nous</a>
 			</div>
 		</footer>
 
@@ -201,4 +217,3 @@
 
 	</body>
 </html>
-

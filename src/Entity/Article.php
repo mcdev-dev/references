@@ -58,7 +58,7 @@ class Article
     private $createAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="articles", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="articles", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;

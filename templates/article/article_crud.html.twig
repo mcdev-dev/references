@@ -3,7 +3,11 @@
 {% set title = 'Ajouter ou modifier un article' %}
 
 {% block content %}
-    <div class="forwardPage"><i class="fas fa-arrow-left"></i><a href="{{ path('article') }}">Gestion des articles</a></div>
+    <div class="mt-4 mb-4">
+        <a class="undo" href="{{ path('article') }}">
+            <i class="icon-logout1"></i>
+        </a>
+    </div>
 
     <h2 class="title">{{ action }} un article</h2><br>
     {{ form_start(articleForm) }}

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
@@ -28,6 +29,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/article/add", name="article_add")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function addArticle(Request $request, ObjectManager $manager) 
     {
@@ -55,6 +57,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/article/update/{id}", name="article_update")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateArticle($id, Request $request, ArticleRepository $articleRepo, ObjectManager $manager) 
     {
@@ -82,6 +85,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/article/delete/{id}", name="article_delete")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function articleDelete($id, ArticleRepository $articleRepo, ObjectManager $manager) 
     {

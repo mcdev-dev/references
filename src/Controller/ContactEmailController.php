@@ -34,7 +34,6 @@ class ContactEmailController extends AbstractController
                 ->subject($email->getSubject())
                 ->text($email->getContent());
 
-
             $mailer->send($email);
 
             $manager->persist($email);

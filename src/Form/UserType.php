@@ -8,11 +8,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
-use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue as RecaptchaTrue;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserType extends AbstractType
 {
@@ -20,19 +19,30 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class)
-            ->add('password', PasswordType::class)
-            ->add('confirmPassword', PasswordType::class)
+            ->add('civilite', ChoiceType::class, [
+                'choices' => [
+                    'Monsieur' => 'm',
+                    'Madame' => 'f',
+                ]
+            ])
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options'  => ['label' => false],
+                'second_options' => ['label' => false],
+                'invalid_message' => 'Les deux mots de passe doivent être identiques',
+                'options' => [
+                    'attr' => [
+                        'class' => 'password-field'
+                    ]
+                ],
+                'required' => true,
+            ])
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
             ->add('email', EmailType::class)
             ->add('abonneNewsletter', CheckboxType::class, [
                 'required' => false
             ])
-            /* ->add('recaptcha', EWZRecaptchaType::class, array(
-                'mapped'      => false,
-                'constraints' => array(new RecaptchaTrue())
-            )) */
-            //->add('UserCoordonnees', UserCoordonneesType::class)
         ;
     }
 

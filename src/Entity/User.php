@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -38,17 +36,9 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
+     * @Assert\NotBlank(message="Veuillez saisir votre mot de passe.")
      */
     private $password;
-
-    /**
-     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
-     * @Assert\EqualTo(
-     *      propertyPath="password",
-     *      message="Erreur sur le mot de passe")
-     */
-    public $confirmPassword;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -61,7 +51,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
+     * @Assert\NotBlank(message="Veuillez saisir votre prénom.")
      * @Assert\Regex(
      *      pattern="~^[a-zA-ZÀ-ÖØ-öø-ÿœŒ ]+$~u", 
      *      message="Votre nom doit comporter entre 3 et 20 caractères.")
@@ -70,7 +60,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
+     * @Assert\NotBlank(message="Veuillez insérer votre email.")
      * @Assert\Email(checkMX="true", message="Veuillez entrer un email valide.")
      */
     private $email;
@@ -81,19 +71,45 @@ class User implements UserInterface
     private $role = 'ROLE_USER'; // !IMPORTANT
 
     /**
-     * @ORM\Column(type="string", length=5, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $abonneNewsletter;
+    private $abonneNewsletter = false;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserCoordonnees", mappedBy="users")
+     * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank(message="Veuillez préciser votre civilité.")
+     */
+    private $civilite;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $lastLogin;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $registrationDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCoordonnees", inversedBy="users", cascade={"persist", "remove"})
      */
     private $userCoordonnees;
 
-    public function __construct()
-    {
-        $this->userCoordonnees = new ArrayCollection();
-    }
+    /**
+     * Not ORM property
+     */
+    private $plainPassword;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $confirmationToken;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $enabled;
 
     public function getId(): ?int
     {
@@ -172,12 +188,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAbonneNewsletter(): ?string
+    public function getAbonneNewsletter(): ?bool
     {
         return $this->abonneNewsletter;
     }
 
-    public function setAbonneNewsletter(?string $abonneNewsletter): self
+    public function setAbonneNewsletter(?bool $abonneNewsletter): self
     {
         $this->abonneNewsletter = $abonneNewsletter;
 
@@ -194,33 +210,84 @@ class User implements UserInterface
     public function getSalt(){}
     public function eraseCredentials(){}
 
-    /**
-     * @return Collection|UserCoordonnees[]
-     */
-    public function getUserCoordonnees(): Collection
+    public function getCivilite(): ?string
     {
-        return $this->userCoordonnees;
+        return $this->civilite;
     }
 
-    public function addUserCoordonnee(UserCoordonnees $userCoordonnee): self
+    public function setCivilite(string $civilite): self
     {
-        if (!$this->userCoordonnees->contains($userCoordonnee)) {
-            $this->userCoordonnees[] = $userCoordonnee;
-            $userCoordonnee->setUsers($this);
-        }
+        $this->civilite = $civilite;
 
         return $this;
     }
 
-    public function removeUserCoordonnee(UserCoordonnees $userCoordonnee): self
+    public function getLastLogin(): ?\DateTimeInterface
     {
-        if ($this->userCoordonnees->contains($userCoordonnee)) {
-            $this->userCoordonnees->removeElement($userCoordonnee);
-            // set the owning side to null (unless already changed)
-            if ($userCoordonnee->getUsers() === $this) {
-                $userCoordonnee->setUsers(null);
-            }
-        }
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(\DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function getRegistrationDate(): ?\DateTimeInterface
+    {
+        return $this->registrationDate;
+    }
+
+    public function setRegistrationDate(\DateTimeInterface $registrationDate): self
+    {
+        $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    public function getUserCoordonnees(): ?UserCoordonnees
+    {
+        return $this->userCoordonnees;
+    }
+
+    public function setUserCoordonnees(?UserCoordonnees $userCoordonnees): self
+    {
+        $this->userCoordonnees = $userCoordonnees;
+
+        return $this;
+    }
+
+    public function getPlainPassword() 
+    {
+        return $this->plainPassword;
+    }
+    public function setPlainPassword($plainPassword) 
+    {
+        return $this->plainPassword = $plainPassword;
+
+    }
+
+    public function getConfirmationToken(): ?bool
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(bool $confirmationToken): self
+    {
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
 
         return $this;
     }

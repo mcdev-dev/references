@@ -17,4 +17,6 @@ return [
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
     CalendarBundle\CalendarBundle::class => ['all' => true],
+    Mgilet\NotificationBundle\MgiletNotificationBundle::class => ['all' => true],
+    Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
 ];

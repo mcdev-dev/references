@@ -17,27 +17,15 @@ class UserCoordonneesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class)
-            ->add('telephone', IntegerType::class)
-            ->add('civilite', ChoiceType::class, [
-                'choices' => [
-                    'Monsieur' => 'm',
-                    'Madame' => 'f'
-                ]
-            ])
+            ->add('telephone', IntegerType::class, [ 'label' => 'Téléphone' ])
             ->add('pays', TextType::class)
             ->add('ville', TextType::class)
-            /*->add('role', ChoiceType::class, [
-                'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
-                    'Administrateur' => 'ROLE_ADMIN',
-                    'Super admin' => 'ROLE_SUPER_ADMIN'
-                ]
-            ])*/
             ->add('codePostal', IntegerType::class)
             ->add('adresse', TextareaType::class)
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, [ 
+                'label' => false,
+                //'mapped' => false,
+            ])
         ;
     }
 

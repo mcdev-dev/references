@@ -11,14 +11,13 @@
 
         {{ form_start(registrationForm) }}
         
+        {{ form_errors(registrationForm.civilite) }}
+        {{ form_row(registrationForm.civilite, { 'label' : 'Civilité' }) }}
+
         {{ form_errors(registrationForm.username) }}
         {{ form_widget(registrationForm.username, { 'attr' : { 'placeholder' : 'Nom d\'utilisateur', 'class' : 'form-group' } }) }}
-        
-        {{ form_errors(registrationForm.password) }}
-        {{ form_widget(registrationForm.password, { 'attr' : { 'placeholder' : 'Mot de passe', 'class' : 'form-group' } }) }}
 
-        {{ form_errors(registrationForm.confirmPassword) }}
-        {{ form_widget(registrationForm.confirmPassword, { 'attr' : { 'placeholder' : 'Confirmation du mot de passe', 'class' : 'form-group' } }) }}
+        {{ form_widget(registrationForm.password) }}
         
         {{ form_errors(registrationForm.nom) }}
         {{ form_widget(registrationForm.nom, { 'attr' : { 'placeholder' : 'Nom', 'class' : 'form-group' } }) }}

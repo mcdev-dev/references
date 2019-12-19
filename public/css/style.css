@@ -30,6 +30,58 @@ textarea {
     border-radius: 3px !important;
     font-weight: 500 !important;
 }
+.text-success {
+    color: #24B99E !important;
+}
+.text-danger {
+    color: #D9326F !important;
+}
+.btn-success {
+  color: #fff;
+  background-color: rgb(36, 185, 158);
+  border-color: rgb(36, 185, 158);
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: rgb(30, 151, 129);
+  border-color: rgb(29, 143, 122);
+}
+.btn-success:focus{
+  box-shadow: 0 0 0 0.2rem rgba(72, 180, 164, 0.5);
+  outline: none !important;
+}
+.btn-success.disabled, .btn-success:disabled {
+  color: #fff;
+  background-color: rgb(36, 185, 158);
+  border-color: rgb(36, 185, 158);
+}
+.btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
+.show > .btn-success.dropdown-toggle {
+  color: #fff;
+  background-color: rgb(36, 185, 158);
+  border-color: rgb(36, 185, 158);
+}
+.btn-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus,
+.show > .btn-success.dropdown-toggle:focus {
+  box-shadow: none;
+}
+.custom-file-label::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: block;
+    height: calc(1.5em + .75rem);
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+    content: "Choisir un fichier";
+    background-color: #e9ecef;
+    border-left: inherit;
+    border-radius: 0 .25rem .25rem 0;
+}
 button a {
     color: inherit;
 }
@@ -111,7 +163,7 @@ fieldset.form-group {
     position: absolute;
     width: 100%;
     height: 2px;
-    top: 100%;
+    top: 80%;
     left: 0;
     background-color: #D9326F;
     z-index: -1;
@@ -131,6 +183,9 @@ fieldset.form-group {
     top: 0;
     left: 0;
     z-index: 2;
+}
+.userMr {
+    margin-right: 2em;
 }
 .top a {
     font-size: 0.85em;
@@ -176,13 +231,13 @@ fieldset.form-group {
 }
 .connect a, .disconnect a {
     color: rgb(223, 223, 223);
+    display: flex;
+    align-items: center;
 }
 .connect, .disconnect {
     padding: 0 1em;
     cursor: pointer;
     transition: ease-out .5s;
-    height: 44px;
-    line-height: 44px;
     overflow: hidden;
 }
 .disconnect i {
@@ -211,8 +266,8 @@ fieldset.form-group {
 }
 #search-input {
     width: 100%;
-    height: 26px;
-    line-height: 26px;
+    height: 28px;
+    line-height: 28px;
     background-color: transparent;
     border: 1px solid rgb(137, 135, 141);
     border-radius: 3px;
@@ -222,16 +277,16 @@ fieldset.form-group {
     color: rgb(190, 187, 194);
     transition: ease .5s;
 }
-#search-input:focus {
-    border: 1px solid #D9326F;
+input:focus, textarea:focus, select:focus {
+    border: 1px solid #D9326F !important;
+    box-shadow: none !important;
 }
-.fa-search {
-    font-size: .85em;
-    transform: translateX(-22px);
+.glassIcon {
+    transform: translateX(-28px);
     cursor: pointer;
     transition: ease .5s;
 }
-.fa-search:hover {
+.glassIcon:hover {
     color: #D9326F;
 }
 /* Ménu */
@@ -258,11 +313,10 @@ nav{
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: .5em 0;
 }
 .navigation > li {
     margin-right: 1.5em;
-    padding: .25em .5em;
+    padding: 1em .5em;
     position: relative;
 }
 .navigation > li:last-child {
@@ -275,7 +329,7 @@ nav{
     transform: rotate(180deg);
     transition: ease-in .3s;
 }
-.navigation > li > a, .navigation > li > .ddToggle {
+.navigation > li > a, .navigation > li.ddToggle {
     display: inline-block;
     color: inherit;
     text-decoration: none;
@@ -287,12 +341,12 @@ nav{
     transition: ease .5s;
     cursor: pointer;
 }
-.navigation > li > a:hover, .navigation > li > .ddToggle:hover {
+.navigation > li > a:hover, .navigation > li.ddToggle:hover {
     color: #D9326F;
 }
 .submenu {
     position : absolute;
-    top: 100%;
+    top: 90%;
     width: 300%;
     left: -100%;
     padding: 1em;
@@ -340,8 +394,8 @@ nav{
 .submenu > li a {
     display: block;
     color: #4b4d55;
-    font-size: 0.9em;
-    font-weight: 300;
+    font-weight: 400;
+    text-transform: initial;
     margin: 0.5em 0;
     position: relative;
     width: 100%;
@@ -464,6 +518,8 @@ nav{
     font-size: 1em !important;
     padding: 0 1em !important;
     letter-spacing: 0 !important;
+    display: flex;
+    align-items: center;
     transition: ease .5s;
 }
 .dropdown-item:hover {
@@ -473,10 +529,11 @@ nav{
     font-size: 1.35em !important;
 }
 .dropdown-menu {
-    top: 8px !important;
-    padding-top: 0;
-    padding-bottom: 0;
     overflow: hidden;
+}
+#userDropdown {
+    top: 8px !important;
+    left: -24px !important;
 }
 
 .mapContact {
@@ -621,6 +678,23 @@ main {
     width: 100px;
     height: 6px;
     background-color: #D9326F;
+}
+.titleArtBgSuccess {
+    font-weight: 300 !important;
+    font-size: 3em;
+    margin-bottom: 1em;
+    position: relative;
+}
+.titleArtBgSuccess::before {
+    position: absolute;
+    content: '';
+    top: 130%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 6px;
+    background-color: #24B99E;
 }
 .titleArtBgColorNautral {
     font-weight: 300 !important;
@@ -1050,18 +1124,26 @@ element.style, .elementor-column-wrap, .elementor-element-populated, .elementor-
     justify-content: center;
 }
 .undo {
-    background: url('../photo/left_arrow.svg') no-repeat;
-    width: 52px;
-    height: 40px;
+    color: inherit;
     transition: ease .5s;
 }
 .undo:hover {
-    background: url('../photo/left_arrow_hover.svg') no-repeat;
+    color: #D9326F;
+    text-decoration: none !important;
 }
 
 .notifications {
-    font-size: 1.3em;
     padding: 0 .5em;
+    display: flex;
+    align-items: center;
+    transition: ease .5s;
+}
+.notifications a {
+    display: flex;
+    align-items: center;
+}
+.notifications:hover .bell {
+    color: #D9326F;
 }
 .alignMiddle {
     align-items: center;
@@ -1090,9 +1172,335 @@ element.style, .elementor-column-wrap, .elementor-element-populated, .elementor-
     cursor: pointer;
 }
 /* View other photos */
+.candidatureView li {
+    width: 50%;
+}
+.candidatureViewImg img {
+    width: 100%;
+}
+.viewCandidatPdf {
+    width: 100%;
+}
+.candidatureOverFlow {
+    height: 120px;
+    overflow: hidden;
+}
+.admin {
+    display: flex;
+    align-items: center;
+}
+.candidatureForm {
+    font-size: 2.35em;
+    font-weight: 400 !important;
+}
+
+/* ProgressBar Questionnaire Candidature */
+
+/* .progressBar {
+    margin-top: 4em;
+    font-size: .9em;
+    display: flex;
+    justify-content: space-between;
+    counter-reset: step;
+}
+.progressBar li {
+    width: 15.5%;
+    text-align: center;
+    position: relative;
+    transition: ease-in .5s;
+}
+.progressBar li::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 48px;
+    display: block;
+    margin: 0 auto 1em auto;
+    color: #97999d;
+    background-color: #fff;
+    border: 1px solid #afafb3;
+    transition: all ease-in .5s;
+    z-index: 1;
+}
+.progressBar li.active::before {
+    color: rgb(36, 185, 158);
+    border: 1px solid rgb(36, 185, 158);
+}
+.progressBar li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    top: 14px;
+    left: -50%;
+    background-color: rgb(36, 185, 158);
+    z-index: -1;
+    transition: ease-in .5s;
+}
+.progressBar li.active + li::after {
+    width: 100%;
+}
+.progressBar li:first-child::after {
+    content: none;
+}
+
+.goCandidature {
+    margin: 2em auto 0 auto !important;
+    display: block !important;
+}
+section li {
+    margin: 0.5em 0;
+    padding-left: 1.65em;
+    position: relative;
+}
+section li::before {
+    position: absolute;
+    content: url('../photo/check_success.svg');
+    width: 18px;
+    height: 18px;
+    left: 0;
+    top: 2px;
+}
+#stepContainer {
+    margin: 4em 0 2em 0;
+    padding: 2em;
+    border-radius: 5px;
+    box-shadow: 0 0 4px rgb(186, 186, 186);
+}
+.stepContent {
+    margin-bottom: 2em;
+}
+.stepContent:last-child {
+    margin-bottom: 0;
+}
+.stepDirections {
+    display: flex;
+    justify-content: space-between;
+    margin: 2em auto 0 auto;
+    width: 60%;
+} */
+#msform {
+    /**/
+}
+#msform fieldset {
+    width: 90%;
+    margin: 4em auto 2em auto;
+    padding: 2em;
+    border-radius: 5px;
+    box-shadow: 0 0 4px rgb(186, 186, 186);
+}
+#msform input:focus, #msform textarea:focus, #msform select:focus {
+    border-color: rgb(36, 185, 158) !important;
+}
+
+/* headings */
+.fs-title {
+    margin-bottom: 1.35em;
+}
+.fs-subtitle {
+    margin-bottom: 1.35em;
+}
+
+/* ProgressBar */
+#progressbar {
+    margin-top: 4em;
+    font-size: .9em;
+    display: flex;
+    justify-content: space-between;
+    counter-reset: step;
+}
+#progressbar li {
+    width: 15.5%;
+    text-align: center;
+    position: relative;
+    transition: ease-in .5s;
+}
+#progressbar li::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 48px;
+    display: block;
+    margin: 0 auto 1em auto;
+    color: #97999d;
+    background-color: #fff;
+    border: 1px solid #afafb3;
+    transition: all ease-in .5s;
+    z-index: 1;
+}
+#progressbar li.active::before{
+    color: rgb(36, 185, 158);
+    border: 1px solid rgb(36, 185, 158);
+}
+#progressbar li::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    top: 14px;
+    left: -50%;
+    background-color: #afafb3;
+    z-index: -1;
+    transition: ease-in .5s;
+}
+#progressbar li:first-child::after {
+    content: none;
+}
+#progressbar li.active::after {
+    background-color: rgb(36, 185, 158);
+}
+
+/* Hide all except first fieldset */
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+fieldset li {
+    margin: 0.5em 0;
+    padding-left: 1.65em;
+    position: relative;
+}
+fieldset li::before {
+    position: absolute;
+    content: url('../photo/check_success.svg');
+    width: 18px;
+    height: 18px;
+    left: 0;
+    top: 2px;
+}
+.btnPos {
+    display: flex;
+    justify-content: center;
+}
+
+/* ProgressBar Questionnaire Candidature */
+
+/*
+* Profile
+*/
+.userProfile {
+    flex-wrap: nowrap;
+    margin-bottom: 2em;
+}
+.menuUserInfos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,.1);
+    overflow: hidden;
+    /*box-shadow: 0 0 4px rgb(186, 186, 186);*/
+}
+.menuUserInfos a {
+    display: block !important;
+    width: 100%;
+    padding: 1em 1.25em;
+    color: rgb(151, 153, 157);
+    text-decoration: none;
+    transition: ease .5s;
+}
+.menuUserInfosActive {
+    color: inherit !important;
+    background-color: #f9f9f9;
+    overflow: hidden;
+    position: relative;
+    transition: ease-in .5s;
+}
+.menuUserInfosActive::before {
+    position: absolute;
+    content: '';
+    width: 5px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #D9326F;
+}
+.menuUserInfos a:hover {
+    color: inherit;
+    background-color: #f9f9f9;
+}
+.userInfosBlock {
+    padding: 1.25em;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,.1);
+    /*box-shadow: 0 0 4px rgb(186, 186, 186);*/
+}
+.uibChild h1 {
+    font-size: 1.35em;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+.iconAvatar::before {
+    font-size: 80px;
+    color: #afafb3;
+}
+.avatar {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+    border-radius: 5px;
+    border: 1px dashed rgba(0,0,0,.1);
+    border-spacing: 2px;
+    overflow: hidden;
+}
+.avatar .blockFile {
+    position: relative;
+    width: 85%;
+    height: 85%;
+    overflow: hidden;
+}
+.avatar .blockFile img {
+    transform: scale(1.15) translateY(-15px);
+}
+.icoAvatar {
+    transform: scale(1) translateY(-20px) !important;
+}
+.smAvatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 96px;
+    overflow: hidden;
+}
+.smAvatar img {
+    transform: scale(1.75) translateY(-3px);
+}
+.editAvatar {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 125px;
+    right: 10px;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.3);
+    z-index: 1000;
+    opacity: .8;
+    transition: all ease-in .5s;
+}
+.editAvatar:hover {
+    opacity: 1;
+    color: #D9326F;
+}
+.editAvatar i::before {
+    font-size: 20px !important;
+}
+#infos_perso .vich-image {
+    display: none !important;
+}
 
 
-
+/* Fin profile */
 
 
 footer {

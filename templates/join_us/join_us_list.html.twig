@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Listes des candidatures' %}
+
+{% block content %}
+
+	<h3 class="title col-md-7">Gestion des candidatures</h3><br><br>
+
+	{% if candidatures is not empty %}
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+					<th class="align-top">Nom</th>
+					<th class="align-top">Prénom</th>
+					<th class="align-top">Email</th>
+					<th class="align-top">Téléphone</th>
+					<th class="align-top">Sujet</th>
+					<th class="align-top">Message</th>
+					<th class="align-top">CV</th>
+					<th class="align-top">Lettre de motivation</th>
+					<th class="align-top">Autre document</th>
+					<th class="align-top" colspan="2">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for candidature in candidatures %}
+					<tr>
+						<td>{{ candidature.nom | capitalize }}</td>
+						<td>{{ candidature.prenom | capitalize }}</td>
+						<td>{{ candidature.email }}</td>
+						<td>{{ (candidature.telephone | length != 0) ? candidature.telephone : 'Aucun numéro de téléphone' }}</td>
+						<td>{{ candidature.subject | capitalize }}</td>
+						<td>{{ candidature.message | striptags | truncate(30,true) | raw }}</td>
+						<td>
+							{{ (candidature.cv | length == 0) ? 'Aucun CV' : '' }}
+							{% if candidature.cv | split('.') | last == 'pdf' %}
+								<div class="candidatureOverFlow">
+									<object data="{{ asset('images/photos/') ~ candidature.cv }}" type="application/pdf" width="160">{{ candidature.cv }}</object>
+								</div>
+							{% else %}
+								<div class="candidatureOverFlow">
+									<img src="{{ asset('images/photos/') ~ candidature.cv }}" alt="" {{ (candidature.cv is not empty) ? 'width="160"' : '' }}>
+								</div>
+							{% endif %}
+						</td>
+						<td>
+							{{ (candidature.lettreMotivation | length == 0) ? 'Aucune lettre de motivation' : '' }}
+							{% if candidature.lettreMotivation | split('.') | last == 'pdf' %}
+								<div class="candidatureOverFlow">
+									<object data="{{ asset('images/photos/') ~ candidature.lettreMotivation }}" type="application/pdf" width="160">{{ candidature.lettreMotivation }}</object>
+								</div>
+							{% else %}
+								<div class="candidatureOverFlow">
+									<img src="{{ asset('images/photos/') ~ candidature.lettreMotivation }}" alt="" {{ (candidature.lettreMotivation is not empty) ? 'width="160"' : '' }}>
+								</div>
+							{% endif %}
+						</td>
+						<td>
+							{{ (candidature.book | length == 0) ? 'Aucun document' : '' }}
+							{% if candidature.book | split('.') | last == 'pdf' %}
+								<div class="candidatureOverFlow">
+									<object data="{{ asset('images/photos/') ~ candidature.book }}" type="application/pdf" width="160">{{ candidature.book }}</object>
+								</div>
+							{% else %}
+								<div class="candidatureOverFlow">
+									<img src="{{ asset('images/photos/') ~ candidature.book }}" alt="" {{ (candidature.book is not empty) ? 'width="160"' : '' }}>
+								</div>
+							{% endif %}
+						</td>
+						<td>
+							<a href="{{ path('candidature_view', { 'id' : candidature.id }) }}">
+								<i class="icon-magnifiying-glass"></i>
+							</a>
+						</td>
+						<td>
+							<a class="confirm" href="{{ path('candidature_delete', { 'id' : candidature.id }) }}">
+								<i class="icon-trash"></i>
+							</a>
+						</td>
+						<!--td>{#{ candidature.createAt | date('d/m/Y à H:i') }#}</td-->
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	{% else %}
+		<div class="alert alert-danger">
+			<strong>Désolé !</strong>
+			Il n'existe aucune candidature pour l'instant.</div>
+
+	{% endif %}
+
+
+{% endblock %}

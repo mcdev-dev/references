@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -11,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\UserCoordonneesRepository")
  * @Vich\Uploadable
  */
-class UserCoordonnees
+class UserCoordonnees implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -21,43 +23,25 @@ class UserCoordonnees
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
-     */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      * @Assert\NotBlank(message="Veuillez remplir ce champs.")
      */
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=5)
-     * @Assert\NotBlank(message="Veuillez remplir ce champs.")
-     */
-    private $civilite;
-
-    /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      * @Assert\NotBlank(message="Veuillez remplir ce champs.")
      */
     private $pays;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      * @Assert\NotBlank(message="Veuillez remplir ce champs.")
      */
     private $ville;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      * @Assert\NotBlank(message="Veuillez remplir ce champs.")
      * @Assert\Regex(
      *      pattern="#^[0-9]{4,5}$#", 
@@ -66,14 +50,14 @@ class UserCoordonnees
     private $codePostal;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      * @Assert\NotBlank(message="Veuillez remplir ce champs.")
      */
     private $adresse;
 
     /**
      * 
-     * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="avatar")
      * 
      * @var File
      */
@@ -82,47 +66,28 @@ class UserCoordonnees
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $imageName;
+    private $avatar;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userCoordonnees")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="userCoordonnees")
      */
     private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
     }
 
     public function getTelephone(): ?int
@@ -133,18 +98,6 @@ class UserCoordonnees
     public function setTelephone(int $telephone): self
     {
         $this->telephone = $telephone;
-
-        return $this;
-    }
-
-    public function getCivilite(): ?string
-    {
-        return $this->civilite;
-    }
-
-    public function setCivilite(string $civilite): self
-    {
-        $this->civilite = $civilite;
 
         return $this;
     }
@@ -223,27 +176,68 @@ class UserCoordonnees
         return $this->imageFile;
     }
 
-    public function setImageName(?string $imageName): void
+    public function setAvatar(?string $avatar): void
     {
-        $this->imageName = $imageName;
+        $this->avatar = $avatar;
+    }
+    
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
     }
 
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    public function getUsers(): ?User
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function setUsers(?User $users): self
+    public function addUser(User $user): self
     {
-        $this->users = $users;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setUserCoordonnees($this);
+        }
 
         return $this;
     }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getUserCoordonnees() === $this) {
+                $user->setUserCoordonnees(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->avatar,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->avatar,
+        ) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
+    /*public function setUpdatedAt($updatedAt) {
+        return $this->updatedAt = $updatedAt;
+    }*/
 
 
 }

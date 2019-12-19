@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleActuController extends AbstractController
@@ -52,6 +53,7 @@ class ArticleActuController extends AbstractController
 
     /**
      * @Route("/actualites/add", name="article_actu_add")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function addArticle(Request $request, ObjectManager $manager) 
     {
@@ -79,6 +81,7 @@ class ArticleActuController extends AbstractController
 
     /**
      * @Route("/actualites/update/{id}", name="article_actu_update")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateArticle($id, Request $request, ArticleActuRepository $articleRepo, ObjectManager $manager) 
     {
@@ -106,6 +109,7 @@ class ArticleActuController extends AbstractController
 
     /**
      * @Route("/actualites/delete/{id}", name="article_actu_delete")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function articleDelete($id, ArticleActuRepository $articleRepo, ObjectManager $manager) 
     {
@@ -134,6 +138,8 @@ class ArticleActuController extends AbstractController
                 'saisie' => $query,
                 'results' => $results
             ]);
+
+            //dd($query);
             
             if(count($results) > 0) {
                 return new JsonResponse([

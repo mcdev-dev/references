@@ -4,3 +4,8 @@
 
 #captcha_routing : 
   #ressource :  "@ CaptchaBundle / Resources / config / routing.yml"
+
+login:
+    path:       /connexion
+    controller: App\Controller\SecurityController::connexion
+    methods: GET|POST

@@ -2,11 +2,46 @@ Lien pour installer et mettre en place FOSCKEditorBundle :
 https://symfony.com/doc/master/bundles/FOSCKEditorBundle/index.html
 
 Lien pour uploader plusieurs images avec vichuploaderbundle :
-https://jean-pierre.lambelet.net/uploader-plusieurs-fichiers-dans-une-entity-avec-symfony4-et-vichuploaderbundle%EF%BB%BF/
+https://jean-pierre.lambelet.net/astuces/symfony/symfony4/uploader-plusieurs-fichiers-dans-une-entity-avec-symfony4-et-vichuploaderbundle%ef%bb%bf-461/
 
 Parcourrir un arrayCollection :
 https://stackoverflow.com/questions/37379526/an-exception-has-been-thrown-during-the-rendering-of-a-template
 
 Petits réglages pour symfony sous Mac OSX :
 https://www.teddypayet.com/Petits-reglages-pour-symfony-sous-Mac-OSX
+
+Créer une police d’icônes facilement à partir d’illustrations vectorielles :
+https://www.alsacreations.com/tuto/lire/1547-police-font-icone-vectorielle-webdesign.html
+
+AJOUTER UN LOADER PENDANT LE CHARGEMENT DE VOS PAGES WEB :
+https://www.thibautsoufflet.fr/ajouter-loader-pendant-le-chargement-de-vos-pages-web/
+
+RÉCUPÉRER PLUS SIMPLEMENT L’UTILISATEUR DANS UN CONTRÔLEUR SYMFONY :
+https://blog.netinfluence.ch/2019/04/12/recuperer-plus-simplement-lutilisateur-dans-un-controleur-symfony/
+
+Comment styliser les valeurs décimales dans les prix dans WooCommerce :
+https://www.tychesoftwares.com/how-to-stylise-the-decimal-values-in-prices-in-woocommerce/
+
+Symfony 4 - Changer le mot de passe par nom d'utilisateur :
+https://stackoverflow.com/questions/50530114/symfony-4-change-password-by-username-email-can-not-be-null
+
+Mis à jour la quantité restante du produit :
+https://blog.dev-web.io/2019/11/06/symfony-4-doctrine-event-subscriber/
+
+Symfony 4: écouteur d'événements de connexion :
+https://rihards.com/2018/symfony-login-event-listener/
+
+Envoi d'emails avec Mailer :
+https://symfony.com/doc/4.3/mailer.html
+
+Comment modifier dynamiquement des formulaires à l'aide d'événements de formulaire :
+https://symfony.com/doc/4.3/form/dynamic_form_modification.html
+
+
+Swap Image on Hover - With CSS
+https://codepen.io/creativeprogrammer/pen/RpBpgm
+
+
+
+
 

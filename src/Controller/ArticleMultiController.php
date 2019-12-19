@@ -8,6 +8,7 @@ use App\Repository\ArticleMultiRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleMultiController extends AbstractController
@@ -42,6 +43,7 @@ class ArticleMultiController extends AbstractController
     /**
      * @Route("/article/multi/add", name="article_multi_add")
      * Route d'ajout d'un article
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function addArticle(Request $request, ObjectManager $manager)
     {
@@ -78,6 +80,7 @@ class ArticleMultiController extends AbstractController
     /**
      * @Route("/article/multi/update/{id}", name="article_multi_update")
      * Route de modification d'un article
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateArticle($id, ObjectManager $manager, ArticleMultiRepository $repo, Request $request) 
     {
@@ -115,6 +118,7 @@ class ArticleMultiController extends AbstractController
     /**
      * @Route("/article/multi/delete/{id}", name="article_multi_delete")
      * Route de suppression d'un article
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteArticle($id, ObjectManager $manager, ArticleMultiRepository $repo) 
     {

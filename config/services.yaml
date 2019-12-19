@@ -3,6 +3,9 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'fr'
+    app.notifications.email_sender: lcz.grabli@gmail.com
 
 services:
     # default configuration for services in *this* file
@@ -26,6 +29,23 @@ services:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+    
+    App\EventListener\LoginListener:
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
+    
+    # le nom de votre service
+    App\EventSubscriber\RegistrationNotifySubscriber:
+        # le nom de la variable que l'on utilisera dans le service
+        $sender: '%app.notifications.email_sender%'
+    
+    App\EventSubscriber\NotifyUpdateProfile:
+        # le nom de la variable que l'on utilisera dans le service
+        $sender: '%app.notifications.email_sender%'
+    
+    App\EventSubscriber\NotifyUpdatePassword:
+        # le nom de la variable que l'on utilisera dans le service
+        $sender: '%app.notifications.email_sender%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

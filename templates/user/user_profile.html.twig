@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Informations personnelles' %}
+
+{% block content %}
+
+{% if app.user %}
+    <div class="row userProfile">
+        <div class="col-md-4 mr-2">
+            <div class="menuUserInfos">
+                <a class="{{ (title == 'Informations personnelles') ? 'menuUserInfosActive' : '' }}" href="{{ path('user_profile') }}">
+                    Informations personnelles
+                </a>
+                <a class="{{ (title == 'Modification du mot de passe') ? 'menuUserInfosActive' : '' }}" href="{{ path('reset_password') }}">
+                    Mot de passe
+                </a>
+            </div>
+        </div>
+        <div class="col-md-8 userInfosBlock">
+            <div id="infos_perso" class="uibChild">
+                <h1>Informations personnelles</h1>
+                <hr>
+                    <!--i class="icon-avatar-1 iconAvatar"></i-->
+                    {% if user.userCoordonnees is empty and user.civilite == 'f' %}
+
+                    <div class="avatar">
+                        <div class="blockFile">
+                            <label for="profile_userCoordonnees_imageFile_file"> 
+                                <div class="editAvatar">
+                                    <i class="icon-pencil"></i>
+                                </div>
+                            </label>
+                            <img src="{{ asset('photo/woman.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
+                        </div>
+                    </div>
+                    
+                    {% endif %}
+
+                    {% if user.userCoordonnees is empty and user.civilite == 'm' %}
+                    
+                    <div class="avatar">
+                        <div class="blockFile">
+                            <label for="profile_userCoordonnees_imageFile_file"> 
+                                <div class="editAvatar">
+                                    <i class="icon-pencil"></i>
+                                </div>
+                            </label>
+                            <img src="{{ asset('photo/man.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if user.userCoordonnees is not empty and user.civilite == 'f' and user.userCoordonnees.avatar is empty %}
+                    <div class="avatar">
+                        <div class="blockFile">
+                            <label for="profile_userCoordonnees_imageFile_file"> 
+                                <div class="editAvatar">
+                                    <i class="icon-pencil"></i>
+                                </div>
+                            </label>
+                            <img src="{{ asset('photo/woman.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
+                        </div>
+                    </div>              
+                    {% endif %}
+
+                    {% if user.userCoordonnees is not empty and user.civilite == 'm' and user.userCoordonnees.avatar is empty %}
+                    <div class="avatar">
+                        <div class="blockFile">
+                            <label for="profile_userCoordonnees_imageFile_file"> 
+                                <div class="editAvatar">
+                                    <i class="icon-pencil"></i>
+                                </div>
+                            </label>
+                            <img src="{{ asset('photo/man.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if user.userCoordonnees is not empty and user.userCoordonnees.avatar is not empty %}
+                    <div class="avatar">
+                        <div class="blockFile">
+                            <label for="profile_userCoordonnees_imageFile_file"> 
+                                <div class="editAvatar">
+                                    <i class="icon-pencil"></i>
+                                </div>
+                            </label>
+                            <img src="{{ asset('images/photos/') ~ user.userCoordonnees.avatar }}" alt="{{ user.prenom }}" class="img-fluid">
+                        </div>
+                    </div>
+                    {% endif %}
+                
+                {{ form_start(form) }}
+
+                {{ form_row(form.civilite, { 'label' : 'Civilité' }) }}
+
+                {{ form_row(form.username, { 'label' : 'Nom d\'utilisateur' }) }}
+
+                {{ form_row(form.nom, { 'label' : 'Nom' }) }}
+
+                {{ form_row(form.prenom, { 'label' : 'Prénom' }) }}
+
+                {{ form_row(form.email, { 'label' : 'Email' }) }}
+
+                {{ form_row(form.userCoordonnees.telephone) }}
+                
+                {{ form_row(form.abonneNewsletter) }}
+
+                {{ form_row(form.password, { 'attr' : { 'value' : user.getPassword() } }) }}
+                <br>
+                <h1>Adresse</h1>
+                <hr>
+                {{ form_row(form.userCoordonnees) }}
+
+                <div class="form-group mx-auto col-md-4">
+                    <button type="submit" class="btn btnSubmit col-12">Enregistrer</button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+{% endblock %}

@@ -4,8 +4,8 @@
 
 {% block content %}
 	<div class="mb-4">
-		<a href="{{ path('habitat_participatif') }}">
-			<div class="undo"></div>
+		<a class="undo" href="{{ path('habitat_participatif') }}">
+			<i class="icon-logout1"></i>
 		</a>
 	</div>
 	<div class="titleArtBgColorNautral mb-4 head1">{{ articleMulti.titre }}</div>
@@ -43,7 +43,7 @@
 
 	<div class="mt-4 mb-4 titleProject">
 		{{ articleMulti.description | raw }}
-		<a class="btn btnSubmit mt-4 mb-4" href="{{ path('connexion') }}">Participer</a>
+		<a class="btn btnSubmit mt-4 mb-4" href="{{ path('questionnaire_candidature') }}">Participer</a>
 		{{ articleMulti.transport | raw }}
 		{{ articleMulti.santeServicesSociaux | raw }}
 		{{ articleMulti.servicesAdmin | raw }}

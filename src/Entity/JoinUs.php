@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\JoinUsRepository")
+ * @Vich\Uploadable
  */
 class JoinUs
 {
@@ -37,7 +40,7 @@ class JoinUs
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $telephone;
 
@@ -54,19 +57,50 @@ class JoinUs
     private $message;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"})
+     * 
+     * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="cv")
+     * 
+     * @var File
+     */
+    private $cvFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $cv;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"})
+     * 
+     * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="lettreMotivation")
+     * 
+     * @var File
+     */
+    private $lettreMotivationFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lettreMotivation;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Media", cascade={"persist", "remove"})
+     * 
+     * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="book")
+     * 
+     * @var File
+     */
+    private $bookFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $book;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -145,41 +179,105 @@ class JoinUs
         return $this;
     }
 
-    public function getCv(): ?Media
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $cvFile
+     */
+    public function setCvFile(?File $cvFile = null): void
+    {
+        $this->cvFile = $cvFile;
+
+        if (null !== $cvFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getCvFile(): ?File
+    {
+        return $this->cvFile;
+    }
+
+    public function setCv(?string $cv): void
+    {
+        $this->cv = $cv;
+    }
+
+    public function getCv(): ?string
     {
         return $this->cv;
     }
 
-    public function setCv(?Media $cv): self
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $lettreMotivationFile
+     */
+    public function setLettreMotivationFile(?File $lettreMotivationFile = null): void
     {
-        $this->cv = $cv;
+        $this->lettreMotivationFile = $lettreMotivationFile;
 
-        return $this;
+        if (null !== $lettreMotivationFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
-    public function getLettreMotivation(): ?Media
+    public function getLettreMotivationFile(): ?File
+    {
+        return $this->lettreMotivationFile;
+    }
+
+    public function setLettreMotivation(?string $lettreMotivation): void
+    {
+        $this->lettreMotivation = $lettreMotivation;
+    }
+
+    public function getLettreMotivation(): ?string
     {
         return $this->lettreMotivation;
     }
 
-    public function setLettreMotivation(?Media $lettreMotivation): self
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $bookFile
+     */
+    public function setBookFile(?File $bookFile = null): void
     {
-        $this->lettreMotivation = $lettreMotivation;
+        $this->bookFile = $bookFile;
 
-        return $this;
+        if (null !== $bookFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
-    public function getBook(): ?Media
+    public function getBookFile(): ?File
+    {
+        return $this->bookFile;
+    }
+
+    public function setBook(?string $book): void
+    {
+        $this->book = $book;
+    }
+
+    public function getBook(): ?string
     {
         return $this->book;
     }
 
-    public function setBook(?Media $book): self
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        $this->book = $book;
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
+
 
     
 }

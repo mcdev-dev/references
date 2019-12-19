@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Gestion des utilisateurs' %}
+
+{% block content %}
+
+<div class="row">
+    <h3 class="title col-md-8">Gestion des utilisateurs</h3>
+    <div class="col-md-4">
+        <a class="btn btnSubmit col-12" href="{{ path('user_add') }}">Ajouter un utilisateur</a>
+    </div>
+</div><br><br>
+
+{% if users is not empty %}
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th class="align-top text-center">Nom</th>
+            <th class="align-top text-center">Prénom</th>
+            <th class="align-top text-center">Email</th>
+            <th class="align-top text-center">Rôle</th>
+            <th class="align-top text-center">Abonnement Newsletter</th>
+            <th class="align-top text-center">Civilité</th>
+            <th class="align-top text-center">Dernière connexion</th>
+            <th class="align-top text-center">Date d'inscription</th>
+            <th class="align-top text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td class="text-center">{{ user.nom | capitalize }}</td>
+            <td class="text-center">{{ user.prenom | capitalize }}</td>
+            <td class="text-center">{{ user.email }}</td>
+            <td class="text-center">{{ (user.role == 'ROLE_ADMIN') ? 'Administrateur' : 'Utilisateur' }}</td>
+            <td class="text-center"  width="200">{{ (user.abonneNewsletter == 1) ? 'Oui' : 'Non' }}</td>
+            <td class="text-center">{{ (user.civilite == 'm') ? 'Monsieur' : 'Madame' }}</td>
+            <td class="text-center">{{ user.lastLogin | date('d/m/Y à H:i') }}</td>
+            <td class="text-center">{{ user.registrationDate | date('d/m/Y à H:i') }}</td>
+            <td class="text-center">
+                <a class="confirm" href="{{ path('user_delete', { 'id' : user.id }) }}">
+                    <i class="icon-trash"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<div class="alert alert-danger">
+    <strong>Désolé !</strong>
+    Il n'existe aucun utilisateur pour l'instant.</div>
+
+{% endif %}
+
+{% endblock %}

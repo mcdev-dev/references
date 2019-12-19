@@ -1,11 +1,18 @@
 $(function () {
 
     function submitSearchBtn() {
-        $('.fa-search').click(() => {
+        $('.glassIcon').click(() => {
             $('#search').submit();
         });
     }
     submitSearchBtn();
+
+    function addFormAttribute() 
+    {
+        $('#user_password_first').attr('placeholder', 'Mot de passe');
+        $('#user_password_second').attr('placeholder', 'Confirmation du mot de passe');
+    }
+    addFormAttribute();
 
     function viewProfileImage() {
         $('.vich-image').after('<div id="view"></div>');
@@ -97,29 +104,29 @@ $(function () {
             reader.readAsDataURL(e.target.files[0]);
         });
 
-        $('#join_us_cv_imageFile_file').on('change', (e) => {
-            $('#join_us_cv_imageFile_file').after(e.target.files[0].name);
+        $('#join_us_cvFile_file').on('change', (e) => {
+            $('#join_us_cvFile_file').after(e.target.files[0].name);
             let reader = new FileReader();
             reader.onload = (e) => {
-                $('#join_us_cv_imageFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
+                $('#join_us_cvFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
             }
             reader.readAsDataURL(e.target.files[0]);
         });
 
-        $('#join_us_lettreMotivation_imageFile_file').on('change', (e) => {
-            $('#join_us_lettreMotivation_imageFile_file').after(e.target.files[0].name);
+        $('#join_us_lettreMotivationFile_file').on('change', (e) => {
+            $('#join_us_lettreMotivationFile_file').after(e.target.files[0].name);
             let reader = new FileReader();
             reader.onload = (e) => {
-                $('#join_us_lettreMotivation_imageFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
+                $('#join_us_lettreMotivationFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
             }
             reader.readAsDataURL(e.target.files[0]);
         });
 
-        $('#join_us_book_imageFile_file').on('change', (e) => {
-            $('#join_us_book_imageFile_file').after(e.target.files[0].name);
+        $('#join_us_bookFile_file').on('change', (e) => {
+            $('#join_us_bookFile_file').after(e.target.files[0].name);
             let reader = new FileReader();
             reader.onload = (e) => {
-                $('#join_us_book_imageFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
+                $('#join_us_bookFile_file').after('<div class="mt-3 mb-2"><img src="' + e.target.result + '" class="img-fluid"></div>');
             }
             reader.readAsDataURL(e.target.files[0]);
         });
@@ -335,11 +342,12 @@ $(function () {
             affResult.fadeIn();
             let saisie = $(searchBar).val();
             let url = $('#search').attr('action');
+            let data = $('#search').serialize();
 
             $.ajax({
                 method: 'post',
                 url: url,
-                data: { saisie: saisie },
+                data: data,
                 dataType: 'json',
                 success: (response) => {
                     //console.log(response);
@@ -359,6 +367,77 @@ $(function () {
     }
     articleSearch();
 
+    function progressBarCandidature() 
+    {
+        //jquery Time
+        var current_fs, next_fs, previous_fs; // fieldsets
+        var left, opacity, scale; // propriétés du fieldset qui seront animées
+        var animating;
+
+        $('.next').each((key, value) => 
+        {
+            $(value).click(() => 
+            {
+                current_fs = $(value).parent().parent();
+                next_fs = $(value).parent().parent().next();
+                //console.log(next_fs);
+
+                // Activez l'étape suivante sur la barre de progression à l'aide de l'index de next_fs
+                $('#progressbar li').eq($('fieldset').index(next_fs)).addClass('active');
+
+                // Afficher le fieldset suivant
+                next_fs.fadeIn();
+
+                // Masquer le fieldset actuel
+                current_fs.fadeOut();
+
+            });
+        });
+
+        $('.previous').each((key, value) => 
+        {
+            $(value).click(() => 
+            {
+                current_fs = $(value).parent().parent();
+                previous_fs = $(value).parent().parent().prev();
+                //console.log(previous_fs);
+
+                // Désactiver l'étape en cours sur la barre de progression
+                $('#progressbar li').eq($('fieldset').index(current_fs)).removeClass('active');
+
+                // Afficher le fieldset précédent
+                previous_fs.fadeIn();
+
+                // Masquer le fieldset actuel
+                current_fs.fadeOut();
+
+            });
+        });
+
+    }
+    progressBarCandidature();
+
+    function userProfile() 
+    {
+        $('.uibChild:not(#infos_perso)').hide();
+        
+        $('.menuUserInfos a').each((key, element) => 
+        {
+            $(element).click((e) => 
+            {
+                e.preventDefault();
+                $('.menuUserInfos a').not(this).removeClass('menuUserInfosActive');
+                $(element).addClass('menuUserInfosActive');
+
+                let link = $(element).attr('href');
+                console.log(link);
+                $('.uibChild:not('+ link +')').fadeOut();
+                $(link).fadeIn();
+                
+            });
+        });
+    }
+    //userProfile();
 
 
 
