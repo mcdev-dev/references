@@ -16,29 +16,23 @@ class ContentController extends AbstractController
      */
     public function index(ArticleRepository $articleRepo)
     {
-        $article1 = $articleRepo->findBy([ 'titre' => 'Faire la ville avec tous' ]);
-        $article2 = $articleRepo->findBy([ 'titre' => 'Fabrique urbaine collaborative' ]);
-        $article3 = $articleRepo->findBy([ 'titre' => 'Habitat participatif' ]);
-        //dd($article1);
-
         return $this->render('content/index.html.twig',
         [
-            'article1' => $article1,
-            'article2' => $article2,
-            'article3' => $article3,
+            'article1' => $articleRepo->findBy([ 'titre' => 'Faire la ville avec tous' ]),
+            'article2' => $articleRepo->findBy([ 'titre' => 'Fabrique urbaine collaborative' ]),
+            'article3' => $articleRepo->findBy([ 'titre' => 'Habitat participatif' ]),
+            
         ]);
     }
 
     /**
-     * @Route("/fabrique_urbaine_collaborative", name="fabrique_urbaine")
+     * @Route("/fabrique-urbaine-collaborative", name="fabrique_urbaine")
      */
     public function fabriqueUrbaineCollaborative(ArticleRepository $articleRepo) 
     {
-        $article = $articleRepo->findBy([ 'titre' => 'Venez participer à la Fabrique urbaine collaborative !' ]);
-
         return $this->render('content/fabrique_urbaine.html.twig', 
         [
-            'article' => $article,
+            'article' => $articleRepo->findBy([ 'titre' => 'Venez participer à la Fabrique urbaine collaborative !' ]),
         ]);
 
     }
@@ -57,19 +51,37 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/references_logements_participatifs", name="logements_participatifs")
+     * @Route("/references-logements-participatifs", name="logements_participatifs")
      */
     public function logementsParticipatifs(ArticleRepository $articleRepo)
     {
-        $articles = $articleRepo->getCategorie('Logement participatif');
-        //dd($articles);
-
         return $this->render('content/logements_participatifs.html.twig',
         [
-            'articles' => $articles,
+            'articles' => $articleRepo->getCategorie('Logement participatif'),
         ]);
     }
 
+    /**
+     * @Route("/mentions-legales/{slug}", name="mentions_legales")
+     */
+    public function mentionsLegales($slug, ArticleRepository $articleRepo) 
+    {
+        return $this->render('content/mentions_legales.html.twig', [
+            'mentionsLegales' => $articleRepo->findOneBySlug($slug),
+        ]);
+    }
     
+    /**
+     * Permet de créer le lien mentions légales dans la base
+     * @Route("/mentions/link", name="mentions_link")
+     *
+     * @return void
+     */
+    public function linkMentionsLegales(ArticleRepository $articleRepo) 
+    {
+        return $this->render('content/mentions_legales_link.html.twig', [
+            'mentionsLegales' => $articleRepo->findOneBy([ 'titre' => 'Mentions légales du site LesCityZens.fr' ]),
+        ]);
+    }
 
 }

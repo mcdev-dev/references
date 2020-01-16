@@ -1,0 +1,28 @@
+{% extends 'admin/base.html.twig' %}
+
+
+{% set title = 'Listes des références' %}
+
+{% block content %}
+<div class="mt-4 mb-4">
+    <a class="undo" href="{{ path('references_view_all') }}">
+        <i class="icon-logout1"></i>
+    </a>
+</div>
+
+<h4 class="title">{{ action }} une référence</h4><br>
+{{ form_start(form) }}
+
+{{ form_row(form.imageFile, { 'label' : 'Photo de l\'article' }) }}
+
+{{ form_rest(form) }}
+
+{% if action == 'Ajouter' %}
+<button type="submit" class="btn mb-4 btnSubmit">Ajouter</button>
+{% else %}
+<button type="submit" class="btn mb-4 btnSubmit">Modifier</button>
+{% endif %}
+
+{{ form_end(form) }}
+
+{% endblock %}

@@ -41,6 +41,14 @@ https://symfony.com/doc/4.3/form/dynamic_form_modification.html
 Swap Image on Hover - With CSS
 https://codepen.io/creativeprogrammer/pen/RpBpgm
 
+KnpSnappyBundle - stderr: "wkhtmltopdf: impossible de se connecter au serveur X" stdout: ""
+https://stackoverflow.com/questions/22575343/knpsnappybundle-stderr-wkhtmltopdf-cannot-connect-to-x-server-stdout
+
+https://blog.belairdirect.com/fr/les-differents-types-de-voitures/
+
+
+
+
 
 
 

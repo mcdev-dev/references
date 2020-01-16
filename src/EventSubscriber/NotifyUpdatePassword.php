@@ -51,7 +51,7 @@ class NotifyUpdatePassword implements EventSubscriberInterface
             // pass variables (name => value) to the template
             ->context([
                 'expiration_date' => new \DateTime('+7 days'),
-                'username' => $user->getUsername(),
+                'user' => $user,
             ]);
 
         $this->mailer->send($email);

@@ -1,12 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% set title = 'Listes des articles' %}
 
 {% block content %}
+<div class="mb-4">
+	<a class="undo" href="{{ path('article') }}">
+		<i class="icon-logout1"></i>
+	</a>
+</div>
 	<div class="row">
-		<h3 class="title col-md-8">Gestion des articles</h3>
-		<div class="col-md-4">
-			<a class="btn btnSubmitMulti col-12" href="{{ path('article_multi_add') }}">Ajouter un article multi</a>
+		<h4 class="title col-md-7">Gestion des articles</h4>
+		<div class="col-md-5">
+			<a class="btn btnSubmitMulti col" href="{{ path('article_multi_add') }}">Ajouter un article multi</a>
 		</div>
 	</div><br><br>
 

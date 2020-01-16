@@ -23,7 +23,7 @@ class UserCoordonnees implements \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      * @Assert\NotBlank(message="Veuillez remplir ce champs.")
      */
     private $telephone;
@@ -76,7 +76,7 @@ class UserCoordonnees implements \Serializable
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="userCoordonnees")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="userCoordonnees", orphanRemoval=true)
      */
     private $users;
 
@@ -90,12 +90,12 @@ class UserCoordonnees implements \Serializable
         return $this->id;
     }
 
-    public function getTelephone(): ?int
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
 
-    public function setTelephone(int $telephone): self
+    public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
 

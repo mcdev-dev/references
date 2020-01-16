@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Mentions légales' %}
+
+{% block content %}
+
+    <div class="mentionsLegalesBlock">
+        <h1 class="mentions">Mentions légales du site <br> LesCityZens.fr</h1>
+        <div class="mentionsContent">
+            {{ mentionsLegales.contenu | raw }}
+        </div>
+    </div>
+
+{% endblock %}

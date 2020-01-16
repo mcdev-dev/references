@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% set title = 'Ajouter ou modifier un article' %}
 
@@ -9,7 +9,7 @@
         </a>
     </div>
 
-    <h2 class="title">{{ action }} un article</h2><br>
+    <h4 class="title">{{ action }} un article</h4><br>
     {{ form_start(articleForm) }}
 
     {{ form_row(articleForm.titre, { 'label' : 'Titre de l\'article' }) }}

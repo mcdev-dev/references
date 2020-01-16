@@ -1,0 +1,100 @@
+{% extends 'admin/base.html.twig' %}
+
+{% set title = 'Tableau de bord' %}
+
+{% block content %}
+    
+    <div class="row">
+        <div class="col">
+            <div class="header__pretitle font-weight-bold">aperçu</div>
+            <h2 class="font-weight-bold">Tableau de bord</h2>
+        </div>
+        <div class="col text-right">
+            <a class="btn btnSubmit text-white">Faire le rapport</a>
+        </div>
+    </div>
+    <hr><br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <span class="mb-0 ico__dashboard">
+                                <img class="img-fluid" src="{{ asset('photo/team.svg') }}" alt="team">
+                            </span>
+                        </div>
+                        <div class="col-9 text-right">
+                            <span class="h3 text-muted mb-0">
+                                {{ stats.users }} utilisateurs
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <span class="mb-0 ico__dashboard">
+                                <img class="img-fluid" src="{{ asset('photo/article.svg') }}" alt="article">
+                            </span>
+                        </div>
+                        <div class="col-9 text-right">
+                            <span class="h3 text-muted mb-0">
+                                {{ stats.articles }} articles
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <span class="mb-0 ico__dashboard">
+                                <img class="img-fluid" src="{{ asset('photo/newspaper.svg') }}" alt="newspaper">
+                            </span>
+                        </div>
+                        <div class="col-9 text-right">
+                            <span class="h3 text-muted mb-0">
+                                {{ stats.actus }} actualités
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-3">
+                            <span class="mb-0 ico__dashboard">
+                                <img class="img-fluid" src="{{ asset('photo/fishing-baits.svg') }}" alt="fishing baits">
+                            </span>
+                        </div>
+                        <div class="col-9 text-right">
+                            <span class="h3 text-muted mb-0">
+                                {{ stats.candidatures }} candidatures
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

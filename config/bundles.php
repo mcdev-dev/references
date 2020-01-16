@@ -19,4 +19,5 @@ return [
     CalendarBundle\CalendarBundle::class => ['all' => true],
     Mgilet\NotificationBundle\MgiletNotificationBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
 ];

@@ -3,17 +3,17 @@
 namespace App\Controller;
 
 use App\Events;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\ProfileType;
 use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -21,8 +21,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/utilisateurs/liste", name="user_list")
-     * @IsGranted("ROLE_ADMIN")
+     * @Route("/admin/utilisateurs/liste", name="user_list")
      * Route d'affichage de tous les utilisateurs dans la page Admin
      */
     public function index(UserRepository $repo)
@@ -34,23 +33,22 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/add/", name="user_add")
+     * @Route("/admin/user/add/", name="user_add")
      * Route permettant d'ajouter un utilisateur
-     * @IsGranted("ROLE_ADMIN")
      */
-    public function userAddAction(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder) 
+    public function userAddAction(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) 
     {
         $user = new User;
+        $userRole = new Role;
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) 
         {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
-            $user->setLastLogin(new \DateTime);
-            $user->setregistrationDate(new \DateTime);
+            $userRole->setTitle('ROLE_USER');
+            $user->addUserRole($userRole);
+            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
 
             if($user->getAbonneNewsletter() == true) 
             {
@@ -73,14 +71,13 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/delete/{id}", name="user_delete")
+     * @Route("/admin/user/delete/{id}", name="user_delete")
      * Route permettant de supprimer un utilisateur
-     * @IsGranted("ROLE_ADMIN")
      */
-    public function userDeleteAction($id, ObjectManager $manager, UserRepository $repo) 
+    public function userDeleteAction($id, EntityManagerInterface $manager) 
     {
-        $user = $repo->find($id);
-        if($user) 
+        $user = $manager->getRepository(User::class)->find($id);
+        if(null !== $user) 
         {
             $manager->remove($user);
             $manager->flush();
@@ -103,11 +100,10 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user-profile/", name="user_profile")
+     * @Route("/user/profile/", name="user_profile")
      * Route du profile de l'utilisateur
-     * @IsGranted("ROLE_USER")
      */
-    public function userProfileAction(Request $request, ObjectManager $manager, EventDispatcherInterface $eventDispatcher) 
+    public function userProfileAction(Request $request, EntityManagerInterface $manager, EventDispatcherInterface $eventDispatcher) 
     {
         $user = $this->getUser();
         $form = $this->createForm(ProfileType::class, $user);
@@ -138,9 +134,8 @@ class UserController extends AbstractController
     /**
      * @Route("/user/reset-password/", name="reset_password")
      * Route de modification du mot de passe
-     * @IsGranted("ROLE_USER")
      */
-    public function resetPasswordAction(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher) 
+    public function resetPasswordAction(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher) 
     {
         $user = $this->getUser();
         $form = $this->createForm(ResetPasswordType::class, $user);

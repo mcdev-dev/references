@@ -3,8 +3,8 @@
 {% set title = 'Ajouter ou modifier un article' %}
 
 {% block content %}
-	<h1 class="mb-4">{{ article.titre }}</h1>
+	<h1 class="mb-4 title">{{ article.titre }}</h1>
 	<img src="{{ asset('images/photos/') ~ article.imageName }}" alt="{{ article.titre }}" class="img-fluid">
-	<div class="mt-4 content">{{ article.contenu | raw }}</div>
+	<div class="mt-4 content">{{ article.contenu | raw }}</div><br>
 
 {% endblock %}

@@ -15,21 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/article/viewAll", name="article")
+     * @Route("/admin/article/viewAll", name="article")
      */
     public function index(ArticleRepository $articleRepo)
     {
-        $articles = $articleRepo->findByDesc();
-
         return $this->render('article/liste_article.html.twig', 
         [
-            'articles' => $articles,
+            'articles' => $articleRepo->findByDesc(),
         ]);
     }
 
     /**
-     * @Route("/article/add", name="article_add")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/article/add", name="article_add")
      */
     public function addArticle(Request $request, ObjectManager $manager) 
     {
@@ -56,12 +53,10 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/update/{id}", name="article_update")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/article/update/{id}", name="article_update")
      */
-    public function updateArticle($id, Request $request, ArticleRepository $articleRepo, ObjectManager $manager) 
+    public function updateArticle($id, Request $request, Article $article, ObjectManager $manager) 
     {
-        $article = $articleRepo->find($id);
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -76,7 +71,6 @@ class ArticleController extends AbstractController
 
         return $this->render('article/article_crud.html.twig', [
             'action' => 'Modifier',
-            'id' => $id,
             'articleForm' => $form->createView()
 
         ]);
@@ -84,13 +78,11 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/delete/{id}", name="article_delete")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/article/delete/{id}", name="article_delete")
      */
-    public function articleDelete($id, ArticleRepository $articleRepo, ObjectManager $manager) 
+    public function articleDelete($id, Article $article, ObjectManager $manager) 
     {
-        $article = $articleRepo->find($id);
-        if($article) {
+        if(null !== $article) {
             $manager->remove($article);
             $manager->flush();
 

@@ -32,6 +32,15 @@ $(function () {
         $('.vich-image').after('<div id="view"></div>');
         $('#view').after('<span id="fileName"></span>');
 
+        $('#ref_logements_imageFile_file').on('change', (e) => {
+            //$('.camera span').html(e.target.files[0].name);
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                $('#view').html('<img src="' + e.target.result + '" class="img-fluid">');
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
         $('#article_imageFile_file').on('change', (e) => {
             //$('.camera span').html(e.target.files[0].name);
             let reader = new FileReader();
@@ -438,6 +447,51 @@ $(function () {
         });
     }
     //userProfile();
+
+    function dashboard() 
+    {
+        $('.searchDash__js').click(() => 
+        {
+            $('.dashboard__modal').css({
+                opacity         : 1,
+                pointerEvents   : 'all',
+            });
+
+            $('.modal__left').css({
+                transform: 'translateX(0)',
+            });
+        });
+        
+        $('.modal__right').click(() => 
+        {
+            $('.dashboard__modal').css({
+                opacity: 0,
+                pointerEvents: 'none',
+            });
+            $('.modal__left').css({
+                transform: 'translateX(-400px)',
+            });
+        });
+
+        $('.userDash__js').mouseenter(() => 
+        {
+            $('.dash__user__profile').css({
+                opacity: 1,
+                pointerEvents: 'all',
+                transform: 'translateX(0)',
+            });
+        });
+        $('.userDash__js').mouseleave(() => 
+        {
+            $('.dash__user__profile').css({
+                opacity: 0,
+                pointerEvents: 'none',
+                transform: 'translateY(-20px)',
+            });
+        });
+
+    }
+    dashboard();
 
 
 

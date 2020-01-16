@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -9,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(
  *      fields={"username"},
  *      message="Désolé, ce nom d'utilisateur est déjà utilisé.")
@@ -66,11 +70,6 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $role = 'ROLE_USER'; // !IMPORTANT
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $abonneNewsletter = false;
@@ -110,6 +109,46 @@ class User implements UserInterface
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $enabled;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="role", cascade={"persist", "remove"})
+     */
+    private $userRoles;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeSlug()
+    {
+        $slugify = new Slugify;
+        $this->slug = $slugify->slugify($this->prenom .' '. $this->nom);
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function initializeDate()
+    {
+        if(null === $this->lastLogin) 
+        {
+            $this->lastLogin = new \DateTime;
+        }
+        if(null === $this->registrationDate) 
+        {
+            $this->registrationDate = new \DateTime;
+        }
+    }
+
+    public function __construct()
+    {
+        $this->userRoles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -176,18 +215,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     public function getAbonneNewsletter(): ?bool
     {
         return $this->abonneNewsletter;
@@ -202,11 +229,16 @@ class User implements UserInterface
 
     public function getRoles(): array
     {
-        // guarantee every user at least has ROLE_USER
-        $roles[] = $this->role;
+        $roles = $this->userRoles->map(function($role) 
+        {
+            return $role->getTitle();
+        })->toArray();
 
-        return array_unique($roles);
+        $roles[] = 'ROLE_USER';
+
+        return $roles;
     }
+    
     public function getSalt(){}
     public function eraseCredentials(){}
 
@@ -288,6 +320,46 @@ class User implements UserInterface
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Role $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->addRole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): self
+    {
+        if ($this->userRoles->contains($userRole)) {
+            $this->userRoles->removeElement($userRole);
+            $userRole->removeRole($this);
+        }
 
         return $this;
     }

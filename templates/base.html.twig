@@ -43,47 +43,36 @@
 
 		<header>
 			<div class="top">
-				<div class="social_media">
-					<a href="">
-						<i class="fab fa-facebook-f"></i>
-					</a>
-					<a href="">
-						<i class="fab fa-twitter"></i>
-					</a>
-					<a href="">
-						<i class="fab fa-linkedin-in"></i>
-					</a>
-					<a href="">
-						<i class="fab fa-youtube"></i>
-					</a>
+				<div class="blockLeft">
+					<div class="social_media">
+						<a href="">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+						<a href="">
+							<i class="fab fa-twitter"></i>
+						</a>
+						<a href="">
+							<i class="fab fa-linkedin-in"></i>
+						</a>
+						<a href="">
+							<i class="fab fa-youtube"></i>
+						</a>
+					</div>
+					<div class="search_bar">
+						<form id="search" action="{{ path('article_search') }}" method="post">
+							<input type="text" name="query" id="search-input">
+							<i class="icon-magnifiying-glass glassIcon"></i>
+						</form>
+						<div id="result"></div>
+					</div>
 				</div>
-				<div class="search_bar">
-					<form id="search" action="{{ path('article_search') }}" method="post">
-						<input type="text" name="query" id="search-input">
-						<i class="icon-magnifiying-glass glassIcon"></i>
-					</form>
-					<div id="result"></div>
-				</div>
-				<div class="authentication">
+				<div class="blockRight">
 					{% if is_granted('ROLE_ADMIN') %}
-						<div class="admin nav-item dropdown">
-							<a class="nav-link dropdown-toggle admin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="icon-setting-lines"></i>Admin</a>
-							<div class="dropdown-menu aria-labelledby=" navbardropdown"">
-								<a class="dropdown-item" href="{{ path('user_list') }}">
-									<i class="icon-networking"></i>Gestion des utilisateurs</a>
-								<a class="dropdown-item" href="#">
-									<i class="icon-management"></i>Gestion des contacts</a>
-								<a class="dropdown-item" href="{{ path('article') }}">
-									<i class="icon-editorial-design"></i>Gestion des contenus</a>
-								<a class="dropdown-item" href="{{ path('article_actu') }}">
-									<i class="icon-form"></i>Gestion des actualités</a>
-								<a class="dropdown-item" href="{{ path('join_us_list') }}">
-									<i class="icon-file"></i>Gestion des candidatures</a>
-							</div>
+						<div class="connect">
+							<a href="{{ path('admin_dashboard') }}">Tableau de bord</a>
 						</div>
 					{% endif %}
-
+	
 					{% if is_granted('ROLE_USER') %}
 					<div class="notifications">
 						<a class="bell" href="">
@@ -92,20 +81,19 @@
 					</div>
 					<div class="admin nav-item dropdown userMr">
 						<a class="nav-link dropdown-toggle admin" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
+								aria-haspopup="true" aria-expanded="false">
 							{{ render(url('user_name')) }}</a>
-						<div id="userDropdown" class="dropdown-menu aria-labelledby=" navbardropdown"">
+						<div id="userDropdown" class="dropdown-menu" aria-labelledby=" navbardropdown">
 							<a class="dropdown-item" href="{{ path('user_profile') }}">
-								<i class="icon-user"></i>
-								Mon Compte
+								<i class="icon-user2"></i>
+									Mon Compte
 							</a>
-							<a class="dropdown-item" href="{{ path('deconnexion') }}">
-								<i class="icon-turn-off"></i>
-								Déconnexion
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{{ path('deconnexion') }}"><i class="icon-turn-off"></i>
+									Déconnexion
 							</a>
 						</div>
-					</div>
-						
+					</div>		
 					{% endif %}
 					{% if not is_granted('ROLE_USER') %}
 						<div class="connect">
@@ -172,7 +160,7 @@
 
 		<div class="scrollBtn">
 			<div class="scroller">
-				<i class="fas fa-arrow-up"></i>
+				<i class="icon-up-arrow"></i>
 			</div>
 			<div class="textScroll">Retour en haut</div>
 		</div>
@@ -204,7 +192,7 @@
 				<span class="pipe">|</span>
 				<a href="">Presse</a>
 				<span class="pipe">|</span>
-				<a href="">Mentions légales</a>
+				{{ render(url('mentions_link')) }}
 				<span class="pipe">|</span>
 				<a href="">Politique de confidentialité</a>
 				<span class="pipe">|</span>

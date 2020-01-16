@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% set title = 'Ajouter ou modifier un article' %}
+{% set title = 'Listes des articles' %}
 
 {% block content %}
 	<div class="mb-4">
@@ -9,8 +9,8 @@
 		</a>
 	</div>
 
-	<h2 class="title">{{ action }}
-		un article</h2><br>
+	<h4 class="title">{{ action }}
+		un article</h4><br>
 	{{ form_start(articleMultiForm) }}
 
 	{{ form_row(articleMultiForm.titre, { 'label' : 'Titre de l\'article' }) }}

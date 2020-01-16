@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Events;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -26,16 +27,19 @@ class SecurityController extends AbstractController
     public function registration(ObjectManager $manager, Request $request, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher)
     {
         $user = new User;
+        $userRole = new Role;
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) 
         {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
+            $userRole->setTitle('ROLE_USER');
+            $user->addUserRole($userRole);
+            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             $user->setLastLogin(new \DateTime);
             $user->setregistrationDate(new \DateTime);
+            $user->setSlug($user->getPrenom() .' '. $user->getNom());
 
             if($user->getAbonneNewsletter() == true) 
             {
@@ -43,6 +47,7 @@ class SecurityController extends AbstractController
             } else {
                 $user->setAbonneNewsletter(0);
             }
+            $manager->persist($userRole);
             $manager->persist($user);
             $manager->flush();
 
@@ -113,20 +118,9 @@ class SecurityController extends AbstractController
      */
     public function connexion(AuthenticationUtils $auth) 
     {
-        $error = $auth->getLastAuthenticationError();
-        $lastUsername = $auth->getLastUsername();
-
-        if(!empty($error)) 
-        {
-            $this->addFlash('errors', '<strong>Désolé !</strong> Erreur sur les identifiants.');
-        } 
-        /*if($this->getUser()) {
-            $this->addFlash('success', '<strong>Bienvenue sur notre site !</strong> Les CityZens est heureux de vous accueillir.');
-        }*/
-
         return $this->render('security/connexion.html.twig', [
-            'last_username' => $lastUsername,
-            //'error'         => $error,
+            'username' => $auth->getLastUsername(),
+            'hasError'         => $auth->getLastAuthenticationError() !== null,
         ]);
     }
 

@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% set title = 'Gestion des utilisateurs' %}
 
 {% block content %}
 
 <div class="row">
-    <h3 class="title col-md-8">Gestion des utilisateurs</h3>
+    <h4 class="title col-md-8">Gestion des utilisateurs</h4>
     <div class="col-md-4">
         <a class="btn btnSubmit col-12" href="{{ path('user_add') }}">Ajouter un utilisateur</a>
     </div>
@@ -32,7 +32,11 @@
             <td class="text-center">{{ user.nom | capitalize }}</td>
             <td class="text-center">{{ user.prenom | capitalize }}</td>
             <td class="text-center">{{ user.email }}</td>
-            <td class="text-center">{{ (user.role == 'ROLE_ADMIN') ? 'Administrateur' : 'Utilisateur' }}</td>
+            <td class="text-center">
+                {% for item in user.userRoles %} 
+                    {{ (item.title == 'ROLE_ADMIN') ? 'Administrateur' : 'Utilisateur' }}
+                {% endfor %}
+            </td>
             <td class="text-center"  width="200">{{ (user.abonneNewsletter == 1) ? 'Oui' : 'Non' }}</td>
             <td class="text-center">{{ (user.civilite == 'm') ? 'Monsieur' : 'Madame' }}</td>
             <td class="text-center">{{ user.lastLogin | date('d/m/Y à H:i') }}</td>

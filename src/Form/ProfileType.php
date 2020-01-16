@@ -30,7 +30,6 @@ class ProfileType extends AbstractType
             ->add('abonneNewsletter', CheckboxType::class, [
                 'required' => false
             ])
-        ->add('password', HiddenType::class)
         ->add('userCoordonnees', UserCoordonneesType::class, [ 'label' => false ])
         ;
     }

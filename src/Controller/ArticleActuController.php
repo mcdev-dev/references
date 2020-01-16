@@ -9,21 +9,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleActuController extends AbstractController
 {
     /**
-     * @Route("/article/viewActualites", name="article_actu")
+     * @Route("/admin/article/viewActualites", name="article_actu")
      */
     public function index(ArticleActuRepository $articleRepo)
     {
-        $articles = $articleRepo->findByDesc();
-
         return $this->render('article_actu/liste_article.html.twig', 
         [
-            'articles' => $articles,
+            'articles' => $articleRepo->findByDesc(),
         ]);
     }
 
@@ -52,8 +49,7 @@ class ArticleActuController extends AbstractController
     }
 
     /**
-     * @Route("/actualites/add", name="article_actu_add")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/actualites/add", name="article_actu_add")
      */
     public function addArticle(Request $request, ObjectManager $manager) 
     {
@@ -80,8 +76,7 @@ class ArticleActuController extends AbstractController
     }
 
     /**
-     * @Route("/actualites/update/{id}", name="article_actu_update")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/actualites/update/{id}", name="article_actu_update")
      */
     public function updateArticle($id, Request $request, ArticleActuRepository $articleRepo, ObjectManager $manager) 
     {
@@ -108,8 +103,7 @@ class ArticleActuController extends AbstractController
     }
 
     /**
-     * @Route("/actualites/delete/{id}", name="article_actu_delete")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/actualites/delete/{id}", name="article_actu_delete")
      */
     public function articleDelete($id, ArticleActuRepository $articleRepo, ObjectManager $manager) 
     {
