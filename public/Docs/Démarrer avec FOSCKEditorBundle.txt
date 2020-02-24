@@ -114,7 +114,10 @@ Ajouter une balise de script d'entrée dans le modèle
 Installer CKEditor bundle :
 https://symfony.com/doc/current/bundles/FOSCKEditorBundle/installation.html
 
-
+#Force URL to use https :
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.grablimukendi.ovh/$1 [R,L]
 
 
 
