@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\ArticleMulti;
 use App\Form\ArticleMultiType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ArticleMultiRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,7 +45,7 @@ class ArticleMultiController extends AbstractController
      * Route d'ajout d'un article
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function addArticle(Request $request, ObjectManager $manager)
+    public function addArticle(Request $request, EntityManagerInterface $manager)
     {
         $article = new ArticleMulti;
         $form = $this->createForm(ArticleMultiType::class, $article);
@@ -53,11 +53,14 @@ class ArticleMultiController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) 
         {
-            $article->setCreateAt(new \DateTime);
-            $images = $article->getImages();
-            foreach($images as $key => $value) {
-                $value->setArticleMulti($article);
-                $images->set($key, $value);
+            foreach($article->getImages() as $image) {
+                $image->setArticleMulti($article);
+                $manager->persist($image);
+            }
+
+            foreach($article->getContenu() as $contenu) {
+                $contenu->setArticleMulti($article);
+                $manager->persist($contenu);
             }
 
             $manager->persist($article);
@@ -82,7 +85,7 @@ class ArticleMultiController extends AbstractController
      * Route de modification d'un article
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function updateArticle($id, ObjectManager $manager, ArticleMultiRepository $repo, Request $request) 
+    public function updateArticle($id, EntityManagerInterface $manager, ArticleMultiRepository $repo, Request $request) 
     {
         $article = $repo->find($id);
         $form = $this->createForm(ArticleMultiType::class, $article);
@@ -90,10 +93,14 @@ class ArticleMultiController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) 
         {
-            $images = $article->getImages();
-            foreach($images as $key => $value) {
-                $value->setArticleMulti($article);
-                $images->set($key, $value);
+            foreach($article->getImages() as $image) {
+                $image->setArticleMulti($article);
+                $manager->persist($image);
+            }
+
+            foreach($article->getContenu() as $contenu) {
+                $contenu->setArticleMulti($article);
+                $manager->persist($contenu);
             }
 
             $manager->persist($article);
@@ -120,7 +127,7 @@ class ArticleMultiController extends AbstractController
      * Route de suppression d'un article
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function deleteArticle($id, ObjectManager $manager, ArticleMultiRepository $repo) 
+    public function deleteArticle($id, EntityManagerInterface $manager, ArticleMultiRepository $repo) 
     {
         $article = $repo->find($id);
 

@@ -2,34 +2,228 @@
 
 namespace App\Controller;
 
+use App\Entity\Menage;
+use App\Entity\Categorie;
+use App\Entity\Candidatures;
+use App\Entity\LogementActuel;
+use App\Form\CandidaturesType;
+use App\Entity\SituationProFinanciere;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\InteretHabitatParticipatif;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CandidaturesController extends AbstractController
 {
     /**
-     * @Route("/candidatures", name="candidatures")
+     * @Route("/user/candidatures", name="user_candidatures")
      */
-    public function index()
+    public function userCandidature(EntityManagerInterface $manager)
     {
-        return $this->render('candidatures/index.html.twig', [
-            'controller_name' => 'CandidaturesController',
+        $candidatures = $manager->getRepository(Candidatures::class)->findBy([ 'candidat' => $this->getUser() ]);
+
+        return $this->render('user/user_candidatures.html.twig', 
+        [
+            'candidatures' => $candidatures,
         ]);
     }
 
     /**
-     * @Route("/candidature/projet/", name="questionnaire_candidature")
-     * @IsGranted("ROLE_USER")
+     * @Route("/candidatures/liste", name="candidatures_list")
      */
-    public function candidatureAction(Request $request) 
+    public function candidaturesList(EntityManagerInterface $manager)
     {
-
-        return $this->render('candidatures/questionnaire_candidature.html.twig', 
+        return $this->render('candidatures/candidatures_list.html.twig', 
         [
-            'projectName' => 'Ivry',
-            //'form' => $form,
+            'candidatures' => $manager->getRepository(Candidatures::class)->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/user/candidature/questionnaire/", name="questionnaire_candidature")
+     */
+    public function candidatureQuestionnaire(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator) 
+    {
+        $candidature_exist = $manager ->getRepository(Candidatures::class)
+                                      ->findOneBy([ 'candidat' => $this->getUser() ]);
+        $titleProject = 'Candidature du projet Saint-Ferjeux';
+        
+        $candidature = new Candidatures;
+        $categorie = new Categorie;
+        $logementActuel = new LogementActuel;
+        $menage = new Menage;
+        $situationProFinanciere = new SituationProFinanciere;
+        $interetHabitatParticipatif = new InteretHabitatParticipatif;
+        
+        $register = $request->get('enregistrer') !== null;
+        $form = $this->createForm(CandidaturesType::class, $candidature, ['validation_groups' => false]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) 
+        {
+            $otherStatutOccupation = $request->get('other_statut_occupation');
+            $statutEmploiAc = $request->get('other_acquereur_statut_emploi');
+            $statutEmploiCoAc = $request->get('other_co_acquereur_statut_emploi');
+            $apportPersonnel = $request->get('other_apport_perso');
+
+            if(null !== $otherStatutOccupation) 
+            {
+                $form->get('logementActuel')->getData()->setStatutOccupation($otherStatutOccupation);
+            }
+            if(null !== $statutEmploiAc) 
+            {
+                $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($statutEmploiAc);
+            }
+            if(null !== $statutEmploiCoAc) 
+            {
+                $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($statutEmploiCoAc);
+            }
+            if(null !== $apportPersonnel) 
+            {
+                $form->get('situationProFinanciere')->getData()->setApportPersonnel($apportPersonnel);
+            }
+
+            //dd(count($errors)); die;
+            $candidature->setTitre('Bascule-pelouse, Saint-Ferjeux');
+
+            if($register) 
+            {
+                if(null !== $candidature_exist) 
+                {
+                    $this->addFlash('errors', '<strong>Désolé !</strong> Vous avez déjà candidater pour ce projet.');
+        
+                    return $this->redirectToRoute('user_candidatures'); 
+                } 
+                else 
+                {
+                    $candidature->setValider(false);
+                    $candidature->setStatut(0);//Persistance
+                    $candidature->setCandidat($this->getUser());
+                    $candidature->setVille('Saint-Ferjeux');
+                    $candidature->setPromoteur('Néolia');
+                    $candidature->setPromoteurLogo('neolia');
+                    $candidature->setCategorie($categorie->setTitle('habitat-participatif'));
+            
+                    $manager->persist($candidature);
+                    $manager->flush();
+                    $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été enregistrée avec succès.');
+                    return $this->redirectToRoute('user_candidatures');
+                }
+
+                } 
+            else 
+            {
+                if(null !== $candidature_exist) 
+                {
+                    $this->addFlash('errors', '<strong>Désolé !</strong> Vous avez déjà candidater pour ce projet.');
+        
+                    return $this->redirectToRoute('user_candidatures'); 
+                } 
+                else 
+                {
+                    //Persistance
+                    $candidature->setStatut(1);
+                    $candidature->setCandidat($this->getUser());
+                    $candidature->setVille('Saint-Ferjeux');
+                    $candidature->setPromoteur('Néolia');
+                    $candidature->setPromoteurLogo('neolia');
+                    $candidature->setCategorie($categorie->setTitle('habitat-participatif'));
+        
+                    $manager->persist($candidature);
+                    $manager->flush();
+                    
+                    $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
+                    return $this->redirectToRoute('user_candidatures');
+                }
+                
+            }
+            
+        }
+
+        return $this->render('candidatures/questionnaire.html.twig', 
+        [
+            'projectName' => $titleProject,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("user/candidature/temporary", name="candidature_temporary")
+     */
+    public function candidatureTemporary(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator) 
+    {
+        $titleProject = 'Candidature du projet Saint-Ferjeux';
+        $candidature = $manager ->getRepository(Candidatures::class)
+                                ->findOneBy([ 'candidat' => $this->getUser() ]);
+                                
+        $register = $request->get('enregistrer') !== null;
+        $form = $this->createForm(CandidaturesType::class, $candidature, ['validation_groups' => false]);
+        
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()) 
+        {
+            $otherStatutOccupation = $request->get('other_statut_occupation');
+            $statutEmploiAc = $request->get('other_acquereur_statut_emploi');
+            $statutEmploiCoAc = $request->get('other_co_acquereur_statut_emploi');
+            $apportPersonnel = $request->get('other_apport_perso');
+
+            if(null !== $otherStatutOccupation) 
+            {
+                $form->get('logementActuel')->getData()->setStatutOccupation($otherStatutOccupation);
+            }
+            if(null !== $statutEmploiAc) 
+            {
+                $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($statutEmploiAc);
+            }
+            if(null !== $statutEmploiCoAc) 
+            {
+                $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($statutEmploiCoAc);
+            }
+            if(null !== $apportPersonnel) 
+            {
+                $form->get('situationProFinanciere')->getData()->setApportPersonnel($apportPersonnel);
+            }
+            
+            if($register) 
+            {
+                $candidature->setValider(false);
+                $candidature->setStatut(0);//Persistance
+                $candidature->setCandidat($this->getUser());
+                $candidature->setVille('Saint-Ferjeux');
+                $candidature->setPromoteur('Néolia');
+                $candidature->setPromoteurLogo('neolia');
+                $candidature->setCategorie($categorie->setTitle('habitat-participatif'));
+        
+                $manager->persist($candidature);
+                $manager->flush();
+                $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été enregistrée avec succès.');
+                return $this->redirectToRoute('user_candidatures');
+
+            } 
+            else 
+            {
+                //Persistance
+                $candidature->setStatut(1);
+
+                $manager->persist($candidature);
+                $manager->flush();
+                
+                $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
+                return $this->redirectToRoute('user_candidatures');
+                
+            }
+            
+        }
+
+        return $this->render('candidatures/questionnaire.html.twig', 
+        [
+            'projectName' => $titleProject,
+            'form' => $form->createView(),
         ]);
     }
 

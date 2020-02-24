@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Form\MediaType;
 use App\Entity\ArticleMulti;
+use App\Form\ContenuMultipleType;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,18 +18,23 @@ class ArticleMultiType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class)
-            ->add('images', CollectionType::class, [
+            ->add('images', CollectionType::class, 
+            [
+                'label' => 'Images de l\'article',
                 'entry_type' => MediaType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true
             ])
             ->add('description', CKEditorType::class)
-            ->add('transport', CKEditorType::class)
-            ->add('santeServicesSociaux', CKEditorType::class)
-            ->add('servicesAdmin', CKEditorType::class)
-            ->add('education', CKEditorType::class)
-            ->add('sports', CKEditorType::class);
+            ->add('contenu', CollectionType::class, 
+            [
+                'label' => 'Contenus de l\'article',
+                'entry_type' => ContenuMultipleType::class,
+                'allow_add' => true,
+                'prototype' => true,
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

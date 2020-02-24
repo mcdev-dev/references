@@ -24,12 +24,12 @@ class ProfileType extends AbstractType
             ]
         ])
         ->add('username', TextType::class)
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('abonneNewsletter', CheckboxType::class, [
-                'required' => false
-            ])
+        ->add('nom', TextType::class)
+        ->add('prenom', TextType::class)
+        ->add('email', EmailType::class)
+        ->add('abonneNewsletter', CheckboxType::class, [
+            'required' => false
+        ])
         ->add('userCoordonnees', UserCoordonneesType::class, [ 'label' => false ])
         ;
     }
@@ -39,8 +39,9 @@ class ProfileType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
             'attr' => [
-                'novalidate' => 'novalidate'
-            ]
+                'novalidate' => 'novalidate',
+                'id' => 'profile__form',
+            ],
         ]);
     }
 }

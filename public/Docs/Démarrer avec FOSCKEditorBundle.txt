@@ -1,3 +1,17 @@
+# BEGIN rlrssslReallySimpleSSL rsssl_version[3.2.8]
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+# END rlrssslReallySimpleSSL
+
+
+JWT_KEY="aVerySecretKey" ADDR="localhost:3000" CORS_ALLOWED_ORIGINS="http://localhost:8000" ./mercure/mercure
+
+http://localhost:3000/.well-known/mercure
+
+
 Lien pour installer et mettre en place FOSCKEditorBundle :
 https://symfony.com/doc/master/bundles/FOSCKEditorBundle/index.html
 
@@ -45,6 +59,65 @@ KnpSnappyBundle - stderr: "wkhtmltopdf: impossible de se connecter au serveur X"
 https://stackoverflow.com/questions/22575343/knpsnappybundle-stderr-wkhtmltopdf-cannot-connect-to-x-server-stdout
 
 https://blog.belairdirect.com/fr/les-differents-types-de-voitures/
+
+Générer le fichier Manifest.json :
+Execute the below commands:
+
+yarn add --dev @symfony/webpack-encore
+
+yarn add webpack-notifier --dev
+
+yarn encore dev
+It will generate the manifest.json file
+
+Symfony 4 - CSS bootstrap Webpack Encore:
+https://stackoverflow.com/questions/54966110/symfony-4-webpack-encore-bootstrap-css-not-in-output
+
+Comment ajouter Fontawesome 5 à Symfony 4 à l'aide de Webpack Encore :
+
+Selon les documents font-awesome ici , après l'installation du package
+
+yarn add --dev @fortawesome/fontawesome-free
+ou
+
+npm install --save-dev @fortawesome/fontawesome-free
+Exiger font-awesome dans votre fichier de configuration ( dans mon cas et l'emplacement par défaut de Symfony 4 ) assets / js / app.js:
+
+require('@fortawesome/fontawesome-free/css/all.min.css');
+require('@fortawesome/fontawesome-free/js/all.js');
+Compilez à nouveau yarn encore dev et des icônes devraient apparaître.
+
+How to extract tar file in Mac terminal:
+Yes, you can run:
+tar -xvf myfile.tar
+
+For .tar.gz, you can run:
+tar -xzvf myfile.tar.gz
+
+
+Comment «installer» Bootstrap Datetimepicker sur Symfony ?
+
+Le processus est simple :
+
+Ajouter une classe DateType au formulaire
+'attr' => ['class' => 'js-datepicker'],
+
+Installer avec fil le plugin JQuery pour datepicker
+yarn add bootstrap-datepicker
+
+Ajouter une balise de lien d'entrée dans le modèle
+{{ encore_entry_link_tags('datepicker') }}
+
+Ajouter une balise de script d'entrée dans le modèle
+{{ encore_entry_script_tags('datepicker') }}
+
+Installer CKEditor bundle :
+https://symfony.com/doc/current/bundles/FOSCKEditorBundle/installation.html
+
+
+
+
+
 
 
 

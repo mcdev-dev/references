@@ -3,14 +3,14 @@
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
-		<meta
-		name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<!-- Encore CSS -->
+		{{ encore_entry_link_tags('app') }}
+		
+		{% block stylesheet %}{% endblock %}
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Suez+One&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 		<!-- Ico-moon Stylesheet -->
 		<link rel="stylesheet" href="{{ asset('css/icomoon/style.css') }}">
 
@@ -22,19 +22,10 @@
 		rel="stylesheet" media="(min-width: 768px) and (max-width:991.98px)" href="{{ asset('css/tablet.css') }}">
 		<!-- lesCityZens mobile CSS style -->
 		<link
-		rel="stylesheet" media="screen and (max-width:767.98px)" href="{{ asset('css/mobile.css') }}">
+		rel="stylesheet" media="screen and (max-width:640px)" href="{{ asset('css/mobile.css') }}">
 
-		<!-- jQuery CDN -->
-		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-		<!-- jQuery Ui CDN -->
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-			integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-		<!-- Popper.js, then Bootstrap JS -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-		<!-- lesCityZens JS App -->
-		<script src="{{ asset('js/app.js') }}"></script>
+		<!-- Encore JS -->
+		{{ encore_entry_script_tags('app') }}
 
 		<title>{{ title }}</title>
 	</head>
@@ -42,7 +33,7 @@
 	<body>
 
 		<header>
-			<div class="top">
+			<div id="top" class="top">
 				<div class="blockLeft">
 					<div class="social_media">
 						<a href="">
@@ -77,6 +68,7 @@
 					<div class="notifications">
 						<a class="bell" href="">
 							<i class="icon-bell"></i>
+							<span class="ml-2 hide__large__screen">Nouveautés</span>
 						</a>
 					</div>
 					<div class="admin nav-item dropdown userMr">
@@ -96,7 +88,7 @@
 					</div>		
 					{% endif %}
 					{% if not is_granted('ROLE_USER') %}
-						<div class="connect">
+						<div class="connect login__js">
 							<a href="{{ path('connexion') }}">Se connecter</a>
 						</div>
 						<div class="register">
@@ -105,7 +97,7 @@
 					{% endif %}
 				</div>
 			</div>
-			<nav id="navBar" class="navbar {{ (title != 'Accueil' and title != 'Fabrique urbaine collaborative' and title != 'Habitat participatif') ? 'navBarShadow' : '' }}">
+			<nav id="navBar" class="navbar {{ (title not in ['Accueil', 'Fabrique urbaine collaborative', 'Habitat participatif', 'Informations personnelles', 'Modification mot de passe', 'Candidatures']) ? 'navBarShadow' : '' }}">
 				<div class="container">
 					<div class="logo">
 						<div class="burgerLine">
@@ -114,11 +106,11 @@
 							<div class="line3"></div>
 						</div>
 						<div class="logotype">
-							<a href="{{ path('home') }}"><img src="{{ asset('photo/logotype_lcz.svg') }}" alt=""></a>
+							<a href="{{ path('home') }}"><img src="{{ asset('images/static/logotype_lcz.svg') }}" alt=""></a>
 						</div>
 						<div class="iconeProfile">
 							<div class="userCircle">
-								<i class="fas fa-user-circle"></i>
+								<i class="icon-user2"></i>
 							</div>
 							<div class="profiLine">
 								<div class="line1"></div>
@@ -137,10 +129,11 @@
 						<li class="{{ (title == 'Habitat participatif') ? 'menuActive' : '' }}">
 							<a href="{{ path('habitat_participatif') }}">Habitat participatif</a>
 						</li>
-						<li class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }} ddToggle">
-							<div>Références<i id="angle" class="fas fa-angle-up"></i>
+						<li id="angle__toggle__js" class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }} ddToggle">
+							<div id="subMenu__elevator">Références 
+								<i class="icon-down"></i>
 							</div>
-							<ul class="submenu">
+							<ul id="submenu" class="submenu">
 								<li>
 									<a href="{{ path('logements_participatifs') }}">Références de logements participatifs</a>
 								</li>
@@ -148,7 +141,7 @@
 									<a href="">Références en urbanisme collaboratif et concertation</a>
 								</li>
 							</ul>
-						</li>
+						</li id="angle__toggle__js">
 						<li class="{{ (title == 'Contact') ? 'menuActive' : '' }}">
 							<a href="{{ path('contact_email') }}">Contact</a>
 						</li>
@@ -166,23 +159,32 @@
 		</div>
 
 		<main>
+
+			{% block blockFluid %}{% endblock %}
+
+			
 			<div class="container">
-				{% if title != 'Inscription' and title != 'Connexion' %}
+				{% if title not in ['Inscription', 'Connexion', 'Générer un mot de passe'] %}
 					{% for alerte in app.flashes('success') %}
 						<div class="alert alert-success">{{ alerte | raw }}</div><br>
 					{% endfor %}
-
+					
 					{% for alerte in app.flashes('errors') %}
 						<div class="alert alert-danger">{{ alerte | raw }}</div><br>
 					{% endfor %}
 				{% endif %}
-
+				
+				{% block form_errors %}{% endblock %}
 				{% block content %}{% endblock %}
-
+				{% block collection__type__class %}{% endblock %}
+				
 			</div>
-
+			
 			{% block contentFluid %}{% endblock %}
+			
 		</main>
+		
+		<div class="container">{{ render(url('connexion')) }}</div><br>
 
 		<footer>
 			<div class="container pied">
@@ -200,8 +202,63 @@
 			</div>
 		</footer>
 
-		{% block javascripts %}{% endblock %}
+		<script>
+			$(function () 
+			{
+				if(null !== $('.rescue__connect')) $('.rescue__connect').hide();
 
+				function changeAngleRow() 
+				{
+					let angle = $('.icon-down');
+					$('#angle__toggle__js').mouseenter(() => {
+						$(angle).attr('class', 'icon-up');
+						$(angle).css(
+						{
+							marginLeft	: '0.35em',
+							fontSize	: 12+'px',
+						});
+					});
+					$('#angle__toggle__js').mouseleave(() => {
+						$(angle).attr('class', 'icon-down');
+					});
+				}
+				changeAngleRow();
+
+				function loginModal() 
+				{
+					$('.login__js').click((e) => 
+					{
+						e.preventDefault();
+						$('#loginModal').modal('toggle');
+					});
+
+					$('.reset__password__modal').click((e) => 
+					{
+						e.preventDefault();
+						$('#lost__password__modal').modal('toggle');
+						$('#loginModal').modal('hide');
+					});
+				}
+				loginModal();
+				
+				function closeLoginModal() 
+				{
+					$('.close__modal__js').click(() => 
+					{
+						$('#loginModal').modal('hide');
+					});
+					$('.close__modal__js').click(() => 
+					{
+						$('#lost__password__modal').modal('hide');
+					});
+				}
+				closeLoginModal();
+
+				$('footer').css('overflowY', 'hidden');
+			});
+		</script>
+
+		{% block javascripts %}{% endblock %}
 
 	</body>
 </html>

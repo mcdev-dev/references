@@ -5,13 +5,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserCoordonneesRepository")
- * @Vich\Uploadable
  */
 class UserCoordonnees implements \Serializable
 {
@@ -56,24 +53,14 @@ class UserCoordonnees implements \Serializable
     private $adresse;
 
     /**
-     * 
-     * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="avatar")
-     * 
      * @var File
      */
-    private $imageFile;
+    public $avatarFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var \DateTime
-     */
-    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="userCoordonnees", orphanRemoval=true)
@@ -149,41 +136,17 @@ class UserCoordonnees implements \Serializable
 
         return $this;
     }
-
-    
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
-     */
-    public function setImageFile(?File $imageFile = null): void
-    {
-        $this->imageFile = $imageFile;
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function setAvatar(?string $avatar): void
-    {
-        $this->avatar = $avatar;
-    }
-    
+     
     public function getAvatar(): ?string
     {
         return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 
     /**

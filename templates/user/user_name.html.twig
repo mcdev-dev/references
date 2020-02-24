@@ -1,31 +1,19 @@
 
-{% if user.userCoordonnees is empty and user.civilite == 'f' %}
+{% if user.userCoordonnees.avatar == 'default_avatar' and user.civilite == 'f' %}
 
 <i class="icon-avatar-1"></i>{{ user.prenom }}
 
 {% endif %}
 
-{% if user.userCoordonnees is empty and user.civilite == 'm' %}
+{% if user.userCoordonnees.avatar == 'default_avatar' and user.civilite == 'm' %}
 
 <i class="icon-avatar"></i>{{ user.prenom }}
     
 {% endif %}
 
-{% if user.userCoordonnees is not empty and user.civilite == 'f' and user.userCoordonnees.avatar is empty %}
-
-<i class="icon-avatar-1"></i>{{ user.prenom }}
-
-{% endif %}
-
-{% if user.userCoordonnees is not empty and user.civilite == 'm' and user.userCoordonnees.avatar is empty %}
-
-<i class="icon-avatar"></i>{{ user.prenom }}
-    
-{% endif %}
-
-{% if user.userCoordonnees is not empty and user.userCoordonnees.avatar is not empty %}
+{% if user.userCoordonnees.avatar != 'default_avatar' %}
 <span class="smAvatar">
-    <img src="{{ asset('images/photos/') ~ user.userCoordonnees.avatar }}" alt="{{ user.prenom }}" class="img-fluid">
+    <img src="{{ asset('images/web/avatars/') ~ user.userCoordonnees.avatar }}" alt="{{ user.prenom }}" class="img-fluid">
 </span>
     
 {% endif %}

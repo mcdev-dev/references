@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -28,7 +28,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/admin/article/add", name="article_add")
      */
-    public function addArticle(Request $request, ObjectManager $manager) 
+    public function addArticle(Request $request, EntityManagerInterface $manager) 
     {
         $article = new Article;
         $form = $this->createForm(ArticleType::class, $article);
@@ -55,7 +55,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/admin/article/update/{id}", name="article_update")
      */
-    public function updateArticle($id, Request $request, Article $article, ObjectManager $manager) 
+    public function updateArticle($id, Request $request, Article $article, EntityManagerInterface $manager) 
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -80,7 +80,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/admin/article/delete/{id}", name="article_delete")
      */
-    public function articleDelete($id, Article $article, ObjectManager $manager) 
+    public function articleDelete($id, Article $article, EntityManagerInterface $manager) 
     {
         if(null !== $article) {
             $manager->remove($article);

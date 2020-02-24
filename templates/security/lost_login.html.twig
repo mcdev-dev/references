@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Connexion' %}
+
+{% block content %}
+
+<div class="row justify-content-md-center">
+    <div class="col-md-6">
+        {% if hasError %}
+        <div class="alert alert-danger"><strong>Désolé !</strong> Erreur sur les identifiants.</div>
+        {% endif %}
+        <h2 class="text-center title">Connexion</h2>
+        <hr class="mt-4 mb-4">
+
+        <form action="{{ path('connexion') }}" method="post">
+
+            <div class="form-group">
+                <label for="username">Adresse email</label>
+                <input type="text" name="_username" value="{{ username }}" id="username" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" name="_password" id="password" class="form-control">
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="form-group mx-auto col-md-6 mt-4">
+                <button type="submit" class="btn btnSubmit col-12">Se connecter</button>
+            </div>
+        </form>
+        <br>
+    </div>
+</div>
+
+{% endblock %}

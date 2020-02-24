@@ -38,6 +38,11 @@ class Categorie
      */
     private $reference;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Candidatures", mappedBy="categorie", cascade={"persist", "remove"})
+     */
+    private $candidatures;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -161,6 +166,24 @@ class Categorie
             if ($reference->getCategorie() === $this) {
                 $reference->setCategorie(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getCandidatures(): ?Candidatures
+    {
+        return $this->candidatures;
+    }
+
+    public function setCandidatures(?Candidatures $candidatures): self
+    {
+        $this->candidatures = $candidatures;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCategorie = null === $candidatures ? null : $this;
+        if ($candidatures->getCategorie() !== $newCategorie) {
+            $candidatures->setCategorie($newCategorie);
         }
 
         return $this;

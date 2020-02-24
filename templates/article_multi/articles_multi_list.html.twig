@@ -5,7 +5,7 @@
 {% block content %}
 <div class="mb-4">
 	<a class="undo" href="{{ path('article') }}">
-		<i class="icon-logout1"></i>
+		<i class="icon-logout"></i>
 	</a>
 </div>
 	<div class="row">
@@ -32,7 +32,7 @@
 					<tr>
 						<td class="text-center">
 							<div class="imgTab mb-3">
-								<img src="{{ asset('images/photos/') ~ article.images[0].imageName }}" alt="{{ article.titre }}" width="240">
+								<img src="{{ asset('images/web/') ~ article.images[0].imageName }}" alt="{{ article.titre }}" width="240">
 							</div>
 							<a href="{{ path('autre_photos', { 'id' : article.id }) }}">Voir les autres photos</a>
 						</td>

@@ -1,0 +1,573 @@
+{% extends 'base.html.twig' %}
+
+{% set title = projectName %}
+
+{% block stylesheet %}
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+        integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+        <h1 class="titleArtBgSuccess mb-4 mt-4 text-center candidatureForm">{{ projectName }}</h1>
+        
+        <div id="stepContainer">
+        
+            {{ form_start(form) }}
+        
+            <ul id="progressbar">
+                <li class="active"><span>Consigne</span></li>
+                <li><span>Votre projet et logement actuel</span></li>
+                <li><span>Votre ménage</span></li>
+                <li><span>Votre situation professionnelle et financière</span></li>
+                <li><span>Votre intérêt pour l’habitat participatif</span></li>
+                <li><span>Validation de candidature</span></li>
+            </ul>
+        
+            <!-- Fieldset ####################################################### -->
+            <fieldset>
+            
+                <h4 class="fs-title title text-center">Ce formulaire vaut dossier de candidature. Seuls les formulaires
+                    complétés intégralement et validés à la fin seront transmis au chef de projet et étudiés. Les champs
+                    signalés par un astérisque (*) sont obligatoires.</h4>
+                <p>Ce formulaire est composé de 6 étapes :</p>
+                <ul>
+                    <li>Chaque saisie est sauvegardée automatiquement, il n'est pas nécessaire de sauvegarder votre progression.
+                    </li>
+                    <li>Vous pouvez modifier vos informations autant de fois que vous le souhaitez, <strong>tant que le
+                            formulaire n'a pas été transmis.</strong></li>
+                    <li>Pour soumettre votre candidature, n’oubliez pas de cliquer sur le bouton <strong>« Transmettre ma
+                            candidature ».</strong></li>
+                    <li>Pour toute question, veuillez nous écrire à contact@lescityzens.fr.</li>
+                </ul>
+                <div class="btnPos">
+                    <input id="go__candidate" class="btn btn-success mt-4 col-md-4 align-center next" type="button" name="next" value="Commencer !">
+                </div>
+            </fieldset>
+        
+            <!-- Fieldset LogementActuel ######################################## -->
+            <fieldset>
+                <h4 class="fs-title title text-center title__entity">Projet et logement actuel</h4>
+                <p>
+                    <small class="title mt-4 text-success">
+                        Tant que le questionnaire n'a pas été intégralement complété et transmis, vous pouvez à tout moment
+                        modifier les
+                        champs renseignés. L'enregistrement des saisies se fait de manière
+                        automatique.
+                    </small>
+                </p>
+        
+                <div class="fs-subtitle title mt-4">1. Type de logement recherché
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.logementActuel.logementRecherche) }} <br><br>
+        
+                <div class="fs-subtitle title">2. Surface souhaitée
+                    <span class="text-success">*</span>
+                </div>
+                <div class="row mb-3">
+                    <div class="form-group col-md-6">
+                        <div class="row">
+                            <div class="col-10">
+                                {{ form_widget(form.logementActuel.surfaceMinimale) }}
+                            </div>
+                            <div class="col-2 pl-0 vertical__align"><span>m<sup>2</sup></span></div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="row">
+                            <div class="col-10">
+                                {{ form_widget(form.logementActuel.surfaceMaximale) }}
+                            </div>
+                            <div class="col-2 pl-0 vertical__align__column"><span>m<sup>2</sup></span></div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="fs-subtitle title">3. Type de logement actuel
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.logementActuel.logementActuel) }} <br><br>
+        
+                <div class="fs-subtitle title">4. Statut d'occupation
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.logementActuel.statutOccupation) }}
+        
+                <div class="fs-subtitle title mt-4 row">
+                    <div class="col-md-4 candidature__mb">
+                        5. Montant du loyer (mensuel) :
+                    </div>
+                    <div class="col-md-8">
+                        {{ form_widget(form.logementActuel.montantLoyer) }}
+                    </div>
+                </div>
+        
+                <br>
+        
+                <div class="btnPos mt-4">
+                    <button type="submit" name="enregistrer" class="btnSubmit save__candidature">
+                        <small>
+                            <i class="fas fa-save mr-2"></i>Enregistrer
+                        </small>
+                    </button>
+                    <input class="btn btn-success col-md-3 mr-4 previous" type="button" name="previous" value="Précédent">
+                    <input class="btn btn-success col-md-3 ml-4 next" type="button" name="next" value="Suivant">
+                </div>
+            </fieldset>
+        
+            <!-- Fieldset Menage ################################################ -->
+            <fieldset>
+                <h4 class="fs-title title text-center title__entity">Votre ménage</h4>
+        
+                <p>
+                    <small class="title mt-4 text-success">
+                        Tant que le questionnaire n'a pas été intégralement complété et transmis, vous pouvez à tout moment
+                        modifier les champs
+                        renseignés. L'enregistrement des saisies se fait de manière automatique.
+                    </small>
+                </p>
+        
+                <div class="fs-subtitle title mt-4">6. Acquéreur
+                </div>
+                <p>Civilité <span class="text-success">*</span></p>
+                {{ form_widget(form.menage.civilite) }} <br><br>
+        
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Nom <span class="text-success">*</span>
+                        </div>
+                        {{ form_widget(form.menage.nom) }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Prénom <span class="text-success">*</span>
+                        </div>
+                        {{ form_widget(form.menage.prenom) }}
+                    </div>
+                </div>
+                <div class="row mt-4 mb-2">
+                    <div class="col-md-3 vertical__align form-group">
+                        Date de naissance <span class="ml-1 text-success">*</span>
+                    </div>
+                    <div class="col-md-9 form-group">
+                        {{ form_widget(form.menage.dateNaissance) }}
+                    </div>
+                </div>
+        
+                <p>Catégorie socio-professionnelle <span class="text-success">*</span></p>
+                {{ form_widget(form.menage.categorieSocioPro) }}
+        
+                <div class="mb-2 mt-4">Adresse <span class="text-success">*</span></div>
+                {{ form_widget(form.menage.adresse) }}
+        
+                <div class="row mt-4 mb-2">
+                    <div class="col-md-4 form-group">
+                        <div class="mb-2">
+                            Code postal <span class="ml-1 text-success">*</span>
+                        </div>
+                        {{ form_widget(form.menage.codePostal) }}
+                    </div>
+                    <div class="col-md-8 form-group">
+                        <div class="mb-2">
+                            Ville <span class="ml-1 text-success">*</span>
+                        </div>
+                        {{ form_widget(form.menage.ville) }}
+                    </div>
+                </div>
+        
+                <div class="row mb-2">
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Téléphone portable <span class="ml-1 text-success">*</span>
+                        </div>
+                        {{ form_widget(form.menage.phonePortable) }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Téléphone du domicile
+                        </div>
+                        {{ form_widget(form.menage.phoneDomicile) }}
+                    </div>
+                </div>
+        
+                <div class="row mb-4">
+                    <div class="col-md-7 form-group">
+                        <div class="mb-2">
+                            Téléphone professionnel
+                        </div>
+                        {{ form_widget(form.menage.phonePro) }}
+                    </div>
+                    <div class="col-md-5 form-group">
+                        <div class="mb-2">
+                            E-mail <span class="ml-1 text-success">*</span>
+                        </div>
+                        {{ form_widget(form.menage.email) }}
+                    </div>
+                </div>
+        
+                <p class="fs-subtitle title">7. Co-acquéreur (laisser vide si sans objet)
+                </p>
+                {{ form_widget(form.menage.coAcquereur) }}
+        
+                <p class="fs-subtitle title mt-4">8. Situation familiale <span class="text-success">*</span>
+                </p>
+                {{ form_widget(form.menage.situationFamiliale) }}
+        
+                <p class="fs-subtitle title mt-4">9. Enfants et autre personnes à charge (laisser vide si sans objet)</p>
+        
+                <div class="row mb-4">
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Personne à charge 1 <em>(nom, prénom, date de naissance, lien de parenté)</em>
+                        </div>
+                        {{ form_widget(form.menage.personnesACharges1) }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Personne à charge 2 <em>(nom, prénom, date de naissance, lien de parenté)</em>
+                        </div>
+                        {{ form_widget(form.menage.personnesACharges2) }}
+                    </div>
+                </div>
+        
+                <div class="row mb-4">
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Personne à charge 3 <em>(nom, prénom, date de naissance, lien de parenté)</em>
+                        </div>
+                        {{ form_widget(form.menage.personnesACharges3) }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Personne à charge 4 <em>(nom, prénom, date de naissance, lien de parenté)</em>
+                        </div>
+                        {{ form_widget(form.menage.personnesACharges4) }}
+                    </div>
+                </div>
+        
+                <p class="fs-subtitle title mt-4">Taille du foyer <span class="text-success">*</span>
+                    <span class="text__secondary">
+                        <em>
+                            (nombre de personnes, vous compris) :
+                        </em>
+                    </span>
+                </p>
+                {{ form_widget(form.menage.tailleFoyer) }}
+        
+                <div class="btnPos mt-4">
+                    <button type="submit" name="enregistrer" class="btnSubmit save__candidature">
+                        <small>
+                            <i class="fas fa-save mr-2"></i>Enregistrer
+                        </small>
+                    </button>
+                    <input class="btn btn-success col-md-3 mr-4 previous" type="button" name="previous" value="Précédent">
+                    <input class="btn btn-success col-md-3 ml-4 next" type="button" name="next" value="Suivant">
+                </div>
+            </fieldset>
+        
+            <!-- Fieldset SituationProFinanciere ################################ -->
+            <fieldset>
+                <h4 class="fs-title title text-center title__entity">Votre situation professionnelle et financière</h4>
+                <p>
+                    <small class="title mt-4 text-success">
+                        Tant que le questionnaire n'a pas été intégralement complété et transmis, vous pouvez à tout moment
+                        modifier les champs
+                        renseignés. L'enregistrement des saisies se fait de manière automatique.
+                    </small>
+                </p>
+        
+                <div class="fs-subtitle title mt-4">11. Acquéreur - Statut d’emploi
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.situationProFinanciere.acquereurStatutEmploi) }}
+        
+                <div class="fs-subtitle title mt-4">12. Acquéreur - Salaire mensuel moyen (total annuel primes incluses divisé
+                    par 12)
+                    <span class="text-success">*</span><br>
+                </div>
+                {{ form_widget(form.situationProFinanciere.acquereurSalaireMensuelMoyen) }}
+        
+                <div class="fs-subtitle title mt-4">13. Acquéreur - Revenus imposables (revenus fiscaux de référence tel
+                    qu’indiqués sur votre avis d’imposition après l’abattement de 10 %)
+                    <span class="text-success">*</span>
+                </div>
+                <div class="mb-2">Avis d’imposition 2019 sur les revenus de l’année 2018</div>
+                {{ form_widget(form.situationProFinanciere.acquereurRevenusImpos) }}
+        
+                <div class="fs-subtitle title mt-4">14. Co-acquéreur - Statut d’emploi (laisser vide si sans objet)
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.situationProFinanciere.coAcquereurStatutEmploi) }}
+        
+                <div class="fs-subtitle title mt-4">15. Co-acquéreur - Salaire mensuel moyen (total annuel primes incluses
+                    divisé par 12)
+                    <span class="text-success">*</span><br>
+                </div>
+                {{ form_widget(form.situationProFinanciere.coAcquereurSalaireMensuelMoyen) }}
+        
+                <div class="fs-subtitle title mt-4">16. Co-acquéreur - Revenus imposables (revenus fiscaux de référence tel
+                    qu’indiqués sur
+                    votre avis d’imposition après l’abattement de 10 %)
+                    <span class="text-success">*</span>
+                </div>
+                <div class="mb-2">Avis d’imposition 2019 sur les revenus de l’année 2018</div>
+                {{ form_widget(form.situationProFinanciere.coAcquereurRevenusImpos) }}
+        
+                <div class="fs-subtitle title mt-4">17. Autres revenus mensuels (laisser vide si sans projet) <br>
+                    <span class="text__secondary">
+                        <em>
+                            Indiquez pour chacun leur nature (prestations familiales, pensions, rentes, revenus fonciers, etc.)
+                            et leur montant.
+                        </em>
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        Source de revenus 1 <em>(nature, montant mensuel)</em>
+                    </div>
+                    <div class="col-md-7 form-group">
+                        {{ form_widget(form.situationProFinanciere.sourceRevenus1) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        Source de revenus 2 <em>(nature, montant mensuel)</em>
+                    </div>
+                    <div class="col-md-7 form-group">
+                        {{ form_widget(form.situationProFinanciere.sourceRevenus2) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        Source de revenus 3 <em>(nature, montant mensuel)</em>
+                    </div>
+                    <div class="col-md-7 form-group">
+                        {{ form_widget(form.situationProFinanciere.sourceRevenus3) }}
+                    </div>
+                </div>
+        
+                <div class="fs-subtitle title mt-4">18. Crédits en cours (laisser vide si sans objet) <br>
+                </div>
+                <div class="title mb-1">Crédit 1</div>
+                {{ form_widget(form.situationProFinanciere.creditEnCours1) }}
+                <div class="title mb-1 mt-2">Crédit 2</div>
+                {{ form_widget(form.situationProFinanciere.creditEnCours2) }}
+                <div class="title mb-1 mt-2">Crédit 3</div>
+                {{ form_widget(form.situationProFinanciere.creditEnCours3) }}
+        
+                <div class="fs-subtitle title mt-4">19. Apport personnel
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.situationProFinanciere.apportPersonnel) }}
+        
+                <div class="btnPos mt-4">
+                    <button type="submit" name="enregistrer" class="btnSubmit save__candidature">
+                        <small>
+                            <i class="fas fa-save mr-2"></i>Enregistrer
+                        </small>
+                    </button>
+                    <input class="btn btn-success col-md-3 mr-4 previous" type="button" name="previous" value="Précédent">
+                    <input class="btn btn-success col-md-3 ml-4 next" type="button" name="next" value="Suivant">
+                </div>
+            </fieldset>
+        
+            <!-- Fieldset InteretHabitatParticipatif ############################ -->
+            <fieldset>
+                <h4 class="fs-title title text-center title__entity">Votre intérêt pour l’habitat participatif</h4>
+                <p>
+                    <small class="title mt-4 text-success">
+                        Tant que le questionnaire n'a pas été intégralement complété et transmis, vous pouvez à tout moment
+                        modifier les champs
+                        renseignés. L'enregistrement des saisies se fait de manière automatique.
+                    </small>
+                </p>
+        
+                <div class="fs-subtitle title mt-4">20. Quelles sont vos motivations pour participer à un projet d’habitat
+                    participatif à Ivry-sur-Seine ?
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.interetHabitatParticipatif.motivations) }}
+        
+                <div class="fs-subtitle title mt-4">21. Comment pourriez-vous contribuer à ce projet ? Avez-vous des
+                    savoir-faire particuliers ou une expérience associative ?
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.interetHabitatParticipatif.contributionProjet) }}
+        
+                <div class="fs-subtitle title mt-4">23. Comment envisagez-vous la vie de voisinage ou la vie de quartier ? Quels
+                    échanges ou mutualisations souhaiteriez-vous
+                    mettre en place ?
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.interetHabitatParticipatif.vieVoisinage) }}
+        
+                <div class="fs-subtitle title mt-4">24. Comment avez-vous connu ce projet ?
+                    <span class="text-success">*</span>
+                </div>
+                {{ form_widget(form.interetHabitatParticipatif.connaisanceProjet) }}
+        
+                <div class="btnPos mt-4">
+                    <button type="submit" name="enregistrer" class="btnSubmit save__candidature">
+                        <small>
+                            <i class="fas fa-save mr-2"></i>Enregistrer
+                        </small>
+                    </button>
+                    <input class="btn btn-success col-md-3 mr-4 previous" type="button" name="previous" value="Précédent">
+                    <input class="btn btn-success col-md-3 ml-4 next" type="button" name="next" value="Suivant">
+                </div>
+            </fieldset>
+        
+            <!-- Fieldset Validation ############################################ -->
+            <fieldset>
+                <h4 class="fs-title title text-center title__entity">Validation de candidature</h4>
+                <p>
+                    <small class="title mt-4 text-success">
+                        Attention : en cliquant sur « Transmettre ma candidature », vous validez cette dernière et ne pourrez
+                        plus revenir sur
+                        ce formulaire pour modifier vos informations. Si malgré votre vigilance vous deviez apportez des
+                        modifications
+                        ultérieures, merci de prendre contact avec l’équipe de LesCityZens via l’adresse
+                        candidatures@lescityzens.fr.
+                    </small>
+                </p>
+                {{ form_widget(form.valider) }}
+        
+                {{ form_rest(form) }}
+        
+                <div class="btnPos mt-4">
+                    <input class="btn btn-success col-md-3 mr-4 previous last__previous" type="button" name="previous" value="Précédent">
+                    <input class="btn btn-success col-md-3 ml-4 submit" type="submit" name="submit" value="Candidater">
+                </div>
+            </fieldset>
+        
+            {{ form_end(form) }}
+        
+        </div>
+
+    <!--div class="alert alert-danger"><strong>Désolé !</strong> Vous avez déjà candidater pour ce projet.</div-->
+    
+    <!--span class="text__secondary">
+        <em>
+            (précision technique : choix multiple, 2 choix maximum) :
+        </em>
+    </span-->
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+        integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="anonymous">
+    </script>
+
+    <script>
+
+        $(document).ready(function () 
+        {
+            // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.js-datepicker').datepicker(
+            {
+                format: 'mm/dd/yyyy',
+            });
+            $('.js-datepicker').attr('placeholder', 'jour / mois / année');
+
+            $('#candidatures_logementActuel_statutOccupation_3').on('click', checkedLogementActu);
+
+            function checkedLogementActu() {
+                let checkBox = $('#candidatures_logementActuel_statutOccupation_3');
+                $('#other__logement__actu').remove();
+
+                if ($(checkBox).prop('checked', true)) {
+                    checkBox.parent().after('<input type="text" id="other__logement__actu" class="form-control" name="other_statut_occupation">');
+
+                    /*$('#other__logement__actu').on('keyup', () => 
+                    {
+                        $(checkBox).val($('#other__logement__actu').val());
+                        console.log(checkBox.val());
+                    });*/
+                }
+                else {
+                    checkBox.parent().after('');
+                }
+            }
+
+            $('#candidatures_situationProFinanciere_acquereurStatutEmploi_5').on('click', checkedSituationPro);
+
+            function checkedSituationPro() {
+                let checkBox = $('#candidatures_situationProFinanciere_acquereurStatutEmploi_5');
+                $('#other__situationPro').remove();
+
+                if ($(checkBox).prop('checked', true)) {
+                    checkBox.parent().after('<input type="text" id="other__situationPro" class="form-control" name="other_acquereur_statut_emploi">');
+                }
+                else {
+                    checkBox.parent().after('');
+                }
+            }
+
+            $('#candidatures_situationProFinanciere_coAcquereurStatutEmploi_5').on('click', checkedSituationPro2);
+
+            function checkedSituationPro2() {
+                let checkBox = $('#candidatures_situationProFinanciere_coAcquereurStatutEmploi_5');
+                $('#other__situationPro2').remove();
+
+                if ($(checkBox).prop('checked', true)) {
+                    checkBox.parent().after('<input type="text" id="other__situationPro2" class="form-control" name="other_co_acquereur_statut_emploi">');
+                }
+                else {
+                    checkBox.parent().after('');
+                }
+            }
+
+            $('#candidatures_situationProFinanciere_apportPersonnel_1').on('click', checkedSituationPro3);
+
+            function checkedSituationPro3() {
+                let checkBox = $('#candidatures_situationProFinanciere_apportPersonnel_1');
+                $('#other__situationPro3').remove();
+
+                if ($(checkBox).prop('checked', true)) {
+                    checkBox.parent().after('<div class="mb-2">De quel montant ?</div><div class="input-group apport__perso"><input type="text" id="other__situationPro3" class="form-control" name="other_apport_perso"><div class="input-group-append"><span class="input-group-text">€</span></div>');
+                }
+                else {
+                    checkBox.parent().after('');
+                }
+            }
+
+            // Dimension de la zone de saisie ckEditor
+            CKEDITOR.config.height = 100;
+
+            function creditsEnCours() 
+            {
+                $('.credits__en__cours').addClass('row');
+                $('.credits__en__cours .form-group').addClass('col-md-4');
+            }
+            creditsEnCours();
+
+            
+        }); // $(document).ready() //
+
+        function limitCheckbox() 
+        {
+            let checkboxes = document.querySelectorAll('#candidatures_logementActuel_logementRecherche input[type="checkbox"]');
+            //console.log(checkboxes);
+            for (i = 0; i < checkboxes.length; i++) 
+            {
+                let choice = checkboxes[i];
+                checkboxes[i].addEventListener('change', () =>
+                {
+                    if (document.querySelectorAll('#candidatures_logementActuel_logementRecherche input[type="checkbox"]:checked').length > 2) 
+                    {
+                        choice.checked = false;
+                        console.log(choice.value);
+                    }
+                }, false);
+            }
+
+        }
+        limitCheckbox();
+
+
+    </script>
+{% endblock %}

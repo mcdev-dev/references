@@ -16,10 +16,10 @@ class JoinUsController extends AbstractController
     /**
      * @Route("/join-us/liste", name="join_us_list")
      */
-    public function candidatureListeAction(JoinUsRepository $repo)
+    public function candidatureListe(JoinUsRepository $repo)
     {
         return $this->render('join_us/join_us_list.html.twig', [
-            'candidatures' => $repo->findAll(),
+            'postulats' => $repo->findAll(),
         ]);
     }
 
@@ -27,7 +27,7 @@ class JoinUsController extends AbstractController
      * @Route("/rejoignez-nous/", name="join_us_add")
      * Route de la page Rejoignez-nous
      */
-    public function candidatureAddAction(Request $request, ObjectManager $manager) 
+    public function candidatureAdd(Request $request, ObjectManager $manager) 
     {
         $candidat = new JoinUs;
         $form = $this->createForm(JoinUsType::class, $candidat);
@@ -52,7 +52,7 @@ class JoinUsController extends AbstractController
      * @Route("/join-us/apercue/{id}", name="candidature_view")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function candidatureViewAction($id, JoinUs $candidature) 
+    public function candidatureView($id, JoinUs $candidature) 
     {
         return $this->render('join_us/candidature.html.twig', 
         [
@@ -64,7 +64,7 @@ class JoinUsController extends AbstractController
      * @Route("/join-us/delete/{id}", name="candidature_delete")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function candidatureDeleteAction($id, JoinUsRepository $repo,  ObjectManager $manager) 
+    public function candidatureDelete($id, JoinUsRepository $repo,  ObjectManager $manager) 
     {
         $manager->remove($repo->find($id));
         $manager->flush();

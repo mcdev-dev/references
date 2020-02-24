@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Encore CSS -->
+    {{ encore_entry_link_tags('app') }}
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Suez+One&display=swap" rel="stylesheet">
+    <!-- Ico-moon Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('css/icomoon/style.css') }}">
+
+    <!-- lesCityZens screen CSS style -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- lesCityZens tablet CSS style -->
+    <link rel="stylesheet" media="(min-width: 768px) and (max-width:991.98px)" href="{{ asset('css/tablet.css') }}">
+    <!-- lesCityZens mobile CSS style -->
+    <link rel="stylesheet" media="screen and (max-width:767.98px)" href="{{ asset('css/mobile.css') }}">
+
+    <!-- Encore JS -->
+    {{ encore_entry_script_tags('app') }}
+    <title>Connexion</title>
+    <style>
+        .rescue__connect {
+            margin-top: 50vh;
+            /* poussé de la moitié de hauteur de viewport */
+            transform: translateY(-90%);
+            /* tiré de la moitié de sa propre hauteur */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row rescue__connect justify-content-md-center">
+        <div class="col-lg-4 col-md-6">
+            {% for alerte in app.flashes('success') %}
+            <div class="alert alert-success">{{ alerte | raw }}</div><br>
+            {% endfor %}
+            
+            <div class="text-center">
+                <a href="{{ path('home') }}"><img src="{{ asset('images/static/logotype_lcz.svg') }}" alt="Logo LescityZens" width="170">
+                </a>
+            </div><br>
+            <p class="lost__password__tBlock bg-light">Veuillez saisir votre adresse de messagerie. Un lien permettant de créer un nouveau mot de passe vous sera envoyé par e-mail.
+            </p><br>
+            
+            <form action="{{ path('lost_password_redirect') }}" method="post">
+        
+                <div class="form-group">
+                    <input type="text" name="email" value="" id="email" class="form-control mb-4" placeholder="Adresse email">
+                </div>
+        
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btnSubmit mt-2">Générer un mot de passe</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

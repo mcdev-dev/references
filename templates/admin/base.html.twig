@@ -6,16 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Encore CSS -->
+    {{ encore_entry_link_tags('app') }}
+
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Suez+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <!-- Ico-moon Stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/icomoon/style.css') }}">
-
+    
     <!-- lesCityZens screen CSS style -->
     <link rel="stylesheet" media="screen and (min-width: 992px)" href="{{ asset('css/style.css') }}">
     <!-- lesCityZens tablet CSS style -->
@@ -23,22 +22,12 @@
     <!-- lesCityZens mobile CSS style -->
     <link rel="stylesheet" media="screen and (max-width:767.98px)" href="{{ asset('css/mobile.css') }}">
 
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <!-- jQuery Ui CDN -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-        integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-    <!-- Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+    <!-- Encore JS -->
+    {{ encore_entry_script_tags('app') }}
 
-    <!-- lesCityZens JS App -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- fosJs routing -->
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
     <title>{{ title }}</title>
 </head>
@@ -68,7 +57,7 @@
             <div class="dashboardNav">
                 <div class="settingDashboard">
                     <div class="text-center">
-                        <img src="{{ asset('photo/logotype_lcz.svg') }}" alt="Logo LCZ" width="160">
+                        <img src="{{ asset('images/static/logotype_lcz.svg') }}" alt="Logo LCZ" width="160">
                     </div><hr>
                     <div class="navbarDashboard__js align-middle mb-4 mt-4">
                         <i class="icon-setting-lines mr-3"></i>
@@ -93,8 +82,11 @@
                         <a class="{{ (title == 'Listes des actualités') ? 'gestion__dash__active' : '' }}" href="{{ path('article_actu') }}">
                             <i class="icon-form"></i>Gestion des actualités
                         </a>
-                        <a class="{{ (title == 'Listes des candidatures') ? 'gestion__dash__active' : '' }}" href="{{ path('join_us_list') }}">
-                            <i class="icon-file"></i>Gestion des candidatures
+                        <a class="{{ (title == 'Listes des candidatures') ? 'gestion__dash__active' : '' }}" href="{{ path('candidatures_list') }}">
+                            <i class="icon-archive"></i>Gestion des candidatures
+                        </a>
+                        <a class="{{ (title == 'Listes des postulats') ? 'gestion__dash__active' : '' }}" href="{{ path('join_us_list') }}">
+                            <i class="icon-file"></i>Gestion des postulats
                         </a>
                     </div>
                 </div>

@@ -11,8 +11,8 @@
 					<h1 class="titleArtBgColorNautral text-left">Envie de vous lancer dans l’<strong>HABITAT PARTICIPATIF ?</strong><br>
 						Rejoignez un de nos projets !</h1>
 				</div>
-				<div class="col-md-8">
-					<img src="{{ asset('photo/habitat_particpatif.svg') }}" alt="habitat participatif" class="img-fluid">
+				<div class="col-md-8 titleArtBgColorNautral__img">
+					<img src="{{ asset('images/static/habitat_particpatif.svg') }}" alt="habitat participatif" class="img-fluid">
 				</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 					<div class="titleHabitatCard">Catherine Piug
 					</div>
 					<div class="imgCardHP">
-						<img src="{{ asset('images/photos/Capture-plan-CatherinePuig.png') }}" alt="carte du quartier Catherine Piug" class="img-fluid">
+						<img src="{{ asset('images/web/Capture-plan-CatherinePuig.png') }}" alt="carte du quartier Catherine Piug" class="img-fluid">
 					</div>
 				</a>
 			</div>
@@ -36,11 +36,20 @@
 							{{ article.titre }}
 						</div>
 						<div class="imgCardHP">
-							<img src="{{ asset('images/photos/') ~ article.images[0].imageName }}" alt="{{ article.titre }}" class="img-fluid">
+							<img src="{{ asset('images/web/') ~ article.images[0].imageName }}" alt="{{ article.titre }}" class="img-fluid">
 						</div>
 					</a>
 				</div>
 			{% endfor %}
 		</div>
 	</div><br>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		$(function () 
+		{
+			$('#connect__without__modal').hide();
+		});
+	</script>
 {% endblock %}

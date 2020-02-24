@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleMultiRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class ArticleMulti
 {
@@ -30,31 +31,6 @@ class ArticleMulti
     private $description;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $transport;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $santeServicesSociaux;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $servicesAdmin;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $education;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $sports;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="articleMulti", cascade={"persist", "remove"})
      */
     private $images;
@@ -64,9 +40,26 @@ class ArticleMulti
      */
     private $createAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuMultiple", mappedBy="articleMulti", cascade={"persist", "remove"})
+     */
+    private $contenu;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->contenu = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        if(null === $this->createAt) 
+        {
+            $this->createAt = new \DateTime;
+        }
     }
 
     public function getId(): ?int
@@ -94,66 +87,6 @@ class ArticleMulti
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getTransport(): ?string
-    {
-        return $this->transport;
-    }
-
-    public function setTransport(?string $transport): self
-    {
-        $this->transport = $transport;
-
-        return $this;
-    }
-
-    public function getSanteServicesSociaux(): ?string
-    {
-        return $this->santeServicesSociaux;
-    }
-
-    public function setSanteServicesSociaux(?string $santeServicesSociaux): self
-    {
-        $this->santeServicesSociaux = $santeServicesSociaux;
-
-        return $this;
-    }
-
-    public function getServicesAdmin(): ?string
-    {
-        return $this->servicesAdmin;
-    }
-
-    public function setServicesAdmin(?string $servicesAdmin): self
-    {
-        $this->servicesAdmin = $servicesAdmin;
-
-        return $this;
-    }
-
-    public function getEducation(): ?string
-    {
-        return $this->education;
-    }
-
-    public function setEducation(?string $education): self
-    {
-        $this->education = $education;
-
-        return $this;
-    }
-
-    public function getSports(): ?string
-    {
-        return $this->sports;
-    }
-
-    public function setSports(?string $sports): self
-    {
-        $this->sports = $sports;
 
         return $this;
     }
@@ -197,6 +130,37 @@ class ArticleMulti
     public function setCreateAt(\DateTimeInterface $createAt): self
     {
         $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ContenuMultiple[]
+     */
+    public function getContenu(): Collection
+    {
+        return $this->contenu;
+    }
+
+    public function addContenu(ContenuMultiple $contenu): self
+    {
+        if (!$this->contenu->contains($contenu)) {
+            $this->contenu[] = $contenu;
+            $contenu->setArticleMulti($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContenu(ContenuMultiple $contenu): self
+    {
+        if ($this->contenu->contains($contenu)) {
+            $this->contenu->removeElement($contenu);
+            // set the owning side to null (unless already changed)
+            if ($contenu->getArticleMulti() === $this) {
+                $contenu->setArticleMulti(null);
+            }
+        }
 
         return $this;
     }

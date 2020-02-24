@@ -1,0 +1,99 @@
+
+    <div class="user__profile__navbar">
+        <div class="container">
+            <ul>
+                <li>
+                    <a class="{{ title in ['Candidatures'] ? 'user__profile__navbar__item__active' : '' }}" href="{{ path('user_candidatures') }}">Mes candidatures</a>
+                </li>
+                <li>
+                    <a class="{{ title in ['Informations personnelles', 'Modification mot de passe'] ? 'user__profile__navbar__item__active' : '' }}" href="{{ path('user_profile') }}">Mon compte</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        $(function () 
+        {
+            function userNavbarScroll() 
+            {
+                $(window).on('scroll', () => 
+                {
+                    if ($(window).width() > 992) 
+                    {
+
+                        if ($(window).scrollTop() > 180) 
+                        {
+                            $('.user__profile__navbar').css(
+                                {
+                                    position: 'fixed',
+                                    top: '44px',
+                                    left: 0,
+                                    width: '100%',
+                                    borderTop: 'none',
+                                    zIndex: 1095,
+                                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 20px'
+                                });
+                        }
+                        else 
+                        {
+                            $('.user__profile__navbar').css(
+                                
+                            {
+                                    backgroundColor: '',
+                                    position: '',
+                                    top: '',
+                                    left: '',
+                                    width: '',
+                                    borderTop: '',
+                                    zIndex: 1095,
+                                    boxShadow: ''
+                                });
+                        }
+                    }
+
+                    if ($(window).width() < 992) 
+                    {
+                        if ($(window).scrollTop() > 180) 
+                        {
+                            $('.user__profile__navbar').css(
+                                {
+                                    position: 'fixed',
+                                    top: '123.91px',
+                                    left: 0,
+                                    width: '100%',
+                                    borderTop: 'none',
+                                    zIndex: 1095,
+                                    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 2px 20px'
+                                });
+                            $('#navBar').css(
+                                {
+                                    boxShadow: 'none',
+                                    borderBottom: '1px solid rgba(0,0,0,.1)'
+                                });
+                        }
+                        else {
+                            $('.user__profile__navbar').css(
+                                {
+                                    backgroundColor: '',
+                                    position: '',
+                                    top: '',
+                                    left: '',
+                                    width: '',
+                                    borderTop: '',
+                                    zIndex: 1095,
+                                    boxShadow: ''
+                                });
+
+                            $('#navBar').css(
+                                {
+                                    boxShadow: '',
+                                    borderBottom: ''
+                                });
+                        }
+                    }
+                });
+            }
+            userNavbarScroll();
+        });
+    </script>

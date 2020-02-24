@@ -89,7 +89,10 @@ button a:hover {
     color: inherit;
     text-decoration: none;
 }
-
+.align__items_center {
+    display: flex;
+    align-items: center;
+}
 header {
     width: 100%;
     padding-top: 44px;
@@ -101,7 +104,7 @@ header {
     overflow: hidden;
 }
 .carousel-item img {
-    transform: translateY(-36px);
+    transform: translateY(-72px);
 }
 fieldset.form-group {
     margin-bottom: 0;
@@ -153,6 +156,9 @@ fieldset.form-group {
     z-index: 1;
 }
 .iconeProfile, .burgerLine {
+    display: none;
+}
+.hide__large__screen {
     display: none;
 }
 .menuActive {
@@ -339,11 +345,10 @@ nav{
 .navigation > li:last-child {
     margin-right: 0;
 }
-.ddToggle i {
-    margin-left: .5em;
-}
-.angleDown {
-    transform: rotate(180deg);
+
+.icon-down {
+    margin-left: 0.35em;
+    font-size: 12px;
     transition: ease-in .3s;
 }
 .navigation > li > a, .navigation > li.ddToggle {
@@ -373,7 +378,7 @@ nav{
     transform: translateY(-15px);
     opacity: 0;
     pointer-events: none;
-    box-shadow: 0 .5px 2.5px #97999d;
+    box-shadow: 0 0 3px #97999d;
     transition: all ease .5s;
 }
 .navigation > li:hover .submenu {
@@ -391,7 +396,7 @@ nav{
     right: 0;
     margin: 0 auto;
     background-color: #fff;
-    box-shadow: 0 .5px 2.5px #97999d;
+    box-shadow: 0 0 3px #97999d;
     transform: rotate(45deg);
 }
 .submenu::after {
@@ -600,6 +605,7 @@ td a:hover {
 
 main {
     min-height: calc(100vh - 333px);
+    position: relative;
 }
 .categView {
     height: 300px;
@@ -630,6 +636,11 @@ main {
     text-align: center;
     background-color: #D9326F;
     margin-top: -48px;
+}
+.fondoAccueil2, .fondoAccueil3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .fondoAccueil2 {
     padding: 2em 6em;
@@ -761,6 +772,14 @@ main {
     height: 6px;
     background-color: #D9326F;
 }
+.illu__acceuil__fuc {
+    width: 60%;
+    margin: 1em auto 0 auto;
+}
+.illu__acceuil__hp {
+    width: 75%;
+    margin: 1em auto 0 auto;
+}
 .partnersLogo {
     display: flex;
     flex-wrap: wrap;
@@ -793,7 +812,7 @@ main {
 }
 .exergue::before {
     position: absolute;
-    content: url('../photo/quote-left.svg');
+    content: url('../images/static/quote-left.svg');
     width: 60px;
     height: 60px;
     top: -.65em;
@@ -1075,7 +1094,7 @@ main {
 }
 .titleHabitatCard::after {
     position: absolute;
-    content: url('../photo/plus.svg');
+    content: url('../images/static/plus.svg');
     bottom: 112.5%;
     left: 0;
     right: 0;
@@ -1109,6 +1128,7 @@ main {
     /*overflow: hidden;*/
 }
 .titleProject h1 {
+    font-size: 2em;
     font-weight: 600;
     text-align: center;
     margin-bottom: 1.85rem;
@@ -1128,7 +1148,7 @@ main {
 }
 .titleProject ul li::before {
     position: absolute;
-    content: url('../photo/check.svg');
+    content: url('../images/static/check.svg');
     top: 2px;
     left: 0;
     width: 16px;
@@ -1287,7 +1307,7 @@ section li {
 }
 section li::before {
     position: absolute;
-    content: url('../photo/check_success.svg');
+    content: url('../images/static/check_success.svg');
     width: 18px;
     height: 18px;
     left: 0;
@@ -1314,7 +1334,7 @@ section li::before {
 #msform {
     /**/
 }
-#msform fieldset {
+#msform fieldset:not(.form-group) {
     width: 90%;
     margin: 4em auto 2em auto;
     padding: 2em;
@@ -1395,7 +1415,7 @@ fieldset li {
 }
 fieldset li::before {
     position: absolute;
-    content: url('../photo/check_success.svg');
+    content: url('../images/static/check_success.svg');
     width: 18px;
     height: 18px;
     left: 0;
@@ -1405,11 +1425,45 @@ fieldset li::before {
     display: flex;
     justify-content: center;
 }
+.text__secondary {
+    color: #979ca3 !important;
+    font-weight: normal;
+}
+.title__entity {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.vertical__align__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.vertical__align {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.mb__form__check .form-check {
+    margin-bottom: 0.65em;
+}
+.mb__form__check label {
+    margin-left: 0.35em;
+}
+.save__candidature {
+    text-transform: capitalize !important;
+    margin-right: 4.5em;
+    border-radius: 5px;
+    border: none;
+}
+.save__candidature:hover {
+    text-decoration: none;
+}
 
 /* ProgressBar Questionnaire Candidature */
 
 /*
-* Profile
+* User Profile
 */
 .userProfile {
     flex-wrap: nowrap;
@@ -1499,7 +1553,7 @@ fieldset li::before {
     overflow: hidden;
 }
 .smAvatar img {
-    transform: scale(1.75) translateY(-3px);
+    transform: scale(1.5) translateY(-2px);
 }
 .editAvatar {
     position: absolute;
@@ -1525,10 +1579,200 @@ fieldset li::before {
 .editAvatar i::before {
     font-size: 20px !important;
 }
-#infos_perso .vich-image {
+/* Ensure the size of the image fit the container perfectly */
+#avatar__cropper__js {
+  display: block;
+  /* This rule is very important, please don't ignore this */
+  max-width: 100%;
+}
+.avatar__cropper__modal {
+  overflow: hidden !important;
+}
+#profile_userCoordonnees .custom-file {
     display: none !important;
 }
-/* Fin profile */
+#avatarModal {
+    z-index: 9999 !important;
+}
+#avatarModal .close {
+    right: 1rem !important;
+}
+.user__profile__navbar {
+    position: relative;
+    top: -48px;
+    border-top: 1px solid rgb(230, 230, 230);
+    border-bottom: 1px solid rgb(230, 230, 230);
+    margin-bottom: 56px;
+    background-color: #fff;
+    height: 4.125rem;
+    backface-visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.41, 0.094, 0.54, 0.07) 0s;
+}
+.user__profile__navbar ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.125rem;
+}
+.user__profile__navbar ul li {
+    height: 100%;
+}
+.user__profile__navbar a {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    margin-right: 2.5em;
+    height: 100%;
+    font-weight: bolder;
+    position: relative;
+    letter-spacing: .6px;
+}
+.user__profile__navbar a:hover {
+    text-decoration: none;
+}
+.user__profile__navbar a::before {
+    position: absolute;
+    content: '';
+    bottom: 1.5px;
+    height: 3px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 0;
+    background-color: rgb(161, 162, 162);
+    transition: ease-in .5s;
+}
+.user__profile__navbar a:hover::before {
+    width: 100%;
+}
+.user__profile__navbar ul li:last-child a {
+    margin-right: 0;
+}
+.user__profile__navbar__item__active {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    margin-right: 2.5em;
+    height: 100%;
+    font-weight: bolder;
+    position: relative;
+    letter-spacing: .6px;
+}
+.user__profile__navbar__item__active::after {
+    position: absolute;
+    content: '';
+    bottom: 1.5px;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: #D9326F;
+}
+/* user candidatures */
+.user__candidatures__block {
+    margin-bottom: 3.125rem;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 5px;
+    overflow: hidden;
+}
+.user_candidature {
+    display: block;
+    padding: 1.25em;
+    background-color: rgb(255, 255, 255);
+    color: inherit;
+    cursor: pointer;
+    backface-visibility: hidden;
+    overflow: hidden;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    border-image: initial;
+    transition: all 0.3s cubic-bezier(0.41, 0.094, 0.54, 0.07) 0s;
+}
+.user_candidature:hover {
+    text-decoration: none;
+    color: inherit;
+    background-color: #f8f9fa!important;
+}
+.user_candidature:last-child {
+    border-bottom: none;
+}
+.leadProject {
+    font-size: 0.75rem;
+    color: rgb(151, 153, 157);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.titleCandidature {
+    font-size: 1.25rem;
+}
+.detailsProject {
+    font-size: 0.75rem;
+    color: rgb(151, 153, 157);
+}
+.detailsProject ul {
+    display: flex;
+}
+.detailsProject ul li {
+    margin-right: 1em;
+}
+.detailsProject ul li:last-child {
+    margin-right: 0;
+}
+.detailsProject ul li i {
+    margin-right: 0.5em;
+}
+.candidacyInProgress, .candidacyRefused, .candidacyAccepted {
+    font-size: 0.65rem;
+    justify-content: flex-end;
+    text-transform: uppercase;
+    text-align: right;
+    font-weight: 600 !important;
+    position: relative;
+}
+.candidacyStatus {
+    padding: 0.5em;
+    border-radius: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    position: relative;
+    transition: ease .3s;
+}
+.user_candidature:hover .candidacyStatus {
+    padding: 0.5em .85em;
+}
+.candidacyStatus i {
+    font-size: 1.35em !important;
+}
+.candidacyInProgress .candidacyStatus {
+    color: rgb(1, 104, 152) !important;
+    background-color: rgb(225, 243, 255) !important;
+    border: 1px solid rgb(212, 237, 254) !important;
+}
+.candidacyRefused .candidacyStatus {
+    color: #D9326F !important;
+    background-color: rgb(252, 240, 255) !important;
+    border: 1px solid rgb(248, 227, 254) !important;
+}
+.candidacyAccepted .candidacyStatus {
+    color: rgb(1, 152, 142) !important;
+    background-color: rgb(225, 255, 253) !important;
+    border: 1px solid rgb(180, 252, 248) !important;
+}
+.candidacyStatusText {
+    position: absolute;
+    top: calc(50% - (0.65rem/2));
+    right: -9999px;
+    transition: ease .3s;
+}
+.user_candidature:hover .candidacyStatusText {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-left: 0.5em;
+}
+/* Fin User candidatures */
+/* Fin User profile */
 
 /* Mentions légales */
 .mentionsLegalesBlock {
@@ -1843,6 +2087,169 @@ fieldset li::before {
     padding-right: 2em;
 }
 /* Error headers */
+/* collection__label */
+legend.col-form-label {
+    font-weight: bolder;
+}
+/* collection__label */
+
+/* Login__modal */
+#loginModal {
+    z-index: 9998;
+}
+#lost__password__modal {
+    z-index: 9999;
+}
+#loginModal .modal-header, #lost__password__modal .modal-header {
+    padding: 3em 2em 1em 2em !important;
+}
+#loginModal .modal-header h2 {
+    margin: 0 auto !important;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+#loginModal .modal-body, #lost__password__modal .modal-body {
+    padding: 2em !important;
+}
+#loginModal .close__modal__js, #lost__password__modal .close__modal__js {
+    font-size: 26px !important;
+    cursor: pointer;
+    transform: translate(15px, -30px) !important;
+    color: rgb(152, 158, 162);
+    transition: ease .5s;
+}
+#loginModal .close__modal__js:hover, #lost__password__modal .close__modal__js:hover {
+    color: #D9326F;
+}
+#loginModal .reset__password__modal a {
+    color: inherit !important;
+    position: relative;
+}
+#loginModal .reset__password__modal a:hover {
+    text-decoration: none !important;
+}
+#loginModal .reset__password__modal a::before {
+    position: absolute;
+    content: '';
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(185, 190, 194);
+    transition: ease .5s;
+}
+#loginModal .reset__password__modal a:hover::before {
+    width: 50%;
+    background-color: #D9326F;
+}
+
+.lost__password__tBlock {
+    padding: 1em;
+    position: relative;
+    border-radius: 5px;
+    color: #73859d !important;
+    overflow: hidden;
+}
+.lost__password__tBlock::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background-color: #D9326F;
+}
+.login__returned a:hover {
+    text-decoration: none !important;
+}
+.login__returned a {
+    color: inherit !important;
+    position: relative;
+}
+.login__returned a::before {
+    position: absolute;
+    content: '';
+    bottom: -5px;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(185, 190, 194);
+    transition: ease-in .5s;
+}
+.login__returned a:hover::before {
+    width: 120%;
+    background-color: #D9326F;
+}
+.login__returned a::after {
+    position: absolute;
+    content: '';
+    bottom: calc(-50% - 1px);
+    left: -10px;
+    width: 12px;
+    height: 12px;
+    border-bottom: 1px solid transparent;
+    border-left: 1px solid transparent;
+    transform: rotate(45deg);
+    transition: ease-in .5s;
+}
+.login__returned a:hover::after {
+    left: -40px;
+    border-bottom: 1px solid #D9326F;
+    border-left: 1px solid #D9326F;
+}
+
+.lost__mdp a {
+    color: inherit !important;
+    position: relative;
+}
+.lost__mdp a:hover {
+    text-decoration: none !important;
+}
+.lost__mdp a::before {
+    position: absolute;
+    content: '';
+    bottom: -3px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(185, 190, 194);
+    transition: ease .5s;
+    transition: ease .5s;
+}
+.lost__mdp a:hover::before {
+    width: 50%;
+    background-color: #D9326F;
+}
+/* Login__modal */
+/* ckEditor */
+.add-another-collection-widget {
+    margin: 2em 0;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    transition: ease .5s;
+}
+.add-another-collection-widget:hover {
+    background-color: #D9326F;
+    color: #fff;
+    border-color: #D9326F;
+}
+/* ckEditor */
+/* candidatureForm */
+#other__value {
+    display: none;
+}
+#other__value__logement__actu {
+    display: none;
+}
+.not__list__style li::before {
+    content: url('../images/static/attention.svg');
+}
+/* candidatureForm */
 
 
 footer {

@@ -5,8 +5,8 @@ namespace App\Form;
 use App\Entity\UserCoordonnees;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -22,8 +22,9 @@ class UserCoordonneesType extends AbstractType
             ->add('ville', TextType::class)
             ->add('codePostal', IntegerType::class)
             ->add('adresse', TextareaType::class)
-            ->add('imageFile', VichImageType::class, [ 
+            ->add('avatarFile', FileType::class, [ 
                 'label' => false,
+                'required' => false,
                 //'mapped' => false,
             ])
         ;

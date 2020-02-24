@@ -5,10 +5,10 @@ namespace App\Controller;
 use App\Entity\ContactEmail;
 use App\Form\ContactEmailType;
 use Symfony\Component\Mime\Email;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ContactEmailRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -17,7 +17,7 @@ class ContactEmailController extends AbstractController
     /**
      * @Route("/contact/email", name="contact_email")
      */
-    public function contactEmail(Request $request, MailerInterface $mailer, ObjectManager $manager)
+    public function contactEmail(Request $request, MailerInterface $mailer, EntityManagerInterface $manager)
     {
         $email = new ContactEmail;
         $form = $this->createForm(ContactEmailType::class, $email);

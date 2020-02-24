@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr'
     app.notifications.email_sender: lcz.grabli@gmail.com
+    uploads_avatar_dir: '%kernel.project_dir%/public/images/web/avatars'
 
 services:
     # default configuration for services in *this* file
@@ -24,6 +25,10 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+    
+    App\Services\UploadAvatar:
+        arguments:
+            $targetDirectory: '%uploads_avatar_dir%'
     
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
@@ -46,6 +51,14 @@ services:
     App\EventSubscriber\NotifyUpdatePassword:
         # le nom de la variable que l'on utilisera dans le service
         $sender: '%app.notifications.email_sender%'
-
+    
+    App\Mercure\MercureCookieGenerator:
+        arguments:
+            $secret: '%env(MERCURE_JWT_KEY)%'
+    
+    App\Mercure\JwtProvider:
+        arguments:
+            $secret: '%env(MERCURE_JWT_KEY)%'
+    
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

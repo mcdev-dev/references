@@ -6,14 +6,20 @@ use App\Events;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\AvatarType;
 use App\Form\ProfileType;
+use App\Services\UploadAvatar;
+use App\Entity\UserCoordonnees;
 use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -36,10 +42,11 @@ class UserController extends AbstractController
      * @Route("/admin/user/add/", name="user_add")
      * Route permettant d'ajouter un utilisateur
      */
-    public function userAddAction(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) 
+    public function userAdd(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) 
     {
         $user = new User;
         $userRole = new Role;
+        $adresse = new UserCoordonnees;
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -48,6 +55,10 @@ class UserController extends AbstractController
         {
             $userRole->setTitle('ROLE_USER');
             $user->addUserRole($userRole);
+
+            $adresse->setAvatar('default_avatar');
+            $user->setUserCoordonnees($adresse);
+
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
 
             if($user->getAbonneNewsletter() == true) 
@@ -103,7 +114,7 @@ class UserController extends AbstractController
      * @Route("/user/profile/", name="user_profile")
      * Route du profile de l'utilisateur
      */
-    public function userProfileAction(Request $request, EntityManagerInterface $manager, EventDispatcherInterface $eventDispatcher) 
+    public function userProfile(Request $request, EntityManagerInterface $manager, EventDispatcherInterface $eventDispatcher) 
     {
         $user = $this->getUser();
         $form = $this->createForm(ProfileType::class, $user);
@@ -132,6 +143,38 @@ class UserController extends AbstractController
     }
 
     /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Route("/profile/avatar", name="image", methods={"POST"}, options={"expose"=true})
+     */
+    public function getAvatar(Request $request, UploadAvatar $uploadService, EntityManagerInterface $manager) 
+    {
+        if($request->isXmlHttpRequest()) 
+        {
+            $user = $this->getUser();
+            $avatar = $user->getUserCoordonnees()->getAvatar();
+            
+            $file = new UploadedFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], $_FILES['file']['type'], $_FILES['file']['error']);
+
+            if(null !== $avatar) 
+            {
+                $uploadService->removeFile($avatar);
+
+                if($file) 
+                {
+                    $file_name = $uploadService->uploadFile($file);
+                    // Persist to Database
+                    $user->getUserCoordonnees()->setAvatar($file_name);
+                    $manager->flush();
+                }
+            }
+
+            return new JsonResponse($file_name);
+        }
+        
+    }
+
+    /**
      * @Route("/user/reset-password/", name="reset_password")
      * Route de modification du mot de passe
      */
@@ -155,8 +198,8 @@ class UserController extends AbstractController
                 $manager->flush();
 
                 //On déclenche l'eventDispatcher
-                $event = new GenericEvent($user);
-                $eventDispatcher->dispatch(Events::USER_UPDATE_PASSWORD, $event);
+                //$event = new GenericEvent($user);
+                //$eventDispatcher->dispatch(Events::USER_UPDATE_PASSWORD, $event);
 
                 $this->addFlash('success', '<strong>'. $user->getPrenom(). '</strong>, votre mot de passe à bien été changé !');
 

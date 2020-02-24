@@ -6,13 +6,17 @@ use App\Events;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\UserCoordonnees;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -24,10 +28,11 @@ class SecurityController extends AbstractController
      * @Route("/inscription", name="inscription")
      * Page d'inscription
      */
-    public function registration(ObjectManager $manager, Request $request, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher)
+    public function registration(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder, EventDispatcherInterface $eventDispatcher)
     {
         $user = new User;
         $userRole = new Role;
+        $adresse = new UserCoordonnees;
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -36,6 +41,10 @@ class SecurityController extends AbstractController
         {
             $userRole->setTitle('ROLE_USER');
             $user->addUserRole($userRole);
+
+            $adresse->setAvatar('default_avatar');
+            $user->setUserCoordonnees($adresse);
+
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             $user->setLastLogin(new \DateTime);
             $user->setregistrationDate(new \DateTime);
@@ -48,12 +57,13 @@ class SecurityController extends AbstractController
                 $user->setAbonneNewsletter(0);
             }
             $manager->persist($userRole);
+            $manager->persist($adresse);
             $manager->persist($user);
             $manager->flush();
 
             //On déclenche l'eventDispatcher
-            $event = new GenericEvent($user);
-            $eventDispatcher->dispatch(Events::USER_REGISTERED, $event);
+            //$event = new GenericEvent($user);
+            //$eventDispatcher->dispatch(Events::USER_REGISTERED, $event);
 
             $this->addFlash('success', '<strong>' . $user->getPrenom() . '</strong>, Votre inscription a été validée, vous aller recevoir un email de confirmation pour activer votre compte et pouvoir vous connecté.');
             return $this->redirectToRoute('connexion');
@@ -64,14 +74,14 @@ class SecurityController extends AbstractController
             'registrationForm' => $form->createView()
         ]);
     }
-
+    
     /**
      * @Route("/account/confirm/{token}/{username}", name="confirm_account")
      * @param $token
      * @param $username
      * @return Response
      */
-    public function confirmAccount($token, $username, ObjectManager $manager, UserRepository $repo): Response
+    /*public function confirmAccount($token, $username, EntityManagerInterface $manager, UserRepository $repo): Response
     {
         $user = $repo->findOneBy(['username' => $username]);
         $tokenExist = $user->getConfirmationToken();
@@ -94,7 +104,7 @@ class SecurityController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
      */
-    /*public function sendConfirmationToken(Request $request, MailerService $mailerService, MailerInterface $mailer, ObjectManager $manager): RedirectResponse
+    /*public function sendConfirmationToken(Request $request, MailerService $mailerService, MailerInterface $mailer, EntityManagerInterface $manager): RedirectResponse
     {
         $email = $request->request->get('email');
         $user = $repo->findOneBy(['email' => $email]);
@@ -116,11 +126,13 @@ class SecurityController extends AbstractController
      * @Route("/connexion", name="connexion")
      * Page de connexion
      */
-    public function connexion(AuthenticationUtils $auth) 
+    public function connexion(AuthenticationUtils $auth, SessionInterface $session, Request $request) 
     {
-        return $this->render('security/connexion.html.twig', [
+        return $this->render('security/connexion.html.twig', 
+        [
             'username' => $auth->getLastUsername(),
-            'hasError'         => $auth->getLastAuthenticationError() !== null,
+            'hasError' => $auth->getLastAuthenticationError() !== null,
+            'resetConfirm' => $session->get('reset_confirm')
         ]);
     }
 

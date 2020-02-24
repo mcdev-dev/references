@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -26,6 +27,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("public")
      */
     private $id;
 
@@ -35,6 +37,7 @@ class User implements UserInterface
      * @Assert\Regex(
      *      pattern="#^[\w.-]{3,20}$#", 
      *      message="Votre nom d'utilisateur doit comporter entre 3 et 20 caractères (a à z, A à Z, 0 à 9 et .,-,_).")
+     * @Groups("public")
      */
     private $username;
 
@@ -119,6 +122,16 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="role", cascade={"persist", "remove"})
      */
     private $userRoles;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetPassword;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Candidatures", mappedBy="candidat", cascade={"persist", "remove"})
+     */
+    private $candidatures;
 
     /**
      * @ORM\PrePersist
@@ -364,6 +377,35 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getResetPassword(): ?string
+    {
+        return $this->resetPassword;
+    }
+
+    public function setResetPassword(?string $resetPassword): self
+    {
+        $this->resetPassword = $resetPassword;
+
+        return $this;
+    }
+
+    public function getCandidatures(): ?Candidatures
+    {
+        return $this->candidatures;
+    }
+
+    public function setCandidatures(?Candidatures $candidatures): self
+    {
+        $this->candidatures = $candidatures;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newCandidat = null === $candidatures ? null : $this;
+        if ($candidatures->getCandidat() !== $newCandidat) {
+            $candidatures->setCandidat($newCandidat);
+        }
+
+        return $this;
+    }
     
 
 }

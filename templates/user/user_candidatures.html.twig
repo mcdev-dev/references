@@ -1,0 +1,195 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Candidatures' %}
+
+{% block blockFluid %}
+    {% include 'partials/user_navbar_profile.html.twig' with { 'title' : title } %}
+{% endblock %}
+
+{% block content %}
+
+{% if candidatures != null %}
+    <!-- Candidature incomplète -->
+    {% set statut = null %}
+    {% set valider = null %}
+        {% for item in candidatures %}
+            {% set statut = item.statut %}
+            {% set valider = item.valider %}
+        {% endfor %}
+    {% if statut == false and valider == false %}
+        <h4 class="title mb-4">Candidatures incomplètes</h4>
+        <div class="user__candidatures__block">
+            {% for candidature in candidatures %}
+                <a href="{{ path('candidature_temporary') }}" class="user_candidature">
+                    <div class="row">
+                        <div class="col-md-2 align__items_center logo__promotor">
+                            {% if candidature.promoteurLogo == 'neolia' %}
+                                <img src="{{ asset('images/static/partners/logo-neolia.jpg') }}" alt="néolia logo" class="img-fluid">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="leadProject">{{ candidature.promoteur }}</div>
+                            <div class="titleCandidature">{{ candidature.titre }}</div>
+                            <div class="detailsProject mt-1">
+                                <ul>
+                                    <li>
+                                        <i class="far fa-file-alt mr-1"></i>
+                                        {{ candidature.categorie | capitalize }}
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        {{ candidature.ville }}
+                                    </li>
+                                    <li>
+                                        <i class="far fa-clock mr-1"></i>
+                                        {{ time_diff(candidature.sendAt) | capitalize }}
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-2 candidacyRefused align__items_center">
+                            <span class="candidacyStatus">
+                                <i class="fas fa-pencil-alt"></i>
+                                <span class="candidacyStatusText">Veuillez compléter</span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}      
+        </div>
+    {% endif %}
+
+    
+    <!-- Candidature en cours -->
+    {% if statut == 1 and valider == true %}
+        <h4 class="title mb-4">Candidatures transmises</h4>
+        <div class="user__candidatures__block">
+            {% for candidature in candidatures %}
+
+                <a href="{#{ path('generate_candidature_pdf') }#}" class="user_candidature">
+                    <div class="row">
+                        <div class="col-md-2 align__items_center">
+                            {% if candidature.promoteurLogo == 'neolia' %}
+                                <img src="{{ asset('images/static/partners/logo-neolia.jpg') }}" alt="néolia logo" class="img-fluid">
+                            {% endif %}
+                            </div>
+                        <div class="col-md-8">
+                            <div class="leadProject">{{ candidature.promoteur }}</div>
+                            <div class="titleCandidature">{{ candidature.titre }}</div>
+                            <div class="detailsProject mt-1">
+                                <ul>
+                                    <li>
+                                        <i class="far fa-file-alt mr-1"></i>
+                                        {{ candidature.categorie | capitalize }}
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        {{ candidature.ville }}
+                                    </li>
+                                    <li>
+                                        <i class="far fa-clock mr-1"></i>
+                                        {{ time_diff(candidature.sendAt) | capitalize }}
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-2 candidacyInProgress align__items_center">
+                            <span class="candidacyStatus">
+                                <i class="far fa-clock"></i>
+                                <span class="candidacyStatusText">En cours de traitement</span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+            <!-- Candidature refusée -->
+            {% if statut == 2 and valider == true %}
+                <a href="{#{ path('generate_candidature_pdf') }#}" class="user_candidature">
+                    <div class="row">
+                        <div class="col-md-2 align__items_center">
+                            {% if candidature.promoteurLogo == 'neolia' %}
+                                <img src="{{ asset('images/static/partners/logo-neolia.jpg') }}" alt="néolia logo" class="img-fluid">
+                            {% endif %}
+                            </div>
+                        <div class="col-md-8">
+                            <div class="leadProject">{{ candidature.promoteur }}</div>
+                            <div class="titleCandidature">{{ candidature.titre }}</div>
+                            <div class="detailsProject mt-1">
+                                <ul>
+                                    <li>
+                                        <i class="far fa-file-alt mr-1"></i>
+                                        {{ candidature.categorie | capitalize }}
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        {{ candidature.ville }}
+                                    </li>
+                                    <li>
+                                        <i class="far fa-clock mr-1"></i>
+                                        {{ time_diff(candidature.sendAt) | capitalize }}
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-2 candidacyRefused align__items_center">
+                            <span class="candidacyStatus">
+                                <i class="fas fa-times"></i>
+                                <span class="candidacyStatusText">Réfusée</span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+
+            <!-- Candidature acceptée -->
+            {% if statut == 3 and valider == true %}
+                <a href="{#{ path('generate_candidature_pdf') }#}" class="user_candidature">
+                    <div class="row">
+                        <div class="col-md-2 align__items_center">
+                            {% if candidature.promoteurLogo == 'neolia' %}
+                                <img src="{{ asset('images/static/partners/logo-neolia.jpg') }}" alt="néolia logo" class="img-fluid">
+                            {% endif %}
+                            </div>
+                        <div class="col-md-8">
+                            <div class="leadProject">{{ candidature.promoteur }}</div>
+                            <div class="titleCandidature">{{ candidature.titre }}</div>
+                            <div class="detailsProject mt-1">
+                                <ul>
+                                    <li>
+                                        <i class="far fa-file-alt mr-1"></i>
+                                        {{ candidature.categorie | capitalize }}
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        {{ candidature.ville }}
+                                    </li>
+                                    <li>
+                                        <i class="far fa-clock mr-1"></i>
+                                        {{ time_diff(candidature.sendAt) | capitalize }}
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-2 candidacyAccepted align__items_center">
+                            <span class="candidacyStatus">
+                                <i class="fas fa-check"></i>
+                                <span class="candidacyStatusText">Acceptée</span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% else %}
+    <div class="alert alert-danger"><strong>Désolé !</strong> Vous n'avez aucune candidature en cours.</div>
+{% endif %}
+
+{% endblock %}

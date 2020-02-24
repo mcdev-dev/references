@@ -5,5 +5,7 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
     paths:
         # point this wherever your images live
-        '%kernel.project_dir%/public/photo': images
-        '%kernel.project_dir%/public/images/photos': photos
+        '%kernel.project_dir%/public/images/static': images
+        '%kernel.project_dir%/public/images/web': photos
+    globals:
+        mercure_publish_url: '%env(MERCURE_PUBLISH_URL)%'

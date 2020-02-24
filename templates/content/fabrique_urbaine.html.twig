@@ -7,7 +7,9 @@
 		<div class="fondoAccueil2L">
 			<div class="container">
 				<h1 class="titleArtBgColor2">{{ article.titre }}</h1>
-				<img src="{{ asset('images/photos/') ~ article.imageName }}" alt="{{ article.titre }}" class="img-fluid">
+				<div class="fondoAccueil2L__img">
+					<img src="{{ asset('images/web/') ~ article.imageName }}" alt="{{ article.titre }}" class="img-fluid">
+				</div>
 			</div>
 		</div><br><br>
 		<div class="container">
@@ -47,65 +49,72 @@
 
 {% block javascripts %}
 	<script>
-		$(function () {
+		$(function () 
+		{
+			function fabriqueUrbaine() 
+			{
+				let titre = $('.animate_fabrique_urbaine h3');
+				let listElement = $('.animate_fabrique_urbaine ul li');
+				let titreRight = $('.animate_fabrique_urbaineRight h3');
+				let listElementRight = $('.animate_fabrique_urbaineRight ul li');
 
-function fabriqueUrbaine() {
-let titre = $('.animate_fabrique_urbaine h3');
-let listElement = $('.animate_fabrique_urbaine ul li');
-let titreRight = $('.animate_fabrique_urbaineRight h3');
-let listElementRight = $('.animate_fabrique_urbaineRight ul li');
+				let cible = $('.animate_fabrique_urbaine').offset().top;
+				// alert(cible)
 
-let cible = $('.animate_fabrique_urbaine').offset().top;
-// alert(cible)
+				$(window).scroll(() => 
+				{
+					if ($('html, body').scrollTop() >= cible - 600) {
+					titre.animate({
+						opacity: 1
+					}, 2000).animate({
+						marginLeft: 0
+					}, 1000);
 
-$(window).scroll(() => {
-if ($('html, body').scrollTop() >= cible - 600) {
-titre.animate({
-opacity: 1
-}, 2000).animate({
-marginLeft: 0
-}, 1000);
+				listElement.each((key, value) => 
+				{
+					$(value).css(
+					{
+						animation: `listElem 1.5s ease forwards ${
+						key / 1 + 2.5
+						}s`
+					});
 
-listElement.each((key, value) => {
-$(value).css({
-animation: `listElem 1.5s ease forwards ${
-key / 1 + 2.5
-}s`
-});
+				});
 
-});
+				listElement.one('animationend', () => 
+				{ // code to execute after animation ends
+					titreRight.animate({
+						opacity: 1
+					}, 2000).animate({
+						marginRight: 0
+					}, 1000);
 
-listElement.one('animationend', () => { // code to execute after animation ends
-titreRight.animate({
-opacity: 1
-}, 2000).animate({
-marginRight: 0
-}, 1000);
+					listElementRight.each((key, value) => 
+					{
+						$(value).css({
+							animation: `listElemRight 3s ease forwards ${
+							key / 1 + 3.5
+							}s`
+						});
+					});
 
-listElementRight.each((key, value) => {
-$(value).css({
-animation: `listElemRight 3s ease forwards ${
-key / 1 + 3.5
-}s`
-});
-});
+				});
 
-});
+				listElementRight.one('animationend', () => 
+				{
+					$('.animate_fabrique_urbaineLast').animate({
+						opacity: 1
+					}, 2000);
+				});
 
-listElementRight.one('animationend', () => {
-$('.animate_fabrique_urbaineLast').animate({
-opacity: 1
-}, 2000);
-});
+				}
 
+				});
 
-}
+			}
+			fabriqueUrbaine();
 
-});
-
-}
-fabriqueUrbaine();
-
-});
+			$('#connect__without__modal').hide();
+		});
 	</script>
 {% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'admin/base.html.twig' %}
+
+{% set title = 'Listes des candidatures' %}
+
+{% block content %}
+
+<h4 class="title col-md-7">Gestion des candidatures</h4><br><br>
+
+{% if candidatures is not empty %}
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th class="align-top">Candidat</th>
+            <th class="align-top">Titre</th>
+            <th class="align-top">Statut</th>
+            <th class="align-top">Date de création</th>
+            <th class="align-top">Date d'envoi</th>
+            <th class="align-top">Promoteur</th>
+            <th class="align-top">Ville</th>
+            <th colspan="2" class="align-top">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for candidature in candidatures %}
+        <tr>
+            <td>{{ candidature.candidat.prenom ~' '~ candidature.candidat.nom }}</td>
+            <td>{{ candidature.titre }}</td>
+            <td>{{ candidature.statut }}</td>
+            <td>{{ candidature.createdAt | date('d/m/Y à H:i') }}</td>
+            <td>{{ candidature.sendAt | date('d/m/Y à H:i') }}</td>
+            <td>{{ candidature.promoteur }}</td>
+            <td>{{ candidature.ville }}</td>
+            <td>
+                <a href="{{ path('candidature_view', { 'id' : candidature.id }) }}">
+                    <i class="icon-magnifiying-glass"></i>
+                </a>
+            </td>
+            <td>
+                <a class="confirm__candidature__del" href="{{ path('candidature_delete', { 'id' : candidature.id }) }}">
+                    <i class="icon-trash"></i>
+                </a>
+            </td>
+            <!--td>{#{ candidature.createAt | date('d/m/Y à H:i') }#}</td-->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<div class="alert alert-danger">
+    <strong>Désolé !</strong>
+    Il n'existe aucune candidature pour l'instant.</div>
+
+{% endif %}
+
+
+{% endblock %}

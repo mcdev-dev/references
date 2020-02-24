@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Messagerie instantanée' %}
+
+{% block content %}
+
+    <h1>Mercure and Symfony</h1><br>
+
+    <div class="user_chat_box">
+        <div id="mercure_content_receiver"></div>
+        <form id="mercure_message_form" action="{{ path('send_message', { 'user' : user.id }) }}" method="post">
+            <div class="form-group">
+                <label for="mercure_message_input">
+                    <img class="mr-2 rounded-circle" src="{{ asset('images/web/avatars/') ~ app.user.userCoordonnees.avatar }}" alt="{{ app.user.prenom }}" width="70">
+                    <span class="h5">
+                        {{ app.user.prenom ~' '~ app.user.nom }}
+                    </span>
+                </label>
+                <input type="text" class="form-control mt-2" id="mercure_message_input" name="message">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btnSubmit" id="mercure_message_btn">Chatter !</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+        const url = new URL('{{ mercure_publish_url }}');
+        url.searchParams.append('topic', 'http://lescityzens.net/chat');
+
+        const eventSource = new EventSource(url, { withCredentials : true });
+        
+        // The callback will be called every time an update is published
+        eventSource.onmessage = (e) => 
+        {
+            const data = JSON.parse(e.data);
+            let message = document.getElementById('mercure_message_input').value;
+
+            if(data.username) 
+            {
+                message = `${data.username} a pingé : ` + message;
+                console.log(message);
+            }
+            
+            $eventCible = document.querySelector('#mercure_content_receiver');
+            $eventCible.insertAdjacentHTML('afterbegin', `<div class="alert alert-success col-6 mt-4">${ message }</div>`);
+
+            /*window.setTimeout(() => 
+            {
+                const $alert = document.querySelector('.alert');
+                $alert.parentNode.removeChild($alert);
+            }, 4000);*/
+        }
+
+        /*const _receiver = document.getElementById('mercure-content-receiver');
+        const _messageInput = document.getElementById('mercure-message-input');
+        const _sendForm = document.getElementById('mercure-message-form');
+
+        const sendMessage = (message) => {
+            if (message === '') {
+                return;
+            }
+
+            fetch(_sendForm.action, {
+                method: _sendForm.method,
+                body: 'message=' + message,
+                headers: new Headers({
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                })
+            }).then(() => {
+                _messageInput.value = '';
+            });
+        };
+
+        _sendForm.onsubmit = (e) => {
+            sendMessage(_messageInput.value);
+
+            e.preventDefault();
+            return false;
+        };
+
+        const url = new URL('{{ mercure_publish_url }}');
+        url.searchParams.append('topic', 'http://lescityzens.net/chat');
+        const eventSource = new EventSource(url, { withCredentials: true });
+        eventSource.onmessage = (e) => 
+        {
+            const data = JSON.parse(e.data);
+            if (!data.message) {
+                return;
+            }
+            _receiver.insertAdjacentHTML('beforeend', `<div class="message">${data.message}</div>`);
+        };*/
+        
+    </script>
+
+{% endblock %}

@@ -5,38 +5,164 @@
 {% block content %}
 	<div class="mb-4">
 		<a class="undo" href="{{ path('article_multi') }}">
-			<i class="icon-logout1"></i>
+			<i class="icon-logout"></i>
 		</a>
 	</div>
 
 	<h4 class="title">{{ action }}
 		un article</h4><br>
+
+	{% form_theme articleMultiForm _self %}
+
 	{{ form_start(articleMultiForm) }}
 
 	{{ form_row(articleMultiForm.titre, { 'label' : 'Titre de l\'article' }) }}
 
-	{{ form_row(articleMultiForm.description, { 'label' : 'Contenu de l\'article' }) }}
+	{{ form_row(articleMultiForm.description, { 'label' : 'Chapeau de l\'article' }) }}
 
-	{{ form_row(articleMultiForm.transport, { 'label' : 'Contenu de l\'article' }) }}
-
-	{{ form_row(articleMultiForm.santeServicesSociaux, { 'label' : 'Contenu de l\'article' }) }}
-
-	{{ form_row(articleMultiForm.servicesAdmin, { 'label' : 'Contenu de l\'article' }) }}
-
-	{{ form_row(articleMultiForm.education, { 'label' : 'Contenu de l\'article' }) }}
-
-	{{ form_row(articleMultiForm.sports, { 'label' : 'Contenu de l\'article' }) }}
-
-	{% form_theme articleMultiForm 'article_multi/_form_theme.html.twig' %}
-
-	{{ form_row(articleMultiForm.images, { 'label' : 'Image pour illustrer l\'article' }) }}
+	{{ form_row(articleMultiForm.contenu) }}
+	
+	{{ form_rest(articleMultiForm) }}
+	<input type="hidden" id="tmpl__counter" value="0">
+	<input type="hidden" id="tmpl__img__counter" value="0">
 
 	{% if action == 'Ajouter' %}
-		<button type="submit" class="btn mb-4 btnSubmitMulti">Ajouter</button>
+		<button type="submit" class="btn mb-4 mt-4 btnSubmitMulti">Ajouter l'article !</button>
 	{% else %}
-		<button type="submit" class="btn mb-4 btnSubmitMulti">Modifier</button>
+		<button type="submit" class="btn mb-4 mt-4 btnSubmitMulti">Modifier l'article !</button>
 	{% endif %}
 
 	{{ form_end(articleMultiForm) }}
+{% endblock %}
 
+{% block collection__type__class %}
+	<!-- Block Articles -->
+	{% block _article_multi_contenu_entry_row %}
+		{{ form_widget(form) }}
+	{% endblock %}
+
+	{% block _article_multi_contenu_entry_widget %}
+		<div class="form-group" id="block_{{ id }}">
+			<div class="row">
+				<div class="col-11">
+					{{ form_widget(form) }}
+				</div>
+				<div class="col-1 mt-4">
+					<button id="article__multi" type="button" data-action="delete" data-target="block_{{id}}" class="btn btnSubmit">
+						<i class="icon-trash"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+
+	{% block _article_multi_contenu_widget %}
+		<p>Ici, vous pouvez ajouter le contenu de votre article !</p>
+		{{ form_widget(form) }}
+		<div class="form-group">
+			<button type="button" id="add__contents" class="btn btn-sm btnSubmit">Ajouter un conténu</button>
+		</div>
+	{% endblock %}
+	<!-- Fin Block Articles -->
+
+	<!-- Block Images -->
+	{% block _article_multi_images_entry_row %}
+		{{ form_widget(form) }}
+	{% endblock %}
+
+	{% block _article_multi_images_entry_widget %}
+		<div class="form-group" id="blockImg_{{ id }}">
+			<div class="row">
+				<div class="col-11 pt-2">
+					{{ form_widget(form) }}
+				</div>
+				<div class="col-1">
+					<button id="image__multi" type="button" data-action="delete" data-target="blockImg_{{id}}" class="btn btnSubmit">
+						<i class="icon-trash"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+
+	{% block _article_multi_images_widget %}
+		<p>Ici, vous pouvez ajouter des images pour votre article !</p>
+	{{ form_widget(form) }}
+	<div class="form-group">
+		<button type="button" id="add__images" class="btn btn-sm btnSubmit">Ajouter une image</button>
+	</div>
+	{% endblock %}
+	<!-- Fin Block Images -->
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+
+		$(function () 
+		{
+			// --- Block Articles --- //
+			$('#add__contents').click(() => 
+			{
+				// Récupération des numéros des futurs champs à créer
+				const index = parseInt($('#tmpl__counter').val());
+				//console.log(index);
+				// Récupération du prototype des entrées
+				const tmpl = $('#article_multi_contenu').data('prototype').replace(/__name__/g, index);
+
+				// Injection du template dans la div
+				$('#article_multi_contenu').append(tmpl);
+				$('#tmpl__counter').val(index + 1);
+
+				// Appel de la fonction de suppression du tmpl
+				deleteTemplate();
+			});
+
+			function deleteTemplate() {
+				$('button[data-action="delete"]').each((key, btn) => {
+					$(btn).click(() => {
+						const data = $(btn).data('target');
+						const blockDel = $(btn).parent().parent().parent().attr('id', data);
+
+						$(blockDel).remove();
+						console.log('Block "' + data + '" removed successfully !');
+					});
+				});
+			}
+			deleteTemplate();
+			// --- Fin Block Articles --- //
+
+			// --- Block Images --- //
+			$('#add__images').click(() => 
+			{
+				// Récupération des numéros des futurs champs à créer
+				const index = parseInt($('#tmpl__img__counter').val());
+				//console.log(index);
+				// Récupération du prototype des entrées
+				const tmpl = $('#article_multi_images').data('prototype').replace(/__name__/g, index);
+
+				// Injection du template dans la div
+				$('#article_multi_images').append(tmpl);
+				$('#tmpl__img__counter').val(index + 1);
+
+				// Appel de la fonction de suppression du tmpl
+				deleteImageTemplate();
+			});
+
+			function deleteImageTemplate() {
+				$('button[data-action="delete"]').each((key, btn) => {
+					$(btn).click(() => {
+						const data = $(btn).data('target');
+						const blockDel = $(btn).parent().parent().parent().attr('id', data);
+
+						$(blockDel).remove();
+						console.log('Block "' + data + '" removed successfully !');
+					});
+				});
+			}
+			deleteImageTemplate();
+			// --- Fin Block Images --- //
+
+		});
+
+	</script>
 {% endblock %}

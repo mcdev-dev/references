@@ -42,7 +42,7 @@
             <td class="text-center">{{ user.lastLogin | date('d/m/Y à H:i') }}</td>
             <td class="text-center">{{ user.registrationDate | date('d/m/Y à H:i') }}</td>
             <td class="text-center">
-                <a class="confirm" href="{{ path('user_delete', { 'id' : user.id }) }}">
+                <a class="confirm__user__js" href="{{ path('user_delete', { 'id' : user.id }) }}">
                     <i class="icon-trash"></i>
                 </a>
             </td>

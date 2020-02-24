@@ -74,7 +74,7 @@
         <div class="centrer img">
             <img class="centrer" src="{{ email.image('@images/logotype_lcz.svg') }}" alt="Logo Vintage" width="160">
         </div>
-        <h1> {{ (user.civilite == 'm') ? 'Bienvenu ' ~ username : 'Bienvenue ' ~ username }} !</h1>
+        <h1> {{ (user.civilite == 'm') ? 'Bienvenu ' ~ user.username : 'Bienvenue ' ~ user.username }} !</h1>
 
         <p class="subjectMail">
             Vous vous êtes inscrit sur Vintage avec l'email :
@@ -87,7 +87,7 @@
     </div>
 
     <p>
-        <a class="button" href="{{ path('confirm_account', { 'token' : token, 'username' : username }) }}">Veuillez cliquer sur ce lien pour activer votre compte</a>
+        <a class="button" href="{{ path('confirm_account', { 'token' : token, 'username' : user.username }) }}">Veuillez cliquer sur ce lien pour activer votre compte</a>
         (ce lien est valable jusqu'au {{ expiration_date | date('F jS') }})
     </p>
 </div>

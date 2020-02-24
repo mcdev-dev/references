@@ -2,11 +2,15 @@
 
 {% set title = 'Informations personnelles' %}
 
+{% block blockFluid %}
+    {% include 'partials/user_navbar_profile.html.twig' with { 'title' : title } %}
+{% endblock %}
+
 {% block content %}
 
 {% if app.user %}
     <div class="row userProfile">
-        <div class="col-md-4 mr-2">
+        <div class="col-md-4 mr-2 menu__user__profile">
             <div class="menuUserInfos">
                 <a class="{{ (title == 'Informations personnelles') ? 'menuUserInfosActive' : '' }}" href="{{ path('user_profile') }}">
                     Informations personnelles
@@ -21,70 +25,44 @@
                 <h1>Informations personnelles</h1>
                 <hr>
                     <!--i class="icon-avatar-1 iconAvatar"></i-->
-                    {% if user.userCoordonnees is empty and user.civilite == 'f' %}
+                    {% if user.userCoordonnees.avatar == 'default_avatar' and user.civilite == 'f' %}
 
                     <div class="avatar">
                         <div class="blockFile">
-                            <label for="profile_userCoordonnees_imageFile_file"> 
+                            <label for="profile_userCoordonnees_avatarFile"> 
                                 <div class="editAvatar">
                                     <i class="icon-pencil"></i>
                                 </div>
                             </label>
-                            <img src="{{ asset('photo/woman.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
+                            <img src="{{ asset('images/static/woman.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
                         </div>
                     </div>
                     
                     {% endif %}
 
-                    {% if user.userCoordonnees is empty and user.civilite == 'm' %}
+                    {% if user.userCoordonnees.avatar == 'default_avatar' and user.civilite == 'm' %}
                     
                     <div class="avatar">
                         <div class="blockFile">
-                            <label for="profile_userCoordonnees_imageFile_file"> 
+                            <label for="profile_userCoordonnees_avatarFile"> 
                                 <div class="editAvatar">
                                     <i class="icon-pencil"></i>
                                 </div>
                             </label>
-                            <img src="{{ asset('photo/man.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
+                            <img src="{{ asset('images/static/man.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
                         </div>
                     </div>
                     {% endif %}
 
-                    {% if user.userCoordonnees is not empty and user.civilite == 'f' and user.userCoordonnees.avatar is empty %}
+                    {% if user.userCoordonnees.avatar != 'default_avatar' %}
                     <div class="avatar">
                         <div class="blockFile">
-                            <label for="profile_userCoordonnees_imageFile_file"> 
+                            <label for="profile_userCoordonnees_avatarFile"> 
                                 <div class="editAvatar">
                                     <i class="icon-pencil"></i>
                                 </div>
                             </label>
-                            <img src="{{ asset('photo/woman.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
-                        </div>
-                    </div>              
-                    {% endif %}
-
-                    {% if user.userCoordonnees is not empty and user.civilite == 'm' and user.userCoordonnees.avatar is empty %}
-                    <div class="avatar">
-                        <div class="blockFile">
-                            <label for="profile_userCoordonnees_imageFile_file"> 
-                                <div class="editAvatar">
-                                    <i class="icon-pencil"></i>
-                                </div>
-                            </label>
-                            <img src="{{ asset('photo/man.svg') }}" alt="{{ user.prenom }}" class="img-fluid icoAvatar">
-                        </div>
-                    </div>
-                    {% endif %}
-                    
-                    {% if user.userCoordonnees is not empty and user.userCoordonnees.avatar is not empty %}
-                    <div class="avatar">
-                        <div class="blockFile">
-                            <label for="profile_userCoordonnees_imageFile_file"> 
-                                <div class="editAvatar">
-                                    <i class="icon-pencil"></i>
-                                </div>
-                            </label>
-                            <img src="{{ asset('images/photos/') ~ user.userCoordonnees.avatar }}" alt="{{ user.prenom }}" class="img-fluid">
+                            <img src="{{ asset('images/web/avatars/') ~ user.userCoordonnees.avatar }}" alt="{{ user.prenom }}" class="img-fluid">
                         </div>
                     </div>
                     {% endif %}
@@ -110,7 +88,7 @@
                 <hr>
                 {{ form_row(form.userCoordonnees) }}
 
-                <div class="form-group mx-auto col-md-4">
+                <div class="form-group mx-auto col-md-4 profile__btn__submit">
                     <button type="submit" class="btn btnSubmit col-12">Enregistrer</button>
                 </div>
 
@@ -120,4 +98,29 @@
     </div>
     {% endif %}
     
+    <!-- Modal -->
+    <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="avatarModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title title" id="avatarModalTitle">Téléverser et recadrer votre photo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body avatar__cropper__modal">
+                    <img src="" id="avatar__cropper__js" alt="">
+                </div>
+                <div class="modal-footer">
+                    <div class="col text-center">
+                        <button id="crop__save__js" type="button" class="btn btn-success px-3">
+                            Recadrer et enregistrer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
