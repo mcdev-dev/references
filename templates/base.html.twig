@@ -160,6 +160,12 @@
 
 		<main>
 
+			<div class="loader">
+				<div class="spinLoader">
+					<img src="{{ asset('images/static/loader.svg') }}" alt="loader vintage">
+				</div>
+			</div>
+
 			{% block blockFluid %}{% endblock %}
 
 			
@@ -203,6 +209,20 @@
 		</footer>
 
 		<script>
+			window.onload = () => 
+			{
+				let spin = document.querySelector('.spinLoader').style;
+				spin.opacity = 1;
+				spin.pointerEvents = 'none';
+
+				function fade() 
+				{
+					spin.opacity = 0;
+				}
+
+				setTimeout(fade, 500);
+			}
+
 			$(function () 
 			{
 				if(null !== $('.rescue__connect')) $('.rescue__connect').hide();

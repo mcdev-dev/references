@@ -34,7 +34,8 @@ class ResetPasswordController extends AbstractController
         {
             $this->addFlash('errors', '<strong>Désolé !</strong> Il n’existe pas de compte avec cette adresse de messagerie.');
             return $this->render('security/login_lost_password.html.twig', []);
-        } else 
+        } 
+        else 
         {
             //2 test - Redirection vers la page de modification du mot de passe
             return $this->redirectToRoute('reset_lost_password');

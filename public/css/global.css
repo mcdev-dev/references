@@ -1,0 +1,150 @@
+html {
+    overflow-x: hidden !important;
+}
+body {
+    font-family: 'Lato', sans-serif;
+    color: rgb(55, 57, 66);
+    overflow-x: hidden !important;
+}
+
+/* Pour éviter le style apple sur les input */
+input[type=submit], input[type=text], select, textarea{
+    -webkit-appearance: none !important;
+    border-radius: 0 !important;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+textarea {
+    min-height: 120px;
+}
+.nav-link {
+    padding: 0 1em;
+}
+.alert-danger {
+    color: #D9326F !important;
+    background-color: rgb(252, 240, 255) !important;
+    border-color: rgb(255, 76, 141) !important;
+    border-radius: 3px !important;
+    font-weight: 500 !important;
+}
+.alert-success {
+    color: rgb(1, 152, 142) !important;
+    background-color: rgb(225, 255, 253) !important;
+    border-color: rgb(4, 217, 203) !important;
+    border-radius: 3px !important;
+    font-weight: 500 !important;
+}
+.text-success {
+    color: #24B99E !important;
+}
+.text-danger {
+    color: #D9326F !important;
+}
+.btn-success {
+  color: #fff;
+  background-color: rgb(36, 185, 158);
+  border-color: rgb(36, 185, 158);
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: rgb(30, 151, 129);
+  border-color: rgb(29, 143, 122);
+}
+.btn-success:focus{
+  box-shadow: 0 0 0 0.2rem rgba(72, 180, 164, 0.5);
+  outline: none !important;
+}
+.btn-success.disabled, .btn-success:disabled {
+  color: #fff;
+  background-color: rgb(36, 185, 158);
+  border-color: rgb(36, 185, 158);
+}
+.btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
+.show > .btn-success.dropdown-toggle {
+  color: #fff;
+  background-color: rgb(36, 185, 158);
+  border-color: rgb(36, 185, 158);
+}
+.btn-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus,
+.show > .btn-success.dropdown-toggle:focus {
+  box-shadow: none;
+}
+.custom-file-label::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: block;
+    height: calc(1.5em + .75rem);
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+    content: "Choisir un fichier";
+    background-color: #e9ecef;
+    border-left: inherit;
+    border-radius: 0 .25rem .25rem 0;
+}
+button a {
+    color: inherit;
+}
+button a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+.align__items_center {
+    display: flex;
+    align-items: center;
+}
+
+/* Animation Bouton loader */
+.loader {
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    bottom: 50%;
+    z-index: 9999;
+}
+.spinLoader {
+    width: 48px;
+    height: 48px;
+    padding: .5em;
+    border-radius: 48px;
+    background-color: #fff;
+    position: relative;
+    cursor: wait;
+    transition: opacity .6s;
+    box-shadow: 0 2px 6px rgb(186, 186, 186);
+}
+.spinLoader::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 100%;
+    border: 3px solid transparent;
+    border-top: 3px solid #F76464;
+    animation: spin ease-in-out 1.25s infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* Animation Bouton loader */
