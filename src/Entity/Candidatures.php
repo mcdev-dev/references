@@ -50,21 +50,25 @@ class Candidatures
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\LogementActuel", inversedBy="candidatures", cascade={"persist", "remove"})
+     * @Assert\Valid
      */
     private $logementActuel;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Menage", inversedBy="candidatures", cascade={"persist", "remove"})
+     * @Assert\Valid
      */
     private $menage;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\SituationProFinanciere", inversedBy="candidatures", cascade={"persist", "remove"})
+     * @Assert\Valid
      */
     private $situationProFinanciere;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\InteretHabitatParticipatif", inversedBy="candidatures", cascade={"persist", "remove"})
+     * @Assert\Valid
      */
     private $interetHabitatParticipatif;
 

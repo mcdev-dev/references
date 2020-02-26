@@ -59,87 +59,97 @@ class CandidaturesController extends AbstractController
         $interetHabitatParticipatif = new InteretHabitatParticipatif;
         
         $register = $request->get('enregistrer') !== null;
-        $form = $this->createForm(CandidaturesType::class, $candidature, ['validation_groups' => false]);
+        $form = $register ? $this->createForm(CandidaturesType::class, $candidature, ['validation_groups' => false]) : $this->createForm(CandidaturesType::class, $candidature);
+
+        //$errors = $validator->validate($candidature);
 
         $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) 
-        {
-            $otherStatutOccupation = $request->get('other_statut_occupation');
-            $statutEmploiAc = $request->get('other_acquereur_statut_emploi');
-            $statutEmploiCoAc = $request->get('other_co_acquereur_statut_emploi');
-            $apportPersonnel = $request->get('other_apport_perso');
-
-            if(null !== $otherStatutOccupation) 
-            {
-                $form->get('logementActuel')->getData()->setStatutOccupation($otherStatutOccupation);
-            }
-            if(null !== $statutEmploiAc) 
-            {
-                $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($statutEmploiAc);
-            }
-            if(null !== $statutEmploiCoAc) 
-            {
-                $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($statutEmploiCoAc);
-            }
-            if(null !== $apportPersonnel) 
-            {
-                $form->get('situationProFinanciere')->getData()->setApportPersonnel($apportPersonnel);
-            }
-
-            //dd(count($errors)); die;
-            $candidature->setTitre('Bascule-pelouse, Saint-Ferjeux');
-
-            if($register) 
-            {
-                if(null !== $candidature_exist) 
-                {
-                    $this->addFlash('errors', '<strong>Désolé !</strong> Vous avez déjà candidater pour ce projet.');
         
-                    return $this->redirectToRoute('user_candidatures'); 
+        if($form->isSubmitted()) 
+        {
+            if($form->isValid()) 
+            {
+                $otherStatutOccupation = $request->get('other_statut_occupation');
+                $statutEmploiAc = $request->get('other_acquereur_statut_emploi');
+                $statutEmploiCoAc = $request->get('other_co_acquereur_statut_emploi');
+                $apportPersonnel = $request->get('other_apport_perso');
+    
+                if(null !== $otherStatutOccupation) 
+                {
+                    $form->get('logementActuel')->getData()->setStatutOccupation($otherStatutOccupation);
+                }
+                if(null !== $statutEmploiAc) 
+                {
+                    $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($statutEmploiAc);
+                }
+                if(null !== $statutEmploiCoAc) 
+                {
+                    $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($statutEmploiCoAc);
+                }
+                if(null !== $apportPersonnel) 
+                {
+                    $form->get('situationProFinanciere')->getData()->setApportPersonnel($apportPersonnel);
+                }
+    
+                //dd(count($errors)); die;
+                $candidature->setTitre('Bascule-pelouse, Saint-Ferjeux');
+    
+                if($register) 
+                {
+                    if(null !== $candidature_exist) 
+                    {
+                        $this->addFlash('errors', '<strong>Désolé !</strong> Vous avez déjà candidater pour ce projet.');
+            
+                        return $this->redirectToRoute('user_candidatures'); 
+                    } 
+                    else 
+                    {
+                        $candidature->setValider(false);
+                        $candidature->setStatut(0);//Persistance
+                        $candidature->setCandidat($this->getUser());
+                        $candidature->setVille('Saint-Ferjeux');
+                        $candidature->setPromoteur('Néolia');
+                        $candidature->setPromoteurLogo('neolia');
+                        $candidature->setCategorie($categorie->setTitle('habitat-participatif'));
+                
+                        $manager->persist($candidature);
+                        $manager->flush();
+                        $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été enregistrée avec succès.');
+                        return $this->redirectToRoute('user_candidatures');
+                    }
+    
                 } 
                 else 
                 {
-                    $candidature->setValider(false);
-                    $candidature->setStatut(0);//Persistance
-                    $candidature->setCandidat($this->getUser());
-                    $candidature->setVille('Saint-Ferjeux');
-                    $candidature->setPromoteur('Néolia');
-                    $candidature->setPromoteurLogo('neolia');
-                    $candidature->setCategorie($categorie->setTitle('habitat-participatif'));
+                    if(null !== $candidature_exist) 
+                    {
+                        $this->addFlash('errors', '<strong>Désolé !</strong> Vous avez déjà candidater pour ce projet.');
             
-                    $manager->persist($candidature);
-                    $manager->flush();
-                    $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été enregistrée avec succès.');
-                    return $this->redirectToRoute('user_candidatures');
+                        return $this->redirectToRoute('user_candidatures'); 
+                    }
+                    else 
+                    {
+                        //Persistance
+                        $candidature->setStatut(1);
+                        $candidature->setCandidat($this->getUser());
+                        $candidature->setVille('Saint-Ferjeux');
+                        $candidature->setPromoteur('Néolia');
+                        $candidature->setPromoteurLogo('neolia');
+                        $candidature->setCategorie($categorie->setTitle('habitat-participatif'));
+            
+                        $manager->persist($candidature);
+                        $manager->flush();
+                        
+                        $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
+    
+                        return $this->redirectToRoute('user_candidatures');
+                    }
+                    
                 }
-
-                } 
+            } 
             else 
             {
-                if(null !== $candidature_exist) 
-                {
-                    $this->addFlash('errors', '<strong>Désolé !</strong> Vous avez déjà candidater pour ce projet.');
-        
-                    return $this->redirectToRoute('user_candidatures'); 
-                } 
-                else 
-                {
-                    //Persistance
-                    $candidature->setStatut(1);
-                    $candidature->setCandidat($this->getUser());
-                    $candidature->setVille('Saint-Ferjeux');
-                    $candidature->setPromoteur('Néolia');
-                    $candidature->setPromoteurLogo('neolia');
-                    $candidature->setCategorie($categorie->setTitle('habitat-participatif'));
-        
-                    $manager->persist($candidature);
-                    $manager->flush();
-                    
-                    $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
-                    return $this->redirectToRoute('user_candidatures');
-                }
-                
+                $this->addFlash('errors', '<strong>'. $this->getUser()->getPrenom() .',</strong> impossible de soumettre votre candidature. Veuillez remplir les champs obligatoires.');
             }
             
         }
@@ -161,56 +171,63 @@ class CandidaturesController extends AbstractController
                                 ->findOneBy([ 'candidat' => $this->getUser() ]);
                                 
         $register = $request->get('enregistrer') !== null;
-        $form = $this->createForm(CandidaturesType::class, $candidature, ['validation_groups' => false]);
+        $form = $register ? $this->createForm(CandidaturesType::class, $candidature, ['validation_groups' => false]) : $this->createForm(CandidaturesType::class, $candidature);
         
         $form->handleRequest($request);
         
-        if($form->isSubmitted() && $form->isValid()) 
+        if($form->isSubmitted()) 
         {
-            $otherStatutOccupation = $request->get('other_statut_occupation');
-            $statutEmploiAc = $request->get('other_acquereur_statut_emploi');
-            $statutEmploiCoAc = $request->get('other_co_acquereur_statut_emploi');
-            $apportPersonnel = $request->get('other_apport_perso');
-
-            if(null !== $otherStatutOccupation) 
+            if($form->isValid()) 
             {
-                $form->get('logementActuel')->getData()->setStatutOccupation($otherStatutOccupation);
-            }
-            if(null !== $statutEmploiAc) 
-            {
-                $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($statutEmploiAc);
-            }
-            if(null !== $statutEmploiCoAc) 
-            {
-                $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($statutEmploiCoAc);
-            }
-            if(null !== $apportPersonnel) 
-            {
-                $form->get('situationProFinanciere')->getData()->setApportPersonnel($apportPersonnel);
-            }
+                $otherStatutOccupation = $request->get('other_statut_occupation');
+                $statutEmploiAc = $request->get('other_acquereur_statut_emploi');
+                $statutEmploiCoAc = $request->get('other_co_acquereur_statut_emploi');
+                $apportPersonnel = $request->get('other_apport_perso');
+    
+                if(null !== $otherStatutOccupation) 
+                {
+                    $form->get('logementActuel')->getData()->setStatutOccupation($otherStatutOccupation);
+                }
+                if(null !== $statutEmploiAc) 
+                {
+                    $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($statutEmploiAc);
+                }
+                if(null !== $statutEmploiCoAc) 
+                {
+                    $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($statutEmploiCoAc);
+                }
+                if(null !== $apportPersonnel) 
+                {
+                    $form->get('situationProFinanciere')->getData()->setApportPersonnel($apportPersonnel);
+                }
+                
+                if($register) 
+                {
+                    $candidature->setValider(false);
+                    $candidature->setStatut(0);//Persistance
             
-            if($register) 
-            {
-                $candidature->setValider(false);
-                $candidature->setStatut(0);//Persistance
-        
-                $manager->persist($candidature);
-                $manager->flush();
-                $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été enregistrée avec succès.');
-                return $this->redirectToRoute('user_candidatures');
-
+                    $manager->persist($candidature);
+                    $manager->flush();
+                    $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été enregistrée avec succès.');
+                    return $this->redirectToRoute('user_candidatures');
+    
+                } 
+                else 
+                {
+                    //Persistance
+                    $candidature->setStatut(1);
+    
+                    $manager->persist($candidature);
+                    $manager->flush();
+                    
+                    $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
+                    return $this->redirectToRoute('user_candidatures');
+                    
+                }
             } 
             else 
             {
-                //Persistance
-                $candidature->setStatut(1);
-
-                $manager->persist($candidature);
-                $manager->flush();
-                
-                $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
-                return $this->redirectToRoute('user_candidatures');
-                
+                $this->addFlash('errors', '<strong>'. $this->getUser()->getPrenom() .',</strong> impossible de soumettre votre candidature. Veuillez remplir les champs obligatoires.');
             }
             
         }

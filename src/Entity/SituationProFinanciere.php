@@ -37,7 +37,6 @@ class SituationProFinanciere
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Assert\NotBlank(message="Champs requis")
      */
     private $coAcquereurStatutEmploi;
 

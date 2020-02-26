@@ -86,17 +86,17 @@
         <p class="subjectMail">
             Vous venez de faire une demande de changement du mot de passe :
         </p>
-        {% if user.civilite == 'm' and user.userCoordonnees is empty or user.userCoordonnees is not empty and user.userCoordonnees.avatar is empty %}
+        {% if user.civilite == 'm' and user.userCoordonnees.avatar == 'default_avatar' %}
         <p class="email"><img src="{{ email.image('@images/man.svg') }}" alt="icon man"
                 width="48">{{ email.to[0].address }}</p>
         {% endif %}
-        {% if user.civilite == 'f' and user.userCoordonnees is empty or user.userCoordonnees is not empty and user.userCoordonnees.avatar is empty %}
+        {% if user.civilite == 'f' and user.userCoordonnees.avatar == 'default_avatar' %}
         <p class="email">
             <img src="{{ email.image('@images/woman.svg') }}" alt="icon woman" width="48">{{ email.to[0].address }}
         </p>
         {% endif %}
 
-        {% if user.userCoordonnees is not empty and user.userCoordonnees.avatar is not empty %}
+        {% if user.userCoordonnees.avatar != 'default_avatar' %}
         <p class="email">
             <img class="cropMailAvatar" src="{{ email.image('@avatars/' ~ user.userCoordonnees.avatar) }}"
                 alt="{{ user.prenom }}">{{ email.to[0].address }}
