@@ -10,7 +10,7 @@ body {
 /* Pour éviter le style apple sur les input */
 input[type=submit], input[type=text], select, textarea{
     -webkit-appearance: none !important;
-    border-radius: 0 !important;
+    /*border-radius: 0 !important;*/
 }
 
 ul {

@@ -22,6 +22,11 @@ class LoginListener
         $user->setLastLogin(new \DateTime);
         $this->manager->persist($user);
         $this->manager->flush();
+
+        /*if(true !== $user->getEnabled()) 
+        {
+            throw new \RuntimeException('Un email de confirmation vous a été envoyé. Veuillez confirmer votre inscription avant de pouvoir vous connecter.');
+        }*/
     }
 
 }

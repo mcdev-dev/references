@@ -126,10 +126,6 @@ class UserController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            //On déclenche l'eventDispatcher
-            $event = new GenericEvent($user);
-            $eventDispatcher->dispatch(Events::USER_UPDATE_PROFILE, $event);
-
             $this->addFlash('success', '<strong>' . $user->getPrenom() . '</strong>, votre profil a été mis à jour avec succès.' );
             return $this->redirectToRoute('user_profile');
 
@@ -190,21 +186,20 @@ class UserController extends AbstractController
             $oldPassword = $request->request->get('reset_password')['oldPassword'];
             //dd($oldPassword);
             // Si l'ancien mot de passe est bon
-            if ($encoder->isPasswordValid($user, $oldPassword)) {
+            if ($encoder->isPasswordValid($user, $oldPassword)) 
+            {
                 $newEncodedPassword = $encoder->encodePassword($user, $user->getPlainPassword());
                 $user->setPassword($newEncodedPassword);
                 
                 $manager->persist($user);
                 $manager->flush();
 
-                //On déclenche l'eventDispatcher
-                //$event = new GenericEvent($user);
-                //$eventDispatcher->dispatch(Events::USER_UPDATE_PASSWORD, $event);
-
                 $this->addFlash('success', '<strong>'. $user->getPrenom(). '</strong>, votre mot de passe à bien été changé !');
 
                 return $this->redirectToRoute('user_profile');
-            } else {
+            } 
+            else 
+            {
                 $form->addError(new FormError('Ancien mot de passe incorrect'));
             }
         }

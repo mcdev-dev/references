@@ -7,5 +7,6 @@ twig:
         # point this wherever your images live
         '%kernel.project_dir%/public/images/static': images
         '%kernel.project_dir%/public/images/web': photos
+        '%kernel.project_dir%/public/images/web/avatars': avatars
     globals:
         mercure_publish_url: '%env(MERCURE_PUBLISH_URL)%'

@@ -48,7 +48,7 @@ class RegistrationNotifySubscriber implements EventSubscriberInterface
         $subject = 'Mail de confirmation';
 
         $email = (new TemplatedEmail())
-            ->from('lcz.grabli@gmail.com')
+            ->from('noreply@lescityzens.fr')
             ->to($user->getEmail())//$user->getEmail()
             ->subject($subject)
 

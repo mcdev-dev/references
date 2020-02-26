@@ -36,4 +36,12 @@ final class Events
      */
     const USER_UPDATE_PASSWORD = 'user.update.password';
 
+    /**
+     *
+     * @Event("Symfony\Component\EventDispatcher\GenericEvent")
+     *
+     * @var string
+     */
+    const USER_LOST_PASSWORD = 'user.lost.password';
+
 }

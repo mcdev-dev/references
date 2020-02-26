@@ -97,13 +97,13 @@
 
         {% if user.userCoordonnees is not empty and user.userCoordonnees.avatar is not empty %}
             <p class="email">
-                <img class="cropMailAvatar" src="{{ email.image('@photos/' ~ user.userCoordonnees.avatar) }}" alt="{{ user.prenom }}">{{ email.to[0].address }}
+                <img class="cropMailAvatar" src="{{ email.image('@avatars/' ~ user.userCoordonnees.avatar) }}" alt="{{ user.prenom }}">{{ email.to[0].address }}
             </p>
         {% endif %}
     </div>
 
     <p>
-        <a class="button" href="#">Veuillez cliquer sur ce lien pour que ces modifications soient prises en compte.</a>
+        <a class="button" href="{{ url }}">Veuillez cliquer sur ce lien pour que ces modifications soient prises en compte.</a>
         (ce lien est valable jusqu'au {{ expiration_date | date('F jS') }})
     </p>
 </div>

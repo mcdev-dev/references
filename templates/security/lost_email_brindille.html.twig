@@ -29,6 +29,13 @@
         margin-bottom: 1em;
     }
 
+    .cropMailAvatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 224px;
+        overflow: hidden;
+    }
+
     .email {
         font-size: 20px;
     }
@@ -72,22 +79,33 @@
 <div class="mailBlock">
     <div class="mailhead">
         <div class="centrer img">
-            <img class="centrer" src="{{ email.image('@images/logotype_lcz.svg') }}" alt="Logo Vintage" width="160">
+            <img class="centrer" src="{{ email.image('@images/logotype_lcz.svg') }}" alt="Logo Vintage" width="140">
         </div>
-        <h1> {{ (user.civilite == 'm') ? 'Bienvenu ' ~ user.username : 'Bienvenue ' ~ user.username }} !</h1>
+        <h1>Bonjour {{ user.prenom }} !</h1>
 
         <p class="subjectMail">
-            Vous vous êtes inscrit sur lesCityzens avec l'email :
+            Vous venez de faire une demande de changement du mot de passe :
         </p>
-        {% if user.civilite == 'm' %}
-        <p><img src="{{ email.image('@images/man.svg') }}" alt="icon man" width="32">{{ email.to[0].address }}</p>
-        {% else %}
-        <p class="email"><img src="{{ email.image('@images/woman.svg') }}" alt="icon woman" width="32">{{ email.to[0].address }}</p>
+        {% if user.civilite == 'm' and user.userCoordonnees is empty or user.userCoordonnees is not empty and user.userCoordonnees.avatar is empty %}
+        <p class="email"><img src="{{ email.image('@images/man.svg') }}" alt="icon man"
+                width="48">{{ email.to[0].address }}</p>
+        {% endif %}
+        {% if user.civilite == 'f' and user.userCoordonnees is empty or user.userCoordonnees is not empty and user.userCoordonnees.avatar is empty %}
+        <p class="email">
+            <img src="{{ email.image('@images/woman.svg') }}" alt="icon woman" width="48">{{ email.to[0].address }}
+        </p>
+        {% endif %}
+
+        {% if user.userCoordonnees is not empty and user.userCoordonnees.avatar is not empty %}
+        <p class="email">
+            <img class="cropMailAvatar" src="{{ email.image('@avatars/' ~ user.userCoordonnees.avatar) }}"
+                alt="{{ user.prenom }}">{{ email.to[0].address }}
+        </p>
         {% endif %}
     </div>
 
     <p>
-        <a class="button" href="{{ url }}">Veuillez cliquer sur ce lien pour activer votre compte</a>
+        <a class="button" href="{{ url }}">Veuillez cliquer sur ce lien pour pouvoir modifier votre mot de passe.</a>
         (ce lien est valable jusqu'au {{ expiration_date | date('F jS') }})
     </p>
 </div>

@@ -41,8 +41,8 @@ class NotifyUpdateProfile implements EventSubscriberInterface
         $subject = 'Mise à jour de votre profil';
 
         $email = (new TemplatedEmail())
-            ->from('lcz.grabli@gmail.com')
-            ->to('gedeon_muk@yahoo.fr')//$user->getEmail()
+            ->from('noreply@lescityzens.fr')
+            ->to($user->getEmail())//$user->getEmail()
             ->subject($subject)
 
             // path of the Twig template to render

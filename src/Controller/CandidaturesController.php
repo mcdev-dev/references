@@ -49,7 +49,7 @@ class CandidaturesController extends AbstractController
     {
         $candidature_exist = $manager ->getRepository(Candidatures::class)
                                       ->findOneBy([ 'candidat' => $this->getUser() ]);
-        $titleProject = 'Candidature du projet Saint-Ferjeux';
+        $titleProject = 'Candidature au projet Saint-Ferjeux';
         
         $candidature = new Candidatures;
         $categorie = new Categorie;
@@ -193,11 +193,6 @@ class CandidaturesController extends AbstractController
             {
                 $candidature->setValider(false);
                 $candidature->setStatut(0);//Persistance
-                $candidature->setCandidat($this->getUser());
-                $candidature->setVille('Saint-Ferjeux');
-                $candidature->setPromoteur('Néolia');
-                $candidature->setPromoteurLogo('neolia');
-                $candidature->setCategorie($categorie->setTitle('habitat-participatif'));
         
                 $manager->persist($candidature);
                 $manager->flush();

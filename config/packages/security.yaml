@@ -30,6 +30,9 @@ security:
                 #path: admin_deconnexion
 
         main:
+            pattern: ^/
+            user_checker: App\Security\UserChecker
+            
             anonymous: true
 
             provider: in_database

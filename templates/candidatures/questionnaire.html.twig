@@ -16,7 +16,7 @@
             {{ form_start(form) }}
         
             <ul id="progressbar">
-                <li class="active"><span>Consigne</span></li>
+                <li class="active"><span>Consignes</span></li>
                 <li><span>Votre projet et logement actuel</span></li>
                 <li><span>Votre ménage</span></li>
                 <li><span>Votre situation professionnelle et financière</span></li>
@@ -38,7 +38,7 @@
                             formulaire n'a pas été transmis.</strong></li>
                     <li>Pour soumettre votre candidature, n’oubliez pas de cliquer sur le bouton <strong>« Transmettre ma
                             candidature ».</strong></li>
-                    <li>Pour toute question, veuillez nous écrire à contact@lescityzens.fr.</li>
+                    <li>Pour toute question, veuillez nous écrire à <strong>saintferjeux@lescityzens.fr.</strong></li>
                 </ul>
                 <div class="btnPos">
                     <input id="go__candidate" class="btn btn-success mt-4 col-md-4 align-center next" type="button" name="next" value="Commencer !">
@@ -215,7 +215,7 @@
                 </p>
                 {{ form_widget(form.menage.situationFamiliale) }}
         
-                <p class="fs-subtitle title mt-4">9. Enfants et autre personnes à charge (laisser vide si sans objet)</p>
+                <p class="fs-subtitle title mt-4">9. Enfants et autres personnes à charge (laisser vide si sans objet)</p>
         
                 <div class="row mb-4">
                     <div class="col-md-6 form-group">
@@ -528,7 +528,7 @@
                 $('#other__situationPro3').remove();
 
                 if ($(checkBox).prop('checked', true)) {
-                    checkBox.parent().after('<div class="mb-2">De quel montant ?</div><div class="input-group apport__perso"><input type="text" id="other__situationPro3" class="form-control" name="other_apport_perso"><div class="input-group-append"><span class="input-group-text">€</span></div>');
+                    checkBox.parent().after('<div id="other__situationPro3"><div class="mb-2">De quel montant ?</div><div class="input-group apport__perso"><input type="text" class="form-control" name="other_apport_perso"><div class="input-group-append"><span class="input-group-text">€</span></div></div>');
                 }
                 else {
                     checkBox.parent().after('');

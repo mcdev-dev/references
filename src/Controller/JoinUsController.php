@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Entity\JoinUs;
 use App\Form\JoinUsType;
 use App\Repository\JoinUsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +27,7 @@ class JoinUsController extends AbstractController
      * @Route("/rejoignez-nous/", name="join_us_add")
      * Route de la page Rejoignez-nous
      */
-    public function candidatureAdd(Request $request, ObjectManager $manager) 
+    public function candidatureAdd(Request $request, EntityManagerInterface $manager) 
     {
         $candidat = new JoinUs;
         $form = $this->createForm(JoinUsType::class, $candidat);
@@ -64,7 +64,7 @@ class JoinUsController extends AbstractController
      * @Route("/join-us/delete/{id}", name="candidature_delete")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function candidatureDelete($id, JoinUsRepository $repo,  ObjectManager $manager) 
+    public function candidatureDelete($id, JoinUsRepository $repo,  EntityManagerInterface $manager) 
     {
         $manager->remove($repo->find($id));
         $manager->flush();

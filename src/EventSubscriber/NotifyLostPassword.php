@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Envoi un mail de bienvenue à chaque creation d'un utilisateur
  *
  */
-class NotifyUpdatePassword implements EventSubscriberInterface
+class NotifyLostPassword implements EventSubscriberInterface
 {
     private $mailer;
     private $sender;
@@ -30,15 +30,15 @@ class NotifyUpdatePassword implements EventSubscriberInterface
     {
         return [
             // le nom de l'event et le nom de la fonction qui sera déclenché
-            Events::USER_UPDATE_PASSWORD => 'onUserUpdatePassword',
+            Events::USER_LOST_PASSWORD => 'onUserLostPassword',
         ];
     }
 
-    public function onUserUpdatePassword(GenericEvent $event): void
+    public function onUserLostPassword(GenericEvent $event): void
     {
         /** @var User $user */
         $user = $event->getSubject();
-        $subject = 'Modification du mot de passe';
+        $subject = 'Modification du mot de passe oublié';
 
         $email = (new TemplatedEmail())
             ->from('noreply@lescityzens.fr')
@@ -46,7 +46,7 @@ class NotifyUpdatePassword implements EventSubscriberInterface
             ->subject($subject)
 
             // path of the Twig template to render
-            ->htmlTemplate('security/signup_brindille.html.twig')
+            ->htmlTemplate('security/lost_email_brindille.html.twig')
 
             // pass variables (name => value) to the template
             ->context([

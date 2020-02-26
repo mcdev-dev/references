@@ -104,7 +104,7 @@ class User implements UserInterface
     private $plainPassword;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $confirmationToken;
 
@@ -313,12 +313,12 @@ class User implements UserInterface
 
     }
 
-    public function getConfirmationToken(): ?bool
+    public function getConfirmationToken(): ?string
     {
         return $this->confirmationToken;
     }
 
-    public function setConfirmationToken(bool $confirmationToken): self
+    public function setConfirmationToken(?string $confirmationToken): self
     {
         $this->confirmationToken = $confirmationToken;
 
@@ -330,7 +330,7 @@ class User implements UserInterface
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled): self
+    public function setEnabled(?bool $enabled): self
     {
         $this->enabled = $enabled;
 

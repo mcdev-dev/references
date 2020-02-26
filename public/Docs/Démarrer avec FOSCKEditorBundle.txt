@@ -119,6 +119,9 @@ RewriteEngine On
 RewriteCond %{SERVER_PORT} 80
 RewriteRule ^(.*)$ https://www.grablimukendi.ovh/$1 [R,L]
 
+Implémenter son propre SecurityController :
+https://www.baptiste-donaux.fr/securitycontroller-implementation/
+
 
 
 

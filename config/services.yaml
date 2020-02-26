@@ -52,6 +52,10 @@ services:
         # le nom de la variable que l'on utilisera dans le service
         $sender: '%app.notifications.email_sender%'
     
+    App\EventSubscriber\NotifyLostPassword:
+        # le nom de la variable que l'on utilisera dans le service
+        $sender: '%app.notifications.email_sender%'
+    
     App\Mercure\MercureCookieGenerator:
         arguments:
             $secret: '%env(MERCURE_JWT_KEY)%'
