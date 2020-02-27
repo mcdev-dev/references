@@ -52,10 +52,10 @@
 				{{ content.contenu | raw }}
 			</div>
 		{% endfor %}
-		
-		{% if articleMulti != null %}
+		{#{ dump(articleMulti.titre) }#}
+		{% if articleMulti.titre == 'Ivry sur seine, Rue Fablet' %}
 			<div class="text-center">
-				<a class="btn btnSubmit mt-4 mb-4 col-12" href="{{ path('questionnaire_candidature') }}">Participer</a>
+				<a class="btn btnSubmit mt-4 mb-4 col-12" href="">Participer</a>
 			</div>
 		{% else %}
 			<div class="text-center">

@@ -68,9 +68,9 @@ class SituationProFinanciereType extends AbstractType
             [
                 'config' => array('toolbar' => 'basic'),
             ])
-            ->add('creditEnCours1', CreditsEnCoursType::class)
-            ->add('creditEnCours2', CreditsEnCoursType::class)
-            ->add('creditEnCours3', CreditsEnCoursType::class)
+            ->add('creditEnCours1', CreditsEnCoursType::class, [ 'required' => false ])
+            ->add('creditEnCours2', CreditsEnCoursType::class, [ 'required' => false ])
+            ->add('creditEnCours3', CreditsEnCoursType::class, [ 'required' => false ])
             ->add('apportPersonnel', ChoiceType::class, 
             [
                 'choices' => 
