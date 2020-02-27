@@ -52,10 +52,16 @@
 				{{ content.contenu | raw }}
 			</div>
 		{% endfor %}
-
-		<div class="text-center">
-			<a class="btn btnSubmit mt-4 mb-4 col-12" href="{{ path('questionnaire_candidature') }}">Participer</a>
-		</div>
+		
+		{% if articleMulti != null %}
+			<div class="text-center">
+				<a class="btn btnSubmit mt-4 mb-4 col-12" href="{{ path('questionnaire_candidature') }}">Participer</a>
+			</div>
+		{% else %}
+			<div class="text-center">
+				<a class="btn btnSubmit mt-4 mb-4 col-12" href="{{ path('questionnaire_candidature') }}">Participer</a>
+			</div>
+		{% endif %}
 
 	</div>
 
