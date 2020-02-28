@@ -188,3 +188,22 @@
 {% endif %}
 
 {% endblock %}
+
+$spreadsheet = new Spreadsheet;
+
+/* @var $sheet \PhpOffice\PhpSpreadsheet\Writer\Xlsx\Worksheet */
+$sheet = $spreadsheet->getActiveSheet();
+$sheet->setCellValue('A1', 'Hello World !');
+$sheet->setTitle($candidature->getTitre());
+
+// Create your Office 2007 Excel (XLSX Format)
+$writer = new Xlsx($spreadsheet);
+
+// In this case, we want to write the file in the public directory
+$publicDirectory = $this->getParameter('kernel.project_dir') . '/public/images/excel_exports';
+// e.g /var/www/project/public/my_first_excel_symfony4.xlsx
+$excelFilepath = $publicDirectory . '/candidature_'. $candidature->getId() .'_'.
+$candidature->getCandidat()->getPrenom().'.xlsx';
+
+// Create the file
+$writer->save($excelFilepath);

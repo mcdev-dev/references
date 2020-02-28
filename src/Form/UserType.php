@@ -41,7 +41,8 @@ class UserType extends AbstractType
             ->add('prenom', TextType::class)
             ->add('email', EmailType::class)
             ->add('abonneNewsletter', CheckboxType::class, [
-                'required' => false
+                'required' => false,
+                'label' => false,
             ])
         ;
     }

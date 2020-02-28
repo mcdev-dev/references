@@ -52,10 +52,10 @@
 				{{ content.contenu | raw }}
 			</div>
 		{% endfor %}
-		{#{ dump(articleMulti.titre) }#}
-		{% if articleMulti.titre == 'Ivry sur seine, Rue Fablet' %}
+		{#{ dump(articleMulti.titre == 'Fablet, Ivry-sur-Seine (94)') }#}
+		{% if articleMulti.titre == 'Fablet, Ivry-sur-Seine (94)' %}
 			<div class="text-center">
-				<a class="btn btnSubmit mt-4 mb-4 col-12" href="">Participer</a>
+				<a class="btn btnSubmit mt-4 mb-4 col-12" href="https://www.coopimmo.com/habitats-participatifs/fablet/" target="_blank">Participer</a>
 			</div>
 		{% else %}
 			<div class="text-center">

@@ -32,17 +32,6 @@ class CandidaturesController extends AbstractController
     }
 
     /**
-     * @Route("/candidatures/liste", name="candidatures_list")
-     */
-    public function candidaturesList(EntityManagerInterface $manager)
-    {
-        return $this->render('candidatures/candidatures_list.html.twig', 
-        [
-            'candidatures' => $manager->getRepository(Candidatures::class)->findAll()
-        ]);
-    }
-
-    /**
      * @Route("/user/candidature/questionnaire/", name="questionnaire_candidature")
      */
     public function candidatureQuestionnaire(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator) 

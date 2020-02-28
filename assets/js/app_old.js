@@ -154,6 +154,11 @@ $(function () {
         {
             return confirm('Êtes-vous certain de vouloir supprimer cet article ?');
         });
+
+        $('.confirm__candidature__del').click(() => 
+        {
+            return confirm('Êtes-vous certain de vouloir supprimer cette candidature ?');
+        });
     }
     confirmDelete();
 

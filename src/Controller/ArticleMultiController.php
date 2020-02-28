@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ArticleMultiController extends AbstractController
 {
     /**
-     * @Route("/article/liste", name="article_multi")
+     * @Route("/admin/article/liste", name="article_multi")
      * Route d'affichage d'articles
      */
     public function index(ArticleMultiRepository $repo)
@@ -41,7 +41,7 @@ class ArticleMultiController extends AbstractController
     }
 
     /**
-     * @Route("/article/multi/add", name="article_multi_add")
+     * @Route("/admin/article/multi/add", name="article_multi_add")
      * Route d'ajout d'un article
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -81,7 +81,7 @@ class ArticleMultiController extends AbstractController
     }
 
     /**
-     * @Route("/article/multi/update/{id}", name="article_multi_update")
+     * @Route("/admin/article/multi/update/{id}", name="article_multi_update")
      * Route de modification d'un article
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -123,7 +123,7 @@ class ArticleMultiController extends AbstractController
     }
 
     /**
-     * @Route("/article/multi/delete/{id}", name="article_multi_delete")
+     * @Route("/admin/article/multi/delete/{id}", name="article_multi_delete")
      * Route de suppression d'un article
      * @Security("has_role('ROLE_ADMIN')")
      */

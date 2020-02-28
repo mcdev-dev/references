@@ -27,7 +27,7 @@ class JoinUsController extends AbstractController
      * @Route("/rejoignez-nous/", name="join_us_add")
      * Route de la page Rejoignez-nous
      */
-    public function candidatureAdd(Request $request, EntityManagerInterface $manager) 
+    public function postulatAdd(Request $request, EntityManagerInterface $manager) 
     {
         $candidat = new JoinUs;
         $form = $this->createForm(JoinUsType::class, $candidat);
@@ -49,10 +49,9 @@ class JoinUsController extends AbstractController
     }
 
     /**
-     * @Route("/join-us/apercue/{id}", name="candidature_view")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/admin/join-us/apercue/{id}", name="postulat_view")
      */
-    public function candidatureView($id, JoinUs $candidature) 
+    public function postulatView($id, JoinUs $candidature) 
     {
         return $this->render('join_us/candidature.html.twig', 
         [
@@ -61,10 +60,10 @@ class JoinUsController extends AbstractController
     }
 
     /**
-     * @Route("/join-us/delete/{id}", name="candidature_delete")
+     * @Route("/admin/join-us/delete/{id}", name="postulat_delete")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function candidatureDelete($id, JoinUsRepository $repo,  EntityManagerInterface $manager) 
+    public function postulatDelete($id, JoinUsRepository $repo,  EntityManagerInterface $manager) 
     {
         $manager->remove($repo->find($id));
         $manager->flush();

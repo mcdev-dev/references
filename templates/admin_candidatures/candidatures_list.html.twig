@@ -17,7 +17,7 @@
             <th class="align-top">Date d'envoi</th>
             <th class="align-top">Promoteur</th>
             <th class="align-top">Ville</th>
-            <th colspan="2" class="align-top">Actions</th>
+            <th colspan="4" class="align-top text-center">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -25,18 +25,38 @@
         <tr>
             <td>{{ candidature.candidat.prenom ~' '~ candidature.candidat.nom }}</td>
             <td>{{ candidature.titre }}</td>
-            <td>{{ candidature.statut }}</td>
+            <td>
+                {% if candidature.statut == 0 %}
+                    <div class="btn-sm alert-warning">Incomplète</div>
+                {% elseif candidature.statut == 1 %}
+                    <div class="btn-sm alert-info">En cours</div>
+                {% elseif candidature.statut == 2 %}
+                    <div class="btn-sm alert-danger">Refusée</div>     
+                {% else %}
+                    <div class="btn-sm alert-success">Acceptée</div>
+                {% endif %}
+            </td>
             <td>{{ candidature.createdAt | date('d/m/Y à H:i') }}</td>
             <td>{{ candidature.sendAt | date('d/m/Y à H:i') }}</td>
             <td>{{ candidature.promoteur }}</td>
             <td>{{ candidature.ville }}</td>
             <td>
-                <a href="{{ path('candidature_view', { 'id' : candidature.id }) }}">
+                <a href="{{ path('candidature_view', { 'candidature' : candidature.id }) }}">
                     <i class="icon-magnifiying-glass"></i>
                 </a>
             </td>
+            <td style="padding-top: 8px">
+                <a style="font-size: 1.6em" href="{{ path('candidature_download_excel', { 'candidature' : candidature.id }) }}">
+                    <i class="fas fa-file-excel"></i>
+                </a>
+            </td>
+            <td style="padding-top: 8px">
+                <a style="font-size: 1.6em" href="{{ path('candidature_download_pdf', { 'candidature' : candidature.id }) }}">
+                    <i class="fas fa-file-pdf"></i>
+                </a>
+            </td>
             <td>
-                <a class="confirm__candidature__del" href="{{ path('candidature_delete', { 'id' : candidature.id }) }}">
+                <a class="confirm__candidature__del" href="{{ path('candidature_delete', { 'candidature' : candidature.id }) }}">
                     <i class="icon-trash"></i>
                 </a>
             </td>

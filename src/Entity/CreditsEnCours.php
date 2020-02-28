@@ -17,12 +17,12 @@ class CreditsEnCours
     private $id;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $dateDebut;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $dateFin;
 
@@ -36,24 +36,24 @@ class CreditsEnCours
         return $this->id;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
+    public function getDateDebut(): ?string
     {
         return $this->dateDebut;
     }
 
-    public function setDateDebut(?\DateTimeInterface $dateDebut): self
+    public function setDateDebut(?string $dateDebut): self
     {
         $this->dateDebut = $dateDebut;
 
         return $this;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
+    public function getDateFin(): ?string
     {
         return $this->dateFin;
     }
 
-    public function setDateFin(\DateTimeInterface $dateFin): self
+    public function setDateFin(string $dateFin): self
     {
         $this->dateFin = $dateFin;
 
