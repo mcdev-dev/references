@@ -1971,7 +1971,8 @@ fieldset li::before {
 
 /* Error headers */
 .error__content {
-    width: 100%;
+    width: 75%;
+    margin: 0 auto;
     height: 100vh;
     display: flex;
     flex-direction: column;
