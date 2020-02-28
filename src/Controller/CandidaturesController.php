@@ -32,7 +32,7 @@ class CandidaturesController extends AbstractController
     }
 
     /**
-     * @Route("/user/candidature/questionnaire/", name="questionnaire_candidature")
+     * @Route("/user/candidature/questionnaire", name="questionnaire_candidature")
      */
     public function candidatureQuestionnaire(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator) 
     {

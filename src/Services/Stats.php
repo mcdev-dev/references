@@ -18,9 +18,10 @@ class Stats
         $users          = $this->getUsersCount();
         $articles       = $this->getArticlesCount();
         $actus          = $this->getActusCount();
+        $postulats      = $this->getPostulatsCount();
         $candidatures   = $this->getCandidaturesCount();
 
-        return compact('users', 'articles', 'actus', 'candidatures');
+        return compact('users', 'articles', 'actus', 'postulats', 'candidatures');
     }
 
     public function getUsersCount() 
@@ -38,9 +39,14 @@ class Stats
         return $this->manager->createQuery('SELECT count(n) FROM App\Entity\ArticleActu n')->getSingleScalarResult();
     }
 
-    public function getCandidaturesCount() 
+    public function getPostulatsCount() 
     {
         return $this->manager->createQuery('SELECT count(c) FROM App\Entity\JoinUs c')->getSingleScalarResult();
+    }
+
+    public function getCandidaturesCount() 
+    {
+        return $this->manager->createQuery('SELECT count(c) FROM App\Entity\Candidatures c')->getSingleScalarResult();
     }
 
 }
