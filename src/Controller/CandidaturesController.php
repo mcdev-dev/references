@@ -161,61 +161,78 @@ class CandidaturesController extends AbstractController
                                 
         $register = $request->get('enregistrer') !== null;
         $form = $register ? $this->createForm(CandidaturesType::class, $candidature, ['validation_groups' => false]) : $this->createForm(CandidaturesType::class, $candidature);
+        //** */
+        $o_statut_occupation = $form->get('logementActuel')
+                               ->getData()->getStatutOccupation();
+        $o_acquereur_statut_emploi = $form->get('situationProFinanciere')
+                                     ->getData()->getAcquereurStatutEmploi();
+        $o_coacquereur_statut_emploi = $form->get('situationProFinanciere')
+                                       ->getData()->getCoAcquereurStatutEmploi();
+        $o_apport_personnel = $form->get('situationProFinanciere')
+                              ->getData()->getApportPersonnel();
         
+        //dd($statut_occupation);
         $form->handleRequest($request);
         
         if($form->isSubmitted()) 
         {
+            $otherStatutOccupation = $request->get('other_statut_occupation');
+            $statutEmploiAc = $request->get('other_acquereur_statut_emploi');
+            $statutEmploiCoAc = $request->get('other_co_acquereur_statut_emploi');
+            $apportPersonnel = $request->get('other_apport_perso');
+
+            if(null !== $otherStatutOccupation) 
+            {
+                $form->get('logementActuel')->getData()->setStatutOccupation($otherStatutOccupation);
+            }
+            if(null !== $statutEmploiAc) 
+            {
+                $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($statutEmploiAc);
+            }
+            if(null !== $statutEmploiCoAc) 
+            {
+                $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($statutEmploiCoAc);
+            }
+            if(null !== $apportPersonnel) 
+            {
+                $form->get('situationProFinanciere')->getData()->setApportPersonnel($apportPersonnel);
+            }
+            
+            if($register) 
+            {
+                //hydrater les champs "autre";
+                if($form->get('logementActuel')->getData()->getStatutOccupation() === null) $form->get('logementActuel')->getData()->setStatutOccupation($o_statut_occupation);
+                
+                if($form->get('situationProFinanciere')->getData()->getAcquereurStatutEmploi() === null) $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($o_acquereur_statut_emploi);
+
+                if($form->get('situationProFinanciere')->getData()->getCoAcquereurStatutEmploi() === null) $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($o_coacquereur_statut_emploi);
+
+                if($form->get('situationProFinanciere')->getData()->getApportPersonnel() === null) $form->get('situationProFinanciere')->getData()->setApportPersonnel($o_apport_personnel);
+
+                $candidature->setValider(false);
+                $candidature->setStatut(0);//Persistance
+        
+                $manager->persist($candidature);
+                $manager->flush();
+                $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été enregistrée avec succès.');
+                return $this->redirectToRoute('user_candidatures');
+
+            } 
             if($form->isValid()) 
             {
-                $otherStatutOccupation = $request->get('other_statut_occupation');
-                $statutEmploiAc = $request->get('other_acquereur_statut_emploi');
-                $statutEmploiCoAc = $request->get('other_co_acquereur_statut_emploi');
-                $apportPersonnel = $request->get('other_apport_perso');
-    
-                if(null !== $otherStatutOccupation) 
-                {
-                    $form->get('logementActuel')->getData()->setStatutOccupation($otherStatutOccupation);
-                }
-                if(null !== $statutEmploiAc) 
-                {
-                    $form->get('situationProFinanciere')->getData()->setAcquereurStatutEmploi($statutEmploiAc);
-                }
-                if(null !== $statutEmploiCoAc) 
-                {
-                    $form->get('situationProFinanciere')->getData()->setCoAcquereurStatutEmploi($statutEmploiCoAc);
-                }
-                if(null !== $apportPersonnel) 
-                {
-                    $form->get('situationProFinanciere')->getData()->setApportPersonnel($apportPersonnel);
-                }
+                //Persistance
+                $candidature->setStatut(1);
+
+                $manager->persist($candidature);
+                $manager->flush();
                 
-                if($register) 
-                {
-                    $candidature->setValider(false);
-                    $candidature->setStatut(0);//Persistance
-            
-                    $manager->persist($candidature);
-                    $manager->flush();
-                    $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été enregistrée avec succès.');
-                    return $this->redirectToRoute('user_candidatures');
-    
-                } 
-                else 
-                {
-                    //Persistance
-                    $candidature->setStatut(1);
-    
-                    $manager->persist($candidature);
-                    $manager->flush();
-                    
-                    $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
-                    return $this->redirectToRoute('user_candidatures');
-                    
-                }
+                $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
+                return $this->redirectToRoute('user_candidatures');
+                
             } 
             else 
             {
+                //dd($o_statut_occupation);
                 $this->addFlash('errors', '<strong>'. $this->getUser()->getPrenom() .',</strong> impossible de soumettre votre candidature. Veuillez remplir les champs obligatoires.');
             }
             

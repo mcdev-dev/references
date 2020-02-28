@@ -19,7 +19,6 @@ class SituationProFinanciere
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Champs requis")
      */
     private $acquereurStatutEmploi;
 
@@ -82,7 +81,6 @@ class SituationProFinanciere
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Champs requis")
      */
     private $apportPersonnel;
 
@@ -101,7 +99,7 @@ class SituationProFinanciere
         return $this->acquereurStatutEmploi;
     }
 
-    public function setAcquereurStatutEmploi(string $acquereurStatutEmploi): self
+    public function setAcquereurStatutEmploi(?string $acquereurStatutEmploi): self
     {
         $this->acquereurStatutEmploi = $acquereurStatutEmploi;
 
@@ -161,7 +159,7 @@ class SituationProFinanciere
         return $this->apportPersonnel;
     }
 
-    public function setApportPersonnel(string $apportPersonnel): self
+    public function setApportPersonnel(?string $apportPersonnel): self
     {
         $this->apportPersonnel = $apportPersonnel;
 

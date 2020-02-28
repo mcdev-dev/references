@@ -43,7 +43,6 @@ class LogementActuel
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Champs requis")
      */
     private $statutOccupation;
 
@@ -115,7 +114,7 @@ class LogementActuel
         return $this->statutOccupation;
     }
 
-    public function setStatutOccupation(string $statutOccupation): self
+    public function setStatutOccupation(?string $statutOccupation): self
     {
         $this->statutOccupation = $statutOccupation;
 

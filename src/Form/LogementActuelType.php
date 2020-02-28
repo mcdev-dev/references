@@ -68,6 +68,7 @@ class LogementActuelType extends AbstractType
             ->add('statutOccupation', ChoiceType::class, 
             [
                 'label' => false,
+                'empty_data' => '',
                 'choices' => 
                 [
                     'Locataire du parc privé' => 'Locataire du parc privé',
@@ -79,7 +80,7 @@ class LogementActuelType extends AbstractType
                 'multiple' => false,
                 'attr' => [
                     'class' => 'mb__form__check'
-                ]
+                ],
                 
             ])
             ->add('montantLoyer', MoneyType::class, ['label' => false])
