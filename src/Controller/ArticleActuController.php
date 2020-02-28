@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\ArticleActu;
 use App\Form\ArticleActuType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ArticleActuRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,7 +51,7 @@ class ArticleActuController extends AbstractController
     /**
      * @Route("/admin/actualites/add", name="article_actu_add")
      */
-    public function addArticle(Request $request, ObjectManager $manager) 
+    public function addArticle(Request $request, EntityManagerInterface $manager) 
     {
         $article = new ArticleActu;
         $form = $this->createForm(ArticleActuType::class, $article);
@@ -78,7 +78,7 @@ class ArticleActuController extends AbstractController
     /**
      * @Route("/admin/actualites/update/{id}", name="article_actu_update")
      */
-    public function updateArticle($id, Request $request, ArticleActuRepository $articleRepo, ObjectManager $manager) 
+    public function updateArticle($id, Request $request, ArticleActuRepository $articleRepo, EntityManagerInterface $manager) 
     {
         $article = $articleRepo->find($id);
         $form = $this->createForm(ArticleActuType::class, $article);
@@ -105,7 +105,7 @@ class ArticleActuController extends AbstractController
     /**
      * @Route("/admin/actualites/delete/{id}", name="article_actu_delete")
      */
-    public function articleDelete($id, ArticleActuRepository $articleRepo, ObjectManager $manager) 
+    public function articleDelete($id, ArticleActuRepository $articleRepo, EntityManagerInterface $manager) 
     {
         $article = $articleRepo->find($id);
         if($article) {
