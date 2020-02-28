@@ -1,0 +1,2 @@
+DATABASE_URL=mysql://lescityzpgtest:dbLCZ2020@lescityzpgtest.mysql.db:3306/lescityzpgtest
+MAILER_DSN=smtp://no-reply@lescityzens.fr:yik8iv2BRbH75s26FD4hdJS43SzV9J@ssl0.ovh.net:465

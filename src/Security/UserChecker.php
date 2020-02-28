@@ -2,14 +2,27 @@
 
 namespace App\Security;
 
-use App\Exception\AccountDeletedException;
+use Exception;
 use App\Entity\User as AppUser;
-use Symfony\Component\Security\Core\Exception\AccountExpiredException;
-use Symfony\Component\Security\Core\User\UserCheckerInterface;
+use App\Exception\AccountDeletedException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\User\UserCheckerInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 
 class UserChecker implements UserCheckerInterface
 {
+
+    private $flash;
+    private $router;
+
+    public function __construct(FlashBagInterface $flash, UrlGeneratorInterface $router) 
+    {
+        $this->flash = $flash;
+        $this->router = $router;
+    }
+
     public function checkPreAuth(UserInterface $user)
     {
         if (!$user instanceof AppUser) {
@@ -19,11 +32,19 @@ class UserChecker implements UserCheckerInterface
         // user is deleted, show a generic Account Not Found message.
         /*if ($user->isDeleted()) {
             throw new AccountDeletedException();
+        }
+        
+        if(true !== $user->getEnabled()) 
+        {
+            $this->flash->add('errors', 'Un email de confirmation vous a été envoyé. Veuillez confirmer votre inscription avant de pouvoir vous connecter.');
+
+            return $this->router->generate('connexion', [], 302);
         }*/
 
         if(true !== $user->getEnabled()) 
         {
-            throw new \RuntimeException('Un email de confirmation vous a été envoyé. Veuillez confirmer votre inscription avant de pouvoir vous connecter.');
+            throw new Exception("Un email de confirmation vous a été envoyé. Veuillez confirmer votre inscription avant de pouvoir vous connecter.", 1);
+            
         }
     }
 
@@ -38,6 +59,6 @@ class UserChecker implements UserCheckerInterface
             throw new AccountExpiredException('...');
         }*/
 
-        $this->checkPreAuth($user);
+        //$this->checkPreAuth($user);
     }
 }
