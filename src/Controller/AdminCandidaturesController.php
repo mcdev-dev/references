@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use League\Csv\Writer;
+use SplTempFileObject;
 use App\Entity\Candidatures;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,7 +40,23 @@ class AdminCandidaturesController extends AbstractController
      */
     public function candidaturesDownloadExcel(Candidatures $candidature = null, EntityManagerInterface $manager) 
     {
+        $candidature = $manager->getRepository(Candidatures::class)->find($candidature);
+        //dd($candidature);
+        #Writer
+        $csv = Writer::createFromFileObject(new SplTempFileObject());
+        $csv->insertOne(['logementActuel', 'menage', 'situationProFinanciere', 'interetHabitatParticipatif', 'candidat', 'situationProFinanciere']);
         
+        foreach($candidature as $cand) 
+        {
+            $csv->insertOne([
+                $cand->getLogementActuel(), $cand->getMenage(), $cand->getSituationProFinancierel(), $cand->getInteretHabitatParticipatif(), $cand->getCandidat(), $cand->getSituationProFinanciere()
+            ]);
+
+        }
+        
+        $csv->output('candidature.csv');
+        die;
+
         // Return a message to the browser saying that the excel was succesfully created
         $this->addFlash('success', 'L\'exportation de la candidature de <strong>'. $candidature->getCandidat()->getPrenom() .'</strong> a réussie avec succès.');
 

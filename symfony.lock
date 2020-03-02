@@ -111,6 +111,9 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "egyg33k/csv-bundle": {
+        "version": "1.0.1"
+    },
     "friendsofsymfony/ckeditor-bundle": {
         "version": "2.0",
         "recipe": {

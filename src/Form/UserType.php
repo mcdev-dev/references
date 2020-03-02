@@ -44,6 +44,10 @@ class UserType extends AbstractType
                 'required' => false,
                 'label' => false,
             ])
+            ->add('cguAccepted', CheckboxType::class, [
+                'required' => false,
+                'label' => false,
+            ])
         ;
     }
 

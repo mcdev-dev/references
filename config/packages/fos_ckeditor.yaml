@@ -7,3 +7,7 @@ twig:
 fos_ck_editor:
     base_path: "build/ckeditor"
     js_path:   "build/ckeditor/ckeditor.js"
+    configs:
+        main_config:
+            toolbar: full
+            language: fr

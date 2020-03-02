@@ -77,7 +77,7 @@ class ResetPasswordController extends AbstractController
 
                 $mailer->send($email);
 
-                $this->addFlash('success', '<strong>'. $user->getPrenom(). '</strong>, un mail vous est envoyé !');
+                $this->addFlash('success', '<strong>'. $user->getPrenom(). '</strong>, un mail vous a été envoyé !');
     
                 return $this->redirectToRoute('connexion');
             }

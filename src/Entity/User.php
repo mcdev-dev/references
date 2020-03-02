@@ -75,7 +75,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $abonneNewsletter = false;
+    private $abonneNewsletter;
 
     /**
      * @ORM\Column(type="string", length=20)
@@ -132,6 +132,12 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity="App\Entity\Candidatures", mappedBy="candidat", cascade={"persist", "remove"})
      */
     private $candidatures;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @Assert\NotBlank(message="Veuillez accepter les Conditions d’utilisation du site LesCityZens.fr.")
+     */
+    private $cguAccepted;
 
     /**
      * @ORM\PrePersist
@@ -403,6 +409,18 @@ class User implements UserInterface
         if ($candidatures->getCandidat() !== $newCandidat) {
             $candidatures->setCandidat($newCandidat);
         }
+
+        return $this;
+    }
+
+    public function getCguAccepted(): ?bool
+    {
+        return $this->cguAccepted;
+    }
+
+    public function setCguAccepted(bool $cguAccepted): self
+    {
+        $this->cguAccepted = $cguAccepted;
 
         return $this;
     }

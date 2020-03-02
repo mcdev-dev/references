@@ -103,6 +103,13 @@ button a:hover {
     display: flex;
     align-items: center;
 }
+.title__danger {
+    font-weight: bolder;
+    color: #D9326F;
+}
+.title__danger:hover {
+    color: rgb(177, 36, 88);
+}
 
 /* Animation Bouton loader */
 .loader {

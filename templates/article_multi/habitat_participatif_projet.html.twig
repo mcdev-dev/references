@@ -42,26 +42,87 @@
 	</div>
 
 	<div class="mt-4 mb-4 titleProject">
-		<div class="mb-4">
-			{{ articleMulti.description | raw }}
-		</div>
 
-		{% for content in articleMulti.contenu %}
-			<h1>{{ content.titre }}</h1>
-			<div class="mb-4">
-				{{ content.contenu | raw }}
-			</div>
-		{% endfor %}
-		{#{ dump(articleMulti.titre == 'Fablet, Ivry-sur-Seine (94)') }#}
-		{% if articleMulti.titre == 'Fablet, Ivry-sur-Seine (94)' %}
-			<div class="text-center">
-				<a class="btn btnSubmit mt-4 mb-4 col-12" href="https://www.coopimmo.com/habitats-participatifs/fablet/" target="_blank">Participer</a>
+		{% if articleMulti.titre == 'Bascule-Pelouse, Saint-Ferjeux – Besançon (25)' %}
+			<div class="row">
+				<div class="col-md-7 block__left__project">
+					{{ articleMulti.description | raw }}
+					<h2 class="sub__title__project">
+						{{ articleMulti.contenu[0].titre | raw }}
+					</h2>
+					{{ articleMulti.contenu[0].contenu | raw }}
+
+					<h2 class="sub__title__project">
+						{{ articleMulti.contenu[1].titre | raw }}
+					</h2>
+					{{ articleMulti.contenu[1].contenu | raw }}
+
+					<div class="img__project__illu">
+						<img src="{{ asset('images/static/schema_st_ferjeux.svg') }}" alt="schéma du projet saint-ferjeux" class="img-fluid">
+					</div>
+
+					<h2 class="d-flex sub__title__project2">
+						<img src="{{ asset('images/static/curve-arrow.svg') }}" alt="curve arrow" width="36"> 
+						<span>L’habitat participatif, en quelques mots...</span>
+					</h2>
+
+					<h2 class="sub__title__project">
+						{{ articleMulti.contenu[2].titre | raw }}
+					</h2>
+					{{ articleMulti.contenu[2].contenu | raw }}
+					
+					<h2 class="sub__title__project">
+						{{ articleMulti.contenu[3].titre | raw }}
+					</h2>
+					{{ articleMulti.contenu[3].contenu | raw }}
+
+				</div>
+				<div class="col-md-5 flex-column encart__project">
+					<div class="bg-light px-4 pb-4 pt-2">
+						<h2 class="sub__title__project">
+							L’habitat participatif, en quelques mots...
+						</h2>
+						{{ articleMulti.contenu[4].contenu | raw }}
+					</div>
+					<div class="bg-warning px-4 pb-4 pt-2">
+						<h2 class="sub__title__project">
+							{{ articleMulti.contenu[5].titre }}
+						</h2>
+						{{ articleMulti.contenu[5].contenu | raw }}
+						<h2 class="sub__title__project">
+							{{ articleMulti.contenu[6].titre }}
+						</h2>
+						{{ articleMulti.contenu[6].contenu | raw }}
+						<div class="text-center">
+							<a class="btn btnSubmit mt-2 col-12" href="{{ path('questionnaire_candidature') }}">Candidater !</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		{% else %}
-			<div class="text-center">
-				<a class="btn btnSubmit mt-4 mb-4 col-12" href="{{ path('questionnaire_candidature') }}">Participer</a>
+		<div class="project__condensed__block">
+			<div class="mb-4">
+				{{ articleMulti.description | raw }}
 			</div>
+
+			{% for content in articleMulti.contenu %}
+				<h1>{{ content.titre }}</h1>
+				<div class="mb-4">
+					{{ content.contenu | raw }}
+				</div>
+			{% endfor %}
+			{#{ dump(articleMulti.titre == 'Fablet, Ivry-sur-Seine (94)') }#}
+			{% if articleMulti.titre == 'Fablet, Ivry-sur-Seine (94)' %}
+				<div class="text-center">
+					<a class="btn btnSubmit mt-4 mb-4 col-12" href="https://www.coopimmo.com/habitats-participatifs/fablet/" target="_blank">Participer</a>
+				</div>
+			{% else %}
+				<div class="text-center">
+					<a class="btn btnSubmit mt-4 mb-4 col-12" href="{{ path('questionnaire_candidature') }}">Participer</a>
+				</div>
+			{% endif %}
 		{% endif %}
+		</div>
 
 	</div>
 

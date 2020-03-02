@@ -55,13 +55,6 @@ class SecurityController extends AbstractController
             $user->setregistrationDate(new \DateTime);
             $user->setSlug($user->getPrenom() .' '. $user->getNom());
 
-            if($user->getAbonneNewsletter() == true) 
-            {
-                $user->setAbonneNewsletter(1);
-            } else {
-                $user->setAbonneNewsletter(0);
-            }
-            
             $token = $tokenGenerator->generateToken();
             $user->setConfirmationToken($token);
 
