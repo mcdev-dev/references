@@ -55,64 +55,72 @@
     <div class="dashboard">
         <div class="navbarDashboard">
             <div class="dashboardNav">
-                <div class="settingDashboard">
-                    <div class="text-center">
-                        <img src="{{ asset('images/static/logotype_lcz.svg') }}" alt="Logo LCZ" width="160">
-                    </div><hr>
-                    <div class="navbarDashboard__js align-middle mb-4 mt-4">
-                        <i class="icon-setting-lines mr-3"></i>
-                        Gestion Administrateur
-                    </div>
-                    <div class="gestion">
-                        <a class="{{ (title == 'Tableau de bord') ? 'gestion__dash__active' : '' }}" href="{{ path('admin_dashboard') }}">
-                            <i class="icon-analysis"></i>Tableau de bord
-                        </a class="{{ (title == 'Gestion des utilisateurs') ? 'gestion__dash__active' : '' }}">
-                        <a class="{{ (title == 'Gestion des utilisateurs') ? 'gestion__dash__active' : '' }}" href="{{ path('user_list') }}">
-                            <i class="icon-networking"></i>Gestion des utilisateurs
-                        </a>
-                        <a href="#">
-                            <i class="icon-management"></i>Gestion des contacts
-                        </a>
-                        <a class="{{ (title == 'Listes des articles') ? 'gestion__dash__active' : '' }}" href="{{ path('article') }}">
-                            <i class="icon-editorial-design"></i>Gestion des contenus
-                        </a>
-                        <a class="{{ (title == 'Listes des références') ? 'gestion__dash__active' : '' }}" href="{{ path('references_view_all') }}">
-                            <i class="icon-documents-set"></i>Gestion des références
-                        </a>
-                        <a class="{{ (title == 'Listes des actualités') ? 'gestion__dash__active' : '' }}" href="{{ path('article_actu') }}">
-                            <i class="icon-form"></i>Gestion des actualités
-                        </a>
-                        <a class="{{ (title == 'Listes des candidatures') ? 'gestion__dash__active' : '' }}" href="{{ path('candidatures_list') }}">
-                            <i class="icon-archive"></i>Gestion des candidatures
-                        </a>
-                        <a class="{{ (title == 'Listes des postulats') ? 'gestion__dash__active' : '' }}" href="{{ path('join_us_list') }}">
-                            <i class="icon-file"></i>Gestion des postulats
-                        </a>
-                    </div>
+                <div id="dashboardNav__navigation" class="text-center">
+                    <span id="setting__nav__icon__mobile">
+                        <i class="icon-setting-lines"></i>
+                    </span>
+                    <img src="{{ asset('images/static/logotype_lcz.svg') }}" alt="Logo LCZ" width="160">
                 </div>
-                <hr>
-                <div class="dash__ico__bottom">
-                    <div class="authentication__dashboard text-center">
-                        <i class="icon-bell notification__js"></i>
-                        
-                        <span class="userDash__js">
-                            <div class="dash__user__profile text-center">
-                                <a href="{{ path('user_profile') }}">
-                                    <i class="icon-user2"></i>
-                                    Mon Compte
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="{{ path('deconnexion') }}"><i class="icon-turn-off"></i>
-                                    Déconnexion
-                                </a>
-                            </div>
-                            <i class="icon-user2"></i>
-                        </span>
-                        
-                        <i class="icon-magnifiying-glass searchDash__js"></i>
-                        <a href="{{ path('home') }}">
-                            <i class="icon-house"></i>
-                        </a>
+
+                <div class="settingDashboard__dash__ico__bottom">
+                    <div class="settingDashboard">
+                        <div class="navbarDashboard__js align-middle mb-4 mt-4">
+                            <span class="setting__nav__icon__screen mr-3">
+                                <i class="icon-setting-lines"></i>
+                            </span>
+                            Gestion Administrateur
+                        </div>
+                        <div class="gestion">
+                            <a class="{{ (title == 'Tableau de bord') ? 'gestion__dash__active' : '' }}" href="{{ path('admin_dashboard') }}">
+                                <i class="icon-analysis"></i>Tableau de bord
+                            </a class="{{ (title == 'Gestion des utilisateurs') ? 'gestion__dash__active' : '' }}">
+                            <a class="{{ (title == 'Gestion des utilisateurs') ? 'gestion__dash__active' : '' }}" href="{{ path('user_list') }}">
+                                <i class="icon-networking"></i>Gestion des utilisateurs
+                            </a>
+                            <a href="#">
+                                <i class="icon-management"></i>Gestion des contacts
+                            </a>
+                            <a class="{{ (title == 'Listes des articles') ? 'gestion__dash__active' : '' }}" href="{{ path('article') }}">
+                                <i class="icon-editorial-design"></i>Gestion des contenus
+                            </a>
+                            <a class="{{ (title == 'Listes des références') ? 'gestion__dash__active' : '' }}" href="{{ path('references_view_all') }}">
+                                <i class="icon-documents-set"></i>Gestion des références
+                            </a>
+                            <a class="{{ (title == 'Listes des actualités') ? 'gestion__dash__active' : '' }}" href="{{ path('article_actu') }}">
+                                <i class="icon-form"></i>Gestion des actualités
+                            </a>
+                            <a class="{{ (title == 'Listes des candidatures') ? 'gestion__dash__active' : '' }}" href="{{ path('candidatures_list') }}">
+                                <i class="icon-archive"></i>Gestion des candidatures
+                            </a>
+                            <a class="{{ (title == 'Listes des postulats') ? 'gestion__dash__active' : '' }}" href="{{ path('join_us_list') }}">
+                                <i class="icon-file"></i>Gestion des postulats
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="dash__ico__bottom">
+                        <div class="authentication__dashboard text-center">
+                            <i class="icon-bell notification__js"></i>
+                            
+                            <span class="userDash__js">
+                                <div class="dash__user__profile text-center">
+                                    <a href="{{ path('user_profile') }}">
+                                        <i class="icon-user2"></i>
+                                        Mon Compte
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{{ path('deconnexion') }}"><i class="icon-turn-off"></i>
+                                        Déconnexion
+                                    </a>
+                                </div>
+                                <i class="icon-user2"></i>
+                            </span>
+                            
+                            <i class="icon-magnifiying-glass searchDash__js"></i>
+                            <a href="{{ path('home') }}">
+                                <i class="icon-house"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,7 +140,49 @@
     </div>
 
 
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+        <script>
+            $(function() 
+            {
+                $('#setting__nav__icon__mobile').click(() => 
+                {
+                    $('.settingDashboard__dash__ico__bottom').toggleClass('toggle__dash__ico__bottom');
+                    $('.navbarDashboard').toggleClass('toggle__navbarDashboard');
+                    $('.dashboardContent').toggleClass('toggle__dashboardContent');
+
+                });
+
+                if($(window).width() < 992) 
+                {
+                    $(window).scroll(() => 
+                    {
+                        if($(this).scrollTop() > 120) 
+                        {
+                            $('#dashboardNav__navigation').css(
+                            {
+                                position    : 'fixed',
+                                top         : 0,
+                                left        : 0,
+                                width       : '100%',
+                            });
+                            $('.settingDashboard__dash__ico__bottom').css('top', '120px');
+                        } 
+                        else 
+                        {   
+                            $('#dashboardNav__navigation').css(
+                            {
+                                position    : '',
+                                top         : '',
+                                left        : '',
+                                width       : '',
+                            });
+                            $('.settingDashboard__dash__ico__bottom').css('top', '');
+                        }
+                    });
+                }
+            });
+        </script>
+    {% endblock %}
 
 
 </body>

@@ -131,20 +131,20 @@
                 <div class="fs-subtitle title mt-4">6. Acquéreur
                 </div>
                 <p>Civilité <span class="text-success">*</span></p>
-                {{ form_widget(form.menage.civilite) }} <br><br>
+                {{ form_widget(form.menage.acquereur.civilite) }} <br><br>
         
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <div class="mb-2">
                             Nom <span class="text-success">*</span>
                         </div>
-                        {{ form_widget(form.menage.nom) }}
+                        {{ form_widget(form.menage.acquereur.nom) }}
                     </div>
                     <div class="col-md-6 form-group">
                         <div class="mb-2">
                             Prénom <span class="text-success">*</span>
                         </div>
-                        {{ form_widget(form.menage.prenom) }}
+                        {{ form_widget(form.menage.acquereur.prenom) }}
                     </div>
                 </div>
                 <div class="row mt-4 mb-2">
@@ -152,28 +152,28 @@
                         Date de naissance <span class="ml-1 text-success">*</span>
                     </div>
                     <div class="col-md-9 form-group">
-                        {{ form_widget(form.menage.dateNaissance) }}
+                        {{ form_widget(form.menage.acquereur.dateNaissance) }}
                     </div>
                 </div>
         
                 <p>Catégorie socio-professionnelle <span class="text-success">*</span></p>
-                {{ form_widget(form.menage.categorieSocioPro) }}
+                {{ form_widget(form.menage.acquereur.categorieSocioPro) }}
         
                 <div class="mb-2 mt-4">Adresse <span class="text-success">*</span></div>
-                {{ form_widget(form.menage.adresse) }}
+                {{ form_widget(form.menage.acquereur.adresse) }}
         
                 <div class="row mt-4 mb-2">
                     <div class="col-md-4 form-group">
                         <div class="mb-2">
                             Code postal <span class="ml-1 text-success">*</span>
                         </div>
-                        {{ form_widget(form.menage.codePostal) }}
+                        {{ form_widget(form.menage.acquereur.codePostal) }}
                     </div>
                     <div class="col-md-8 form-group">
                         <div class="mb-2">
                             Ville <span class="ml-1 text-success">*</span>
                         </div>
-                        {{ form_widget(form.menage.ville) }}
+                        {{ form_widget(form.menage.acquereur.ville) }}
                     </div>
                 </div>
         
@@ -182,40 +182,118 @@
                         <div class="mb-2">
                             Téléphone portable <span class="ml-1 text-success">*</span>
                         </div>
-                        {{ form_widget(form.menage.phonePortable) }}
+                        {{ form_widget(form.menage.acquereur.phonePortable) }}
                     </div>
                     <div class="col-md-6 form-group">
                         <div class="mb-2">
                             Téléphone du domicile
                         </div>
-                        {{ form_widget(form.menage.phoneDomicile) }}
+                        {{ form_widget(form.menage.acquereur.phoneDomicile) }}
                     </div>
                 </div>
         
-                <div class="row mb-4">
+                <div class="row mb-2">
                     <div class="col-md-7 form-group">
                         <div class="mb-2">
                             Téléphone professionnel
                         </div>
-                        {{ form_widget(form.menage.phonePro) }}
+                        {{ form_widget(form.menage.acquereur.phonePro) }}
                     </div>
                     <div class="col-md-5 form-group">
                         <div class="mb-2">
                             E-mail <span class="ml-1 text-success">*</span>
                         </div>
-                        {{ form_widget(form.menage.email) }}
+                        {{ form_widget(form.menage.acquereur.email) }}
                     </div>
                 </div>
-        
-                <p class="fs-subtitle title">7. Co-acquéreur (laisser vide si sans objet)
+
+                <p class="mb-2">Situation familiale <span class="text-success">*</span>
                 </p>
-                {{ form_widget(form.menage.coAcquereur) }}
+                {{ form_widget(form.menage.acquereur.situationFamiliale) }}
         
-                <p class="fs-subtitle title mt-4">8. Situation familiale <span class="text-success">*</span>
+                <p class="fs-subtitle title mt-4">7. Co-acquéreur (laisser vide si sans objet)
                 </p>
-                {{ form_widget(form.menage.situationFamiliale) }}
+                <p>Civilité</p>
+                {{ form_widget(form.menage.coAcquereur.civilite) }} <br><br>
+                
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Nom
+                        </div>
+                        {{ form_widget(form.menage.coAcquereur.nom) }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Prénom
+                        </div>
+                        {{ form_widget(form.menage.coAcquereur.prenom) }}
+                    </div>
+                </div>
+                <div class="row mt-4 mb-2">
+                    <div class="col-md-3 vertical__align form-group">
+                        Date de naissance
+                    </div>
+                    <div class="col-md-9 form-group">
+                        {{ form_widget(form.menage.coAcquereur.dateNaissance) }}
+                    </div>
+                </div>
+                
+                <p>Catégorie socio-professionnelle</p>
+                {{ form_widget(form.menage.coAcquereur.categorieSocioPro) }}
+                
+                <div class="mb-2 mt-4">Adresse</div>
+                {{ form_widget(form.menage.coAcquereur.adresse) }}
+                
+                <div class="row mt-4 mb-2">
+                    <div class="col-md-4 form-group">
+                        <div class="mb-2">
+                            Code postal
+                        </div>
+                        {{ form_widget(form.menage.coAcquereur.codePostal) }}
+                    </div>
+                    <div class="col-md-8 form-group">
+                        <div class="mb-2">
+                            Ville
+                        </div>
+                        {{ form_widget(form.menage.coAcquereur.ville) }}
+                    </div>
+                </div>
+                
+                <div class="row mb-2">
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Téléphone portable
+                        </div>
+                        {{ form_widget(form.menage.coAcquereur.phonePortable) }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <div class="mb-2">
+                            Téléphone du domicile
+                        </div>
+                        {{ form_widget(form.menage.coAcquereur.phoneDomicile) }}
+                    </div>
+                </div>
+                
+                <div class="row mb-2">
+                    <div class="col-md-7 form-group">
+                        <div class="mb-2">
+                            Téléphone professionnel
+                        </div>
+                        {{ form_widget(form.menage.coAcquereur.phonePro) }}
+                    </div>
+                    <div class="col-md-5 form-group">
+                        <div class="mb-2">
+                            E-mail
+                        </div>
+                        {{ form_widget(form.menage.coAcquereur.email) }}
+                    </div>
+                </div>
+                
+                <p class="mb-2">Situation familiale</p>
+                {{ form_widget(form.menage.coAcquereur.situationFamiliale) }}
         
-                <p class="fs-subtitle title mt-4">9. Enfants et autres personnes à charge (laisser vide si sans objet)</p>
+                <p class="fs-subtitle title mt-4">8. Enfants et autres personnes à charge (laisser vide si sans objet)</p>
         
                 <div class="row mb-4">
                     <div class="col-md-6 form-group">
@@ -247,7 +325,7 @@
                     </div>
                 </div>
         
-                <p class="fs-subtitle title mt-4">Taille du foyer <span class="text-success">*</span>
+                <p class="fs-subtitle title mt-4">9. Taille du foyer <span class="text-success">*</span>
                     <span class="text__secondary">
                         <em>
                             (nombre de personnes, vous compris) :
@@ -278,44 +356,41 @@
                     </small>
                 </p>
         
-                <div class="fs-subtitle title mt-4">11. Acquéreur - Statut d’emploi
+                <div class="fs-subtitle title mt-4">10. Acquéreur - Statut d’emploi
                     <span class="text-success">*</span>
                 </div>
                 {{ form_widget(form.situationProFinanciere.acquereurStatutEmploi) }}
         
-                <div class="fs-subtitle title mt-4">12. Acquéreur - Salaire mensuel moyen (total annuel primes incluses divisé
+                <div class="fs-subtitle title mt-4">11. Acquéreur - Salaire mensuel moyen (total annuel primes incluses divisé
                     par 12)
                     <span class="text-success">*</span><br>
                 </div>
                 {{ form_widget(form.situationProFinanciere.acquereurSalaireMensuelMoyen) }}
         
-                <div class="fs-subtitle title mt-4">13. Acquéreur - Revenus imposables (revenus fiscaux de référence tel
+                <div class="fs-subtitle title mt-4">12. Acquéreur - Revenus imposables (revenus fiscaux de référence tel
                     qu’indiqués sur votre avis d’imposition après l’abattement de 10 %)
                     <span class="text-success">*</span>
                 </div>
                 <div class="mb-2">Avis d’imposition 2019 sur les revenus de l’année 2018</div>
                 {{ form_widget(form.situationProFinanciere.acquereurRevenusImpos) }}
         
-                <div class="fs-subtitle title mt-4">14. Co-acquéreur - Statut d’emploi (laisser vide si sans objet)
-                    <span class="text-success">*</span>
+                <div class="fs-subtitle title mt-4">13. Co-acquéreur - Statut d’emploi (laisser vide si sans objet)
                 </div>
                 {{ form_widget(form.situationProFinanciere.coAcquereurStatutEmploi) }}
         
-                <div class="fs-subtitle title mt-4">15. Co-acquéreur - Salaire mensuel moyen (total annuel primes incluses
+                <div class="fs-subtitle title mt-4">14. Co-acquéreur - Salaire mensuel moyen (total annuel primes incluses
                     divisé par 12)
-                    <span class="text-success">*</span><br>
                 </div>
                 {{ form_widget(form.situationProFinanciere.coAcquereurSalaireMensuelMoyen) }}
         
-                <div class="fs-subtitle title mt-4">16. Co-acquéreur - Revenus imposables (revenus fiscaux de référence tel
+                <div class="fs-subtitle title mt-4">15. Co-acquéreur - Revenus imposables (revenus fiscaux de référence tel
                     qu’indiqués sur
                     votre avis d’imposition après l’abattement de 10 %)
-                    <span class="text-success">*</span>
                 </div>
                 <div class="mb-2">Avis d’imposition 2019 sur les revenus de l’année 2018</div>
                 {{ form_widget(form.situationProFinanciere.coAcquereurRevenusImpos) }}
         
-                <div class="fs-subtitle title mt-4">17. Autres revenus mensuels (laisser vide si sans projet) <br>
+                <div class="fs-subtitle title mt-4">16. Autres revenus mensuels (laisser vide si sans projet) <br>
                     <span class="text__secondary">
                         <em>
                             Indiquez pour chacun leur nature (prestations familiales, pensions, rentes, revenus fonciers, etc.)
@@ -348,7 +423,7 @@
                     </div>
                 </div>
         
-                <div class="fs-subtitle title mt-4">18. Crédits en cours (laisser vide si sans objet) <br>
+                <div class="fs-subtitle title mt-4">17. Crédits en cours (laisser vide si sans objet) <br>
                 </div>
                 <div class="title mb-1">Crédit 1</div>
                 {{ form_widget(form.situationProFinanciere.creditEnCours1) }}
@@ -357,7 +432,7 @@
                 <div class="title mb-1 mt-2">Crédit 3</div>
                 {{ form_widget(form.situationProFinanciere.creditEnCours3) }}
         
-                <div class="fs-subtitle title mt-4">19. Apport personnel
+                <div class="fs-subtitle title mt-4">18. Apport personnel
                     <span class="text-success">*</span>
                 </div>
                 {{ form_widget(form.situationProFinanciere.apportPersonnel) }}
@@ -384,26 +459,26 @@
                     </small>
                 </p>
         
-                <div class="fs-subtitle title mt-4">20. Quelles sont vos motivations pour participer à un projet d’habitat
+                <div class="fs-subtitle title mt-4">19. Quelles sont vos motivations pour participer à un projet d’habitat
                     participatif à Ivry-sur-Seine ?
                     <span class="text-success">*</span>
                 </div>
                 {{ form_widget(form.interetHabitatParticipatif.motivations) }}
         
-                <div class="fs-subtitle title mt-4">21. Comment pourriez-vous contribuer à ce projet ? Avez-vous des
+                <div class="fs-subtitle title mt-4">20. Comment pourriez-vous contribuer à ce projet ? Avez-vous des
                     savoir-faire particuliers ou une expérience associative ?
                     <span class="text-success">*</span>
                 </div>
                 {{ form_widget(form.interetHabitatParticipatif.contributionProjet) }}
         
-                <div class="fs-subtitle title mt-4">23. Comment envisagez-vous la vie de voisinage ou la vie de quartier ? Quels
+                <div class="fs-subtitle title mt-4">21. Comment envisagez-vous la vie de voisinage ou la vie de quartier ? Quels
                     échanges ou mutualisations souhaiteriez-vous
                     mettre en place ?
                     <span class="text-success">*</span>
                 </div>
                 {{ form_widget(form.interetHabitatParticipatif.vieVoisinage) }}
         
-                <div class="fs-subtitle title mt-4">24. Comment avez-vous connu ce projet ?
+                <div class="fs-subtitle title mt-4">22. Comment avez-vous connu ce projet ?
                     <span class="text-success">*</span>
                 </div>
                 {{ form_widget(form.interetHabitatParticipatif.connaisanceProjet) }}

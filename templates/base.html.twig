@@ -204,6 +204,8 @@
 				<span class="pipe">|</span>
 				<a href="">Politique de confidentialité</a>
 				<span class="pipe">|</span>
+				<a href="{{ path('conditions_utilisation') }}">CGU</a>
+				<span class="pipe">|</span>
 				<a href="{{ path('join_us_add') }}">Rejoignez-nous</a>
 			</div>
 		</footer>
@@ -275,6 +277,12 @@
 				closeLoginModal();
 
 				$('footer').css('overflowY', 'hidden');
+
+				$('input[type="submit"], button').click(() => 
+				{
+					$('input[type="submit"], button').css('outline', 'none');
+				});
+
 			});
 		</script>
 

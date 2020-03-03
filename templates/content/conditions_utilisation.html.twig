@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Conditions générales d\'utilisation' %}
+
+{% block content %}
+
+<div class="mentionsLegalesBlock">
+    <h1 class="mentions">Conditions d’utilisation du site <br> LesCityZens.fr</h1>
+    <div class="mentionsContent">
+        {{ conditions_utilisation.contenu | raw }}
+    </div>
+</div>
+
+{% endblock %}

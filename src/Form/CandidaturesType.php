@@ -26,7 +26,7 @@ class CandidaturesType extends AbstractType
             [
                 'choices' => 
                 [
-                    'J’atteste sur l’honneur l’exactitude des informations renseignées dans le formulaire de candidature. Je suis conscient(e) qu’un formulaire incomplet ou inexact pourrait donner lieu au rejet de ma candidature.' => 'exact',
+                    'J’atteste sur l’honneur l’exactitude des informations renseignées dans le formulaire de candidature.' => 'exact',
                 ],
                 'expanded' => true,
                 'multiple' => false,

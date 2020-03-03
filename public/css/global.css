@@ -155,3 +155,35 @@ button a:hover {
     }
 }
 /* Animation Bouton loader */
+
+/* Page projet */
+.encart__project p, .block__left__project p {
+    font-size: 0.9em !important;
+    line-height: 1.8 !important;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+.encart__project p {
+    margin-bottom: 0.35em !important;
+}
+.encart__project a {
+    color: #D9326F;
+}
+.encart__project .bg-warning {
+    background-color: #00BFA6 !important;
+    color: #fff;
+}
+.encart__project .bg-warning h2 {
+    color: #fff !important;
+}
+.encart__project .bg-warning a {
+    color: #fff !important;
+}
+.encart__project .bg-warning p:last-child {
+    margin-bottom: 0 !important;
+}
+.encart__project .bg-warning .text-center {
+    margin-top: 1em !important;
+}
+/* Page projet */

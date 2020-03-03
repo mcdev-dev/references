@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ArticleMultiRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,6 +82,17 @@ class ContentController extends AbstractController
     {
         return $this->render('content/mentions_legales_link.html.twig', [
             'mentionsLegales' => $articleRepo->findOneBy([ 'titre' => 'Mentions légales du site LesCityZens.fr' ]),
+        ]);
+    }
+
+    /**
+     * @Route("/conditions-generale-utilisation", name="conditions_utilisation")
+     */
+    public function conditionsUtilisation(EntityManagerInterface $manager) 
+    {
+        return $this->render('content/conditions_utilisation.html.twig', 
+        [
+            'conditions_utilisation' => $manager->getRepository(Article::class)->findOneBy([ 'titre' => 'Conditions d’utilisation du site LesCityZens.fr' ]),
         ]);
     }
 

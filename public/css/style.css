@@ -1038,7 +1038,7 @@ main {
     width: 70%;
     margin: auto;
 }
-.sub__title__project {
+.sub__title__project, .encart__project .bg-light h3 {
     font-weight: bolder;
     font-size: 1.25em;
     margin-bottom: 0.5em !important;
@@ -1051,33 +1051,9 @@ main {
     color: #D9326F;
 }
 .sub__title__project2 img {
-    margin-right: .25em;
-}
-.encart__project p, .block__left__project p {
-    font-size: 0.9em !important;
-    line-height: 1.8 !important;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
-}
-.encart__project p {
-    margin-bottom: 0.35em !important;
-}
-.encart__project a {
-    color: #D9326F;
-}
-.encart__project .bg-warning {
-    background-color: #00BFA6 !important;
-    color: #fff;
-}
-.encart__project .bg-warning h2 {
-    color: #fff !important;
-}
-.encart__project .bg-warning a {
-    color: #fff !important;
-}
-.encart__project .bg-warning p:last-child {
-    margin-bottom: 0 !important;
+    margin-right: .35em;
+    position: relative;
+    top: -12px;
 }
 .img__project__illu {
     width: 65%;
@@ -1831,8 +1807,15 @@ fieldset li::before {
 .gestion {
     padding-left: 2.25em;
 }
+#dashboardNav__navigation {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e3ebf6;
+}
 .settingDashboard {
-    padding: 1.5rem 1.5rem 0 1.5rem;
+    padding: 0 1.5rem;
+}
+#setting__nav__icon__mobile {
+    display: none;
 }
 .settingDashboard i, .dash__user__profile i {
     margin-right: 0.5em;

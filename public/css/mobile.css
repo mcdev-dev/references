@@ -1096,6 +1096,32 @@ main {
     width: 100%;
     /*overflow: hidden;*/
 }
+/* Page project */
+.project__condensed__block {
+    width: 100%;
+}
+.sub__title__project {
+    font-weight: bolder;
+    font-size: 1.15em;
+    margin-bottom: 0.5em !important;
+    color: #D9326F;
+}
+.sub__title__project2 {
+    font-weight: bolder;
+    font-size: 1.5em;
+    margin-bottom: 0.5em !important;
+    color: #D9326F;
+}
+.sub__title__project2 img {
+    margin-right: .35em;
+    width: 28px !important;
+    position: relative;
+    top: -10px;
+}
+.img__project__illu {
+    width: 100%;
+}
+/* Page project */
 .titleProject h1 {
     font-weight: 600;
     font-size: 1.75em;
@@ -1697,6 +1723,10 @@ fieldset li::before {
 .user_candidature:last-child {
     border-bottom: none;
 }
+.user_candidature .align__items_center img {
+    width: 55%;
+    margin: 0 auto;
+}
 .leadProject {
     font-size: 0.85rem;
     margin: 1.35em 0 .85em 0;
@@ -1869,7 +1899,9 @@ fieldset li::before {
 }
 .dashboard {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    transition: ease-in .5s;
 }
 .dashboard hr {
     border-top: 1px solid #e3ebf6;
@@ -1877,22 +1909,59 @@ fieldset li::before {
 }
 .navbarDashboard {
     position: relative;
-    width: 25%;
-    height: 100vh;
+    width: 100%;
     color: #6e84a3;
     z-index: 1030;
+    background-color: #fff;
 }
-.dashboardNav {
+.toggle__navbarDashboard {
     position: fixed;
-    width: 25%;
     top: 0;
     left: 0;
+}
+.dashboardNav {
+    position: relative;
+    /*top: 0;
+    left: 0;*/
+    width: 100%;
 }
 .gestion {
     padding-left: 2.25em;
 }
+#dashboardNav__navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.35rem;
+    border-bottom: 1px solid #e3ebf6;
+    background-color: #fff;
+    z-index: 15;
+}
+.setting__nav__icon__screen {
+    display: none;
+}
+#setting__nav__icon__mobile {
+    padding-top: 12px;
+}
+#setting__nav__icon__mobile i::before {
+    font-size: 1.9em;
+    margin-right: 2em;
+}
+.settingDashboard__dash__ico__bottom {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    transform: translateX(-200%);
+    transition: ease-in .5s;
+    background-color: #fff;
+    z-index: 10;
+}
+.toggle__dash__ico__bottom {
+    transform: translateX(0);
+}
 .settingDashboard {
-    padding: 1.5rem 1.5rem 0 1.5rem;
+    padding: 0 1.35rem;
 }
 .settingDashboard i, .dash__user__profile i {
     margin-right: 0.5em;
@@ -1914,7 +1983,11 @@ fieldset li::before {
     text-decoration: none;
 }
 .dashboardContent {
+    width: 100%;
     height: 100vh;
+}
+.toggle__dashboardContent {
+    margin-top: 120px;
 }
 .dash__ico__bottom {
     position: relative;
@@ -1978,18 +2051,37 @@ fieldset li::before {
 
 /* dashboardContent */
 .dashboardContent {
-    width: 75%;
+    width: 100%;
     height: auto;
-    padding: 2rem;
+    padding: 1.5rem;
     border-left: solid 1px #e3ebf6;
     border-color: #e3ebf6 !important;
     font-size: 0.85em;
+}
+.dashboardContent .row {
+    flex-direction: column;
+    text-align: center !important;
+}
+.dashboardContent .row .col {
+    margin-bottom: 1em;
+}
+.dashboardContent .row .col:last-child {
+    margin-bottom: .5em;
+}
+.dashboardContent .row .text-right {
+    text-align: center !important;
 }
 .dashboardContent td, .dashboardContent tr, .dashboardContent th, .dashboardContent .card {
     border-color: #e3ebf6 !important;
 }
 .dashboardContent .card {
     box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+}
+.dashboardContent .card:first-child {
+    margin-bottom: 1.5em !important;
+}
+.dashboardContent .row h4, .dashboardContent .row .col-md-4 {
+    margin-bottom: 1em !important;
 }
 .header__pretitle {
     text-transform: uppercase;
@@ -1999,6 +2091,9 @@ fieldset li::before {
     line-height: 1.1;
 }
 .ico__dashboard {
+    width: 30%;
+    margin: 0 auto;
+    display: block;
     color: #95aac9;
     font-size: 3.5rem;
 }
@@ -2008,7 +2103,8 @@ fieldset li::before {
 .dashboard__modal {
     position: fixed;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100vh;
     left: 0;
@@ -2019,7 +2115,7 @@ fieldset li::before {
     transition: ease-in .5s;
 }
 .modal__left {
-    width: 30%;
+    width: 100%;
     height: 100vh;
     padding: 1.5em;
     transform: translateX(-400px);
