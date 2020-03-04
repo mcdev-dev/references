@@ -73,11 +73,6 @@ class Candidatures
     private $interetHabitatParticipatif;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="candidatures", cascade={"persist", "remove"})
-     */
-    private $candidat;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $promoteur;
@@ -96,6 +91,11 @@ class Candidatures
      * @ORM\OneToOne(targetEntity="App\Entity\Categorie", inversedBy="candidatures", cascade={"persist", "remove"})
      */
     private $categorie;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $candidat;
 
     /**
      * @ORM\PrePersist
@@ -235,18 +235,6 @@ class Candidatures
         return $this;
     }
 
-    public function getCandidat(): ?User
-    {
-        return $this->candidat;
-    }
-
-    public function setCandidat(?User $candidat): self
-    {
-        $this->candidat = $candidat;
-
-        return $this;
-    }
-
     public function getPromoteur(): ?string
     {
         return $this->promoteur;
@@ -291,6 +279,18 @@ class Candidatures
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getCandidat(): ?string
+    {
+        return $this->candidat;
+    }
+
+    public function setCandidat(string $candidat): self
+    {
+        $this->candidat = $candidat;
 
         return $this;
     }

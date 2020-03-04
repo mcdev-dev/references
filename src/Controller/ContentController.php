@@ -7,6 +7,8 @@ use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ArticleMultiRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContentController extends AbstractController
@@ -94,6 +96,38 @@ class ContentController extends AbstractController
         [
             'conditions_utilisation' => $manager->getRepository(Article::class)->findOneBy([ 'titre' => 'Conditions d’utilisation du site LesCityZens.fr' ]),
         ]);
+    }
+
+    /**
+     * @Route("/politique-confidentialite-et-protection-vie-privee", name="privacy_policy")
+     */
+    public function privacyPolicy(EntityManagerInterface $manager) 
+    {
+        return $this->render('content/privacy_policy.html.twig', 
+        [
+            'privacy_policy' => $manager->getRepository(Article::class)->findOneBy([ 'titre' => 'Politique de Confidentialité du site LesCityZens.fr' ]),
+        ]);
+    }
+
+    /**
+     * @Route("/cgu-privacy-policy-validation", name="cgu_validation")
+     */
+    public function cguValidation(SessionInterface $session) 
+    {
+        $cgu = $session->get('cgu_lcz', []);
+        $cgu = 
+        [
+            'Condition générale d\'utilisation' => 'Acceptée',
+            'Politique de confidentialité' => 'Acceptée',
+        ];
+
+        $session->set('cgu_lcz', $cgu);
+        //dd($cgu);
+
+        return new JsonResponse(
+        [
+            'success' => 'Request succeed !'
+        ], 200);
     }
 
 }

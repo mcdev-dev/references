@@ -129,11 +129,6 @@ class User implements UserInterface
     private $resetPassword;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Candidatures", mappedBy="candidat", cascade={"persist", "remove"})
-     */
-    private $candidatures;
-
-    /**
      * @ORM\Column(type="boolean")
      * @Assert\NotBlank(message="Veuillez accepter les Conditions d’utilisation du site LesCityZens.fr.")
      */
@@ -391,24 +386,6 @@ class User implements UserInterface
     public function setResetPassword(?string $resetPassword): self
     {
         $this->resetPassword = $resetPassword;
-
-        return $this;
-    }
-
-    public function getCandidatures(): ?Candidatures
-    {
-        return $this->candidatures;
-    }
-
-    public function setCandidatures(?Candidatures $candidatures): self
-    {
-        $this->candidatures = $candidatures;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newCandidat = null === $candidatures ? null : $this;
-        if ($candidatures->getCandidat() !== $newCandidat) {
-            $candidatures->setCandidat($newCandidat);
-        }
 
         return $this;
     }

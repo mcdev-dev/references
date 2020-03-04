@@ -44,4 +44,12 @@ final class Events
      */
     const USER_LOST_PASSWORD = 'user.lost.password';
 
+    /**
+     *
+     * @Event("Symfony\Component\EventDispatcher\GenericEvent")
+     *
+     * @var string
+     */
+    const USER_NOTIFY_POST_CANDIDATURE = 'user.notify.post.candidature';
+
 }

@@ -6,6 +6,7 @@ use League\Csv\Writer;
 use SplTempFileObject;
 use App\Entity\Candidatures;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CandidaturesRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -38,9 +39,9 @@ class AdminCandidaturesController extends AbstractController
      * @Route("/admin/candidature/download-excel/{candidature}", name="candidature_download_excel")
      * @param Candidatures $candidature
      */
-    public function candidaturesDownloadExcel(Candidatures $candidature = null, EntityManagerInterface $manager) 
+    public function candidaturesDownloadExcel(Candidatures $candidature = null, CandidaturesRepository $repo) 
     {
-        $candidature = $manager->getRepository(Candidatures::class)->find($candidature);
+        $candidature = $repo->findCandidatureByField($candidature);
         //dd($candidature);
         #Writer
         $csv = Writer::createFromFileObject(new SplTempFileObject());
@@ -81,7 +82,7 @@ class AdminCandidaturesController extends AbstractController
             $manager->remove($candidature);
             $manager->flush();
 
-            $this->addFlash('success', 'La candidature de <strong>'. $candidature->getCandidat()->getPrenom(). '</strong> a été supprimée avec succès.');
+            $this->addFlash('success', 'La candidature de <strong>'. $candidature->getCandidat(). '</strong> a été supprimée avec succès.');
         }
 
         return $this->redirectToRoute('candidatures_list');

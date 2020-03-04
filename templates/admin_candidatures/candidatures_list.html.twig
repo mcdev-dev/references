@@ -23,7 +23,7 @@
     <tbody>
         {% for candidature in candidatures %}
         <tr>
-            <td>{{ candidature.candidat.prenom ~' '~ candidature.candidat.nom }}</td>
+            <td>{{ candidature.candidat }}</td>
             <td>{{ candidature.titre }}</td>
             <td>
                 {% if candidature.statut == 0 %}

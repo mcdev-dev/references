@@ -122,6 +122,17 @@ RewriteRule ^(.*)$ https://www.grablimukendi.ovh/$1 [R,L]
 Implémenter son propre SecurityController :
 https://www.baptiste-donaux.fr/securitycontroller-implementation/
 
+Comment réparer l'erreur Git 'Your local changes to the following files would be overwritten by merge: templates/security/inscription.html.twig'
+
+SOLUTIONS :
+1. git checkout templates/security/inscription.html.twig
+2. git pull
+
+
+
+
+
+
 
 
 

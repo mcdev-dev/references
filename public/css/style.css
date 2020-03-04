@@ -1053,7 +1053,7 @@ main {
 .sub__title__project2 img {
     margin-right: .35em;
     position: relative;
-    top: -12px;
+    top: 6px;
 }
 .img__project__illu {
     width: 65%;
@@ -1263,9 +1263,7 @@ section li::before {
     margin: 2em auto 0 auto;
     width: 60%;
 } */
-#msform {
-    /**/
-}
+
 #msform fieldset:not(.form-group) {
     width: 90%;
     margin: 4em auto 2em auto;
@@ -1356,6 +1354,9 @@ fieldset li::before {
 .btnPos {
     display: flex;
     justify-content: center;
+}
+#submit__candidature {
+    width: 240px !important;
 }
 .text__secondary {
     color: #979ca3 !important;
@@ -1874,6 +1875,9 @@ fieldset li::before {
     color: rgb(55, 57, 66) !important;
     text-decoration: none !important;
 }
+.dash__close__user__icon {
+    display: none;
+}
 .authentication__dashboard {
     display: flex;
     justify-content: center;
@@ -2190,6 +2194,13 @@ legend.col-form-label {
     content: url('../images/static/attention.svg');
 }
 /* candidatureForm */
+
+/* bootstrap datepicker */
+.datepicker,
+.table-condensed {
+  width: 500px;
+}
+/* bootstrap datepicker */
 
 
 footer {

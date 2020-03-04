@@ -13,26 +13,28 @@
         
         {{ form_errors(registrationForm.civilite) }}
         {{ form_row(registrationForm.civilite, { 'label' : 'Civilité' }) }}
-
-        {{ form_errors(registrationForm.username) }}
-        {{ form_widget(registrationForm.username, { 'attr' : { 'placeholder' : 'Nom d\'utilisateur', 'class' : 'form-group' } }) }}
-
-        {{ form_widget(registrationForm.password) }}
         
         {{ form_errors(registrationForm.nom) }}
         {{ form_widget(registrationForm.nom, { 'attr' : { 'placeholder' : 'Nom', 'class' : 'form-group' } }) }}
         
         {{ form_errors(registrationForm.prenom) }}
         {{ form_widget(registrationForm.prenom, { 'attr' : { 'placeholder' : 'Prénom', 'class' : 'form-group' } }) }}
+
+        {{ form_errors(registrationForm.username) }}
+        {{ form_widget(registrationForm.username, { 'attr' : { 'placeholder' : 'Pseudo', 'class' : 'form-group' } }) }}
         
         {{ form_errors(registrationForm.email) }}
         {{ form_widget(registrationForm.email, { 'attr' : { 'placeholder' : 'Email', 'class' : 'form-group' } }) }}
+        
+        {{ form_widget(registrationForm.password) }}
 
-        {{ form_row(registrationForm.abonneNewsletter, { 'label' : 'En cochant cette case, j\'accepte de recevoir la newsletter de LesCityZens.' }) }}
+        <div class="mt-4">
+            {{ form_row(registrationForm.abonneNewsletter, { 'label' : 'En cochant cette case, j\'accepte de recevoir la newsletter de LesCityZens.' }) }}
+        </div>
 
         <div class="d-flex mb-4">
             {{ form_widget(registrationForm.cguAccepted) }}
-            <label for="user_cguAccepted">En soumettant ce formulaire, j'ai lu et j’accepte les <a class="title__danger" href="{{ path('conditions_utilisation') }}">CGU</a> de LesCityZens.</label>
+            <label for="user_cguAccepted">En soumettant ce formulaire, j'ai lu et "j’accepte les <a class="title__danger" href="{{ path('conditions_utilisation') }}">Conditions d’utilisation</a>" de LesCityZens.</label>
         </div>
 
         <div class="form-group mx-auto col-md-4">

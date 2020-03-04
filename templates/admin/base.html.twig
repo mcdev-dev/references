@@ -24,11 +24,6 @@
 
     <!-- Encore JS -->
     {{ encore_entry_script_tags('app') }}
-
-    <!-- fosJs routing -->
-    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-
     <title>{{ title }}</title>
 </head>
 
@@ -59,7 +54,9 @@
                     <span id="setting__nav__icon__mobile">
                         <i class="icon-setting-lines"></i>
                     </span>
-                    <img src="{{ asset('images/static/logotype_lcz.svg') }}" alt="Logo LCZ" width="160">
+                    <a href="{{ path('home') }}">
+                        <img src="{{ asset('images/static/logotype_lcz.svg') }}" alt="Logo LCZ" width="160">
+                    </a>
                 </div>
 
                 <div class="settingDashboard__dash__ico__bottom">
@@ -71,30 +68,32 @@
                             Gestion Administrateur
                         </div>
                         <div class="gestion">
-                            <a class="{{ (title == 'Tableau de bord') ? 'gestion__dash__active' : '' }}" href="{{ path('admin_dashboard') }}">
-                                <i class="icon-analysis"></i>Tableau de bord
-                            </a class="{{ (title == 'Gestion des utilisateurs') ? 'gestion__dash__active' : '' }}">
-                            <a class="{{ (title == 'Gestion des utilisateurs') ? 'gestion__dash__active' : '' }}" href="{{ path('user_list') }}">
-                                <i class="icon-networking"></i>Gestion des utilisateurs
-                            </a>
-                            <a href="#">
-                                <i class="icon-management"></i>Gestion des contacts
-                            </a>
-                            <a class="{{ (title == 'Listes des articles') ? 'gestion__dash__active' : '' }}" href="{{ path('article') }}">
-                                <i class="icon-editorial-design"></i>Gestion des contenus
-                            </a>
-                            <a class="{{ (title == 'Listes des références') ? 'gestion__dash__active' : '' }}" href="{{ path('references_view_all') }}">
-                                <i class="icon-documents-set"></i>Gestion des références
-                            </a>
-                            <a class="{{ (title == 'Listes des actualités') ? 'gestion__dash__active' : '' }}" href="{{ path('article_actu') }}">
-                                <i class="icon-form"></i>Gestion des actualités
-                            </a>
-                            <a class="{{ (title == 'Listes des candidatures') ? 'gestion__dash__active' : '' }}" href="{{ path('candidatures_list') }}">
-                                <i class="icon-archive"></i>Gestion des candidatures
-                            </a>
-                            <a class="{{ (title == 'Listes des postulats') ? 'gestion__dash__active' : '' }}" href="{{ path('join_us_list') }}">
-                                <i class="icon-file"></i>Gestion des postulats
-                            </a>
+                            <div class="wrapper">
+                                <a class="{{ (title == 'Tableau de bord') ? 'gestion__dash__active' : '' }}" href="{{ path('admin_dashboard') }}">
+                                    <i class="icon-analysis"></i>Tableau de bord
+                                </a class="{{ (title == 'Gestion des utilisateurs') ? 'gestion__dash__active' : '' }}">
+                                <a class="{{ (title == 'Gestion des utilisateurs') ? 'gestion__dash__active' : '' }}" href="{{ path('user_list') }}">
+                                    <i class="icon-networking"></i>Gestion des utilisateurs
+                                </a>
+                                <a href="#">
+                                    <i class="icon-management"></i>Gestion des contacts
+                                </a>
+                                <a class="{{ (title == 'Listes des articles') ? 'gestion__dash__active' : '' }}" href="{{ path('article') }}">
+                                    <i class="icon-editorial-design"></i>Gestion des contenus
+                                </a>
+                                <a class="{{ (title == 'Listes des références') ? 'gestion__dash__active' : '' }}" href="{{ path('references_view_all') }}">
+                                    <i class="icon-documents-set"></i>Gestion des références
+                                </a>
+                                <a class="{{ (title == 'Listes des actualités') ? 'gestion__dash__active' : '' }}" href="{{ path('article_actu') }}">
+                                    <i class="icon-form"></i>Gestion des actualités
+                                </a>
+                                <a class="{{ (title == 'Listes des candidatures') ? 'gestion__dash__active' : '' }}" href="{{ path('candidatures_list') }}">
+                                    <i class="icon-archive"></i>Gestion des candidatures
+                                </a>
+                                <a class="{{ (title == 'Listes des postulats') ? 'gestion__dash__active' : '' }}" href="{{ path('join_us_list') }}">
+                                    <i class="icon-file"></i>Gestion des postulats
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -104,6 +103,10 @@
                             
                             <span class="userDash__js">
                                 <div class="dash__user__profile text-center">
+                                    <div class="dash__close__user__icon">
+                                        <div class="close__line1"></div>
+                                        <div class="close__line2"></div>
+                                    </div>
                                     <a href="{{ path('user_profile') }}">
                                         <i class="icon-user2"></i>
                                         Mon Compte
@@ -113,7 +116,7 @@
                                         Déconnexion
                                     </a>
                                 </div>
-                                <i class="icon-user2"></i>
+                                <i id="icon__user__dash" class="icon-user2"></i>
                             </span>
                             
                             <i class="icon-magnifiying-glass searchDash__js"></i>
@@ -178,6 +181,23 @@
                             });
                             $('.settingDashboard__dash__ico__bottom').css('top', '');
                         }
+                    });
+
+                    $('#icon__user__dash').click(() => 
+                    {
+                        $('.dash__user__profile').css({
+                            opacity: 1,
+                            pointerEvents: 'all',
+                            transform: 'translateY(0)',
+                        });
+                    });
+                    $('.dash__close__user__icon').click(() => 
+                    {
+                        $('.dash__user__profile').css({
+                            opacity: 0,
+                            pointerEvents: 'none',
+                            transform: 'translateY(-20px)',
+                        });
                     });
                 }
             });

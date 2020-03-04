@@ -192,6 +192,15 @@
 		
 		<div class="container">{{ render(url('connexion')) }}</div><br>
 
+		{% if app.session.get('cgu_lcz') is empty %}
+		<div class="d-flex align-items-center justify-content-between cgu__validation">
+			<p class="mb-0">En poursuivant votre navigation sur ce site, vous acceptez nos <a class="text-danger"
+					href="{{ path('conditions_utilisation') }}">CGU</a> ainsi que notre <a class="text-danger"
+					href="{{ path('privacy_policy') }}">Politique de confidentialité</a></p>
+			<a id="cgu_val__js" class="btn btnSubmit" data-url="{{ path('cgu_validation') }}">J'accepte</a>
+		</div>
+		{% endif %}
+
 		<footer>
 			<div class="container pied">
 				<span class="copy">&copy;
@@ -278,10 +287,38 @@
 
 				$('footer').css('overflowY', 'hidden');
 
-				$('input[type="submit"], button').click(() => 
+				function cguValidation() 
 				{
-					$('input[type="submit"], button').css('outline', 'none');
-				});
+					$('#cgu_val__js').click((e) => 
+					{
+						e.preventDefault();
+
+						let url = $('#cgu_val__js').data('url');
+						console.log(url);
+						
+
+						$.ajax({
+							method: 'post',
+							url: url,
+							dataType: 'json',
+							success: (response) => 
+							{
+								//console.log(response);
+								if (response.success) 
+								{
+									$('.cgu__validation').remove();
+									console.log(response.success);
+									
+								} else {
+									console.log('Request failed !');
+								}
+
+							}
+						});
+
+					});
+				}
+				cguValidation();
 
 			});
 		</script>

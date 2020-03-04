@@ -1116,7 +1116,7 @@ main {
     margin-right: .35em;
     width: 28px !important;
     position: relative;
-    top: -10px;
+    top: 5px;
 }
 .img__project__illu {
     width: 100%;
@@ -1927,6 +1927,14 @@ fieldset li::before {
 }
 .gestion {
     padding-left: 2.25em;
+    height: 280px;
+    overflow: hidden;
+}
+.wrapper {
+    position: relative;
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
 }
 #dashboardNav__navigation {
     display: flex;
@@ -1952,6 +1960,7 @@ fieldset li::before {
     top: 100%;
     left: 0;
     width: 100%;
+    height: 100vh;
     transform: translateX(-200%);
     transition: ease-in .5s;
     background-color: #fff;
@@ -2023,6 +2032,23 @@ fieldset li::before {
 .dash__user__profile a:hover {
     color: rgb(55, 57, 66) !important;
     text-decoration: none !important;
+}
+.dash__close__user__icon {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    transform: rotate(90deg);
+}
+.close__line1, .close__line2 {
+    width: 16px;
+    height: 1px;
+    background-color: #aebdd3 !important;
+}
+.close__line1 {
+    transform: rotate(45deg) translate(-1px, 2px);
+}
+.close__line2 {
+    transform: rotate(-45deg) translate(-1px, -2px);
 }
 .authentication__dashboard {
     display: flex;
@@ -2363,6 +2389,24 @@ legend.col-form-label {
     content: url('../images/static/attention.svg');
 }
 /* candidatureForm */
+/* cgu */
+.cgu__validation {
+    flex-direction: column !important;
+    padding: 1.5em !important;
+}
+.cgu__validation p {
+    margin-bottom: 1.35em !important;
+}
+.cgu__validation .btnSubmit {
+    width: 100% !important;
+}
+/* cgu */
+/* bootstrap datepicker */
+.datepicker,
+.table-condensed {
+  width: 293px;
+}
+/* bootstrap datepicker */
 
 
 footer {

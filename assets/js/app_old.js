@@ -490,45 +490,48 @@ $(function () {
 
     function dashboard() 
     {
-        $('.searchDash__js').click(() => 
+        if($(window).width() > 992) 
         {
-            $('.dashboard__modal').css({
-                opacity         : 1,
-                pointerEvents   : 'all',
+            $('.searchDash__js').click(() => 
+            {
+                $('.dashboard__modal').css({
+                    opacity         : 1,
+                    pointerEvents   : 'all',
+                });
+    
+                $('.modal__left').css({
+                    transform: 'translateX(0)',
+                });
             });
-
-            $('.modal__left').css({
-                transform: 'translateX(0)',
+            
+            $('.modal__right').click(() => 
+            {
+                $('.dashboard__modal').css({
+                    opacity: 0,
+                    pointerEvents: 'none',
+                });
+                $('.modal__left').css({
+                    transform: 'translateX(-400px)',
+                });
             });
-        });
-        
-        $('.modal__right').click(() => 
-        {
-            $('.dashboard__modal').css({
-                opacity: 0,
-                pointerEvents: 'none',
+    
+            $('.userDash__js').mouseenter(() => 
+            {
+                $('.dash__user__profile').css({
+                    opacity: 1,
+                    pointerEvents: 'all',
+                    transform: 'translateY(0)',
+                });
             });
-            $('.modal__left').css({
-                transform: 'translateX(-400px)',
+            $('.userDash__js').mouseleave(() => 
+            {
+                $('.dash__user__profile').css({
+                    opacity: 0,
+                    pointerEvents: 'none',
+                    transform: 'translateY(-20px)',
+                });
             });
-        });
-
-        $('.userDash__js').mouseenter(() => 
-        {
-            $('.dash__user__profile').css({
-                opacity: 1,
-                pointerEvents: 'all',
-                transform: 'translateX(0)',
-            });
-        });
-        $('.userDash__js').mouseleave(() => 
-        {
-            $('.dash__user__profile').css({
-                opacity: 0,
-                pointerEvents: 'none',
-                transform: 'translateY(-20px)',
-            });
-        });
+        }
 
     }
     dashboard();

@@ -47,30 +47,30 @@ textarea {
     color: #D9326F !important;
 }
 .btn-success {
-  color: #fff;
-  background-color: rgb(36, 185, 158);
-  border-color: rgb(36, 185, 158);
+  color: #fff !important;
+  background-color: rgb(36, 185, 158) !important;
+  border-color: rgb(36, 185, 158) !important;
 }
 
 .btn-success:hover {
-  color: #fff;
-  background-color: rgb(30, 151, 129);
-  border-color: rgb(29, 143, 122);
+  color: #fff !important;
+  background-color: rgb(30, 151, 129) !important;
+  border-color: rgb(29, 143, 122) !important;
 }
 .btn-success:focus{
-  box-shadow: 0 0 0 0.2rem rgba(72, 180, 164, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(72, 180, 164, 0.5) !important;
   outline: none !important;
 }
 .btn-success.disabled, .btn-success:disabled {
-  color: #fff;
-  background-color: rgb(36, 185, 158);
-  border-color: rgb(36, 185, 158);
+  color: #fff !important;
+  background-color: rgb(36, 185, 158) !important;
+  border-color: rgb(36, 185, 158) !important;
 }
 .btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
 .show > .btn-success.dropdown-toggle {
-  color: #fff;
-  background-color: rgb(36, 185, 158);
-  border-color: rgb(36, 185, 158);
+  color: #fff !important;
+  background-color: rgb(36, 185, 158) !important;
+  border-color: rgb(36, 185, 158) !important;
 }
 .btn-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus,
 .show > .btn-success.dropdown-toggle:focus {
@@ -104,7 +104,6 @@ button a:hover {
     align-items: center;
 }
 .title__danger {
-    font-weight: bolder;
     color: #D9326F;
 }
 .title__danger:hover {
@@ -185,5 +184,19 @@ button a:hover {
 }
 .encart__project .bg-warning .text-center {
     margin-top: 1em !important;
+}
+.cgu__validation {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding: 1em;
+    background-color: rgb(43, 42, 59);
+    color: rgb(223, 223, 223);
+    letter-spacing: .6px;
+    z-index: 9999;
+}
+.cgu__validation a:not(.btnSubmit):hover {
+    color: #D9326F !important;
 }
 /* Page projet */

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Events;
 use App\Entity\Menage;
 use App\Entity\Categorie;
 use App\Entity\Candidatures;
@@ -12,8 +13,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\InteretHabitatParticipatif;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CandidaturesController extends AbstractController
@@ -23,7 +26,7 @@ class CandidaturesController extends AbstractController
      */
     public function userCandidature(EntityManagerInterface $manager)
     {
-        $candidatures = $manager->getRepository(Candidatures::class)->findBy([ 'candidat' => $this->getUser() ]);
+        $candidatures = $manager->getRepository(Candidatures::class)->findBy([ 'candidat' => $this->getUser()->getPrenom().' '.$this->getUser()->getNom() ]);
 
         return $this->render('user/user_candidatures.html.twig', 
         [
@@ -34,10 +37,10 @@ class CandidaturesController extends AbstractController
     /**
      * @Route("/user/candidature/questionnaire", name="questionnaire_candidature")
      */
-    public function candidatureQuestionnaire(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator) 
+    public function candidatureQuestionnaire(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator, EventDispatcherInterface $eventDispatcher) 
     {
         $candidature_exist = $manager ->getRepository(Candidatures::class)
-                                      ->findOneBy([ 'candidat' => $this->getUser() ]);
+                                      ->findOneBy([ 'candidat' => $this->getUser()->getPrenom().' '.$this->getUser()->getNom() ]);
         $titleProject = 'Candidature au projet Saint-Ferjeux';
         
         $candidature = new Candidatures;
@@ -95,7 +98,7 @@ class CandidaturesController extends AbstractController
                     {
                         $candidature->setValider(false);
                         $candidature->setStatut(0);//Persistance
-                        $candidature->setCandidat($this->getUser());
+                        $candidature->setCandidat($this->getUser()->getPrenom().' '.$this->getUser()->getNom());
                         $candidature->setVille('Saint-Ferjeux');
                         $candidature->setPromoteur('Néolia');
                         $candidature->setPromoteurLogo('neolia');
@@ -120,7 +123,7 @@ class CandidaturesController extends AbstractController
                     {
                         //Persistance
                         $candidature->setStatut(1);
-                        $candidature->setCandidat($this->getUser());
+                        $candidature->setCandidat($this->getUser()->getPrenom().' '.$this->getUser()->getNom());
                         $candidature->setVille('Saint-Ferjeux');
                         $candidature->setPromoteur('Néolia');
                         $candidature->setPromoteurLogo('neolia');
@@ -130,6 +133,10 @@ class CandidaturesController extends AbstractController
                         $manager->flush();
                         
                         $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
+
+                        //On déclenche l'eventDispatcher
+                        $event = new GenericEvent($this->getUser());
+                        $eventDispatcher->dispatch(Events::USER_NOTIFY_POST_CANDIDATURE, $event);
     
                         return $this->redirectToRoute('user_candidatures');
                     }
@@ -153,11 +160,11 @@ class CandidaturesController extends AbstractController
     /**
      * @Route("user/candidature/temporary", name="candidature_temporary")
      */
-    public function candidatureTemporary(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator) 
+    public function candidatureTemporary(Request $request, EntityManagerInterface $manager, ValidatorInterface $validator, EventDispatcherInterface $eventDispatcher) 
     {
         $titleProject = 'Candidature du projet Saint-Ferjeux';
         $candidature = $manager ->getRepository(Candidatures::class)
-                                ->findOneBy([ 'candidat' => $this->getUser() ]);
+                                ->findOneBy([ 'candidat' => $this->getUser()->getPrenom().' '.$this->getUser()->getNom() ]);
                                 
         $register = $request->get('enregistrer') !== null;
         $form = $register ? $this->createForm(CandidaturesType::class, $candidature, ['validation_groups' => false]) : $this->createForm(CandidaturesType::class, $candidature);
@@ -225,6 +232,10 @@ class CandidaturesController extends AbstractController
 
                 $manager->persist($candidature);
                 $manager->flush();
+                
+                //On déclenche l'eventDispatcher
+                $event = new GenericEvent($this->getUser());
+                $eventDispatcher->dispatch(Events::USER_NOTIFY_POST_CANDIDATURE, $event);
                 
                 $this->addFlash('success', '<strong>'. $this->getUser()->getPrenom() .',</strong> votre candidature a été soumise avec succès.');
                 return $this->redirectToRoute('user_candidatures');
