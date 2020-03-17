@@ -15,13 +15,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
-    
+
     <script type="text/javascript">
-        
+
         function create_event(event)
         {
             var data = { titre: event.title, beginAt: event.start, endAt:event.end, description: event.desc };
-            
+
             $.ajax({
                 url: "{{ path('event_new_from_calendar') }}",
                 type: 'post',
@@ -49,7 +49,7 @@
                         },
                     },
                 ],
-                eventRender: function(info) 
+                eventRender: function(info)
                 {
                     if (!info.isMirror) {
                         $(info.el).tooltip({
@@ -83,7 +83,7 @@
                     var title = prompt("Entrez le titre de l'évènement:");
                     var desc = prompt("Entrez une description de l'évènement");
 
-                    if (title && desc) 
+                    if (title && desc)
                     {
                         create_event({ 'title': title, 'desc': desc, 'start': info.startStr, 'end': info.endStr });
                     };
@@ -95,20 +95,20 @@
                 {
                     var event = info.event;
 
-                    var data = 
+                    var data =
                     {
-                        titre: event.title, 
-                        beginAt: event.start, 
+                        titre: event.title,
+                        beginAt: event.start,
                         endAt: event.end
                     };
-                
+
                     if (event.extendedProps.location)
                         data.lieu = event.extendedProps.location;
                     if (event.extendedProps.telephone)
                         data.telephone = event.extendedProps.telephone;
                     if (event.extendedProps.description)
                         data.description = event.extendedProps.description;
-                    
+
                     var url = "{{ path('event_edit_from_calendar', { 'id': 'placeholder' }) }}";
                     url = url.replace('placeholder', event.id);
 
@@ -118,7 +118,7 @@
                         dataType: 'json',
                         contentType: 'application/json',
                         data: JSON.stringify(data),
-                        success: function() 
+                        success: function()
                         {
                             calendar.rerenderEvents();
                         },
@@ -129,20 +129,20 @@
                 {
                     var event = info.event;
 
-                    var data = 
+                    var data =
                     {
-                        titre: event.title, 
-                        beginAt: event.start, 
+                        titre: event.title,
+                        beginAt: event.start,
                         endAt: event.end
                     };
-                
+
                     if (event.extendedProps.location)
                         data.lieu = event.extendedProps.location;
                     if (event.extendedProps.telephone)
                         data.telephone = event.extendedProps.telephone;
                     if (event.extendedProps.description)
                         data.description = event.extendedProps.description;
-                    
+
                     var url = "{{ path('event_edit_from_calendar', { 'id': 'placeholder' }) }}";
                     url = url.replace('placeholder', event.id);
 
@@ -152,7 +152,7 @@
                         dataType: 'json',
                         contentType: 'application/json',
                         data: JSON.stringify(data),
-                        success: function() 
+                        success: function()
                         {
                             calendar.rerenderEvents();
                         },

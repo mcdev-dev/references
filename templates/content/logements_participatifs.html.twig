@@ -3,14 +3,20 @@
 {% set title = 'Références de logements participatifs' %}
 
 {% block content %}
+    <div class="mb-4">
+        <a class="undo" href="{{ path('logements_participatifs') }}">
+            <i class="icon-logout"></i>
+        </a>
+    </div>
 
 <h3 class="title tBefore">Références de logements participatifs</h3><br><br>
 <div class="row">
     {% for article in articles %}
-        <div class="categView col-md-6 mr-4 mb-4">
+        <div class="col-md-12 mr-12 mb-12">
             <img src="{{ asset('images/web/') ~ article.imageName }}" alt="{{ article.titre }}" class="img-fluid">
         </div>
     {% endfor %}
+
 </div>
     
 {% endblock %}

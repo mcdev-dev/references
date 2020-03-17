@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RefLogementsRepository")
- * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks()
  */
 class RefLogements
@@ -26,22 +26,14 @@ class RefLogements
     private $titre;
 
     /**
-     * 
-     * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="image")
-     * 
-     * @var File
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="text")
      */
-    private $contenu;
+    private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MediaReference", mappedBy="RefLogements", cascade={"persist", "remove"})
+     */
+    private $images;
 
     /**
      * @ORM\Column(type="datetime")
@@ -55,15 +47,18 @@ class RefLogements
     private $categorie;
 
     /**
-     * @ORM\Column(type="datetime")
-     *
-     * @var \DateTime
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuReference", mappedBy="RefLogements", cascade={"persist", "remove"})
      */
-    private $updatedAt;
+    private $contenuReference;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->contenuReference = new ArrayCollection();
+    }
 
      /**
      * @ORM\PrePersist
-     * @return void
      */
     public function prePersist() 
     {
@@ -90,15 +85,42 @@ class RefLogements
         return $this;
     }
 
-    public function getContenu(): ?string
+    public function getDescription(): ?string
     {
-        return $this->contenu;
+        return $this->description;
     }
 
-    public function setContenu(string $contenu): self
+    public function setDescription(string $description): self
     {
-        $this->contenu = $contenu;
+        $this->description = $description;
+        return $this;
+    }
 
+    /**
+     * @return Collection|MediaReference[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImages(MediaReference $image): self
+    {
+        if (!$this->images->contains($image)){
+            $this->images[] = $image;
+            $image->setRefLogements($this);
+        }
+        return $this;
+    }
+
+    public function removeImage(MediaReference $image): self
+    {
+        if ($this->images->contains($image)){
+            $this->images->removeElement($image);
+            if ($image->getRefLogements() === $this){
+                $image->setRefLogements(null);
+            }
+        }
         return $this;
     }
 
@@ -110,7 +132,6 @@ class RefLogements
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -122,56 +143,36 @@ class RefLogements
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
-
         return $this;
     }
+
 
     /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
+     * @return Collection|ContenuReference[]
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function getContenuReference(): Collection
     {
-        $this->imageFile = $imageFile;
+        return $this->contenuReference;
+    }
 
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+    public function addContenuReference(ContenuReference $contenuReference): self
+    {
+        if (!$this->contenuReference->contains($contenuReference)) {
+            $this->contenuReference[] = $contenuReference;
+            $contenuReference->setReference($this);
         }
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self // L'erreur se situe souvent dans le setter, il faut ajouter un point d'interrogation pour accepter des valeur nulle : ?string $image et non string $image.
-    {
-        $this->image = $image;
-
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function removeContenuReference(ContenuReference $contenuReference): self
     {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
+        if ($this->contenuReference->contains($contenuReference)) {
+            $this->contenuReference->removeElement($contenuReference);
+            // set the owning side to null (unless already changed)
+            if ($contenuReference->getReference() === $this) {
+                $contenuReference->setReference(null);
+            }
+        }
         return $this;
     }
 

@@ -47,14 +47,14 @@ class ResetPasswordController extends AbstractController
             //2 - Envoi par mail du lien de la Route pour la modification du mot de passe
             // 2.1 - création du token
             $token = $tokenGenerator->generateToken();
-            
+            // dd($token);
             $user->setConfirmationToken($token);
             $manager->persist($user);
             $manager->flush();
 
             $url = $this->generateUrl('reset_lost_password', [ 'token' => $token ], UrlGeneratorInterface::ABSOLUTE_URL);
             //dd($url); die;
-            if(null !== $user->getConfirmationToken()) 
+            if(null !== $user->getConfirmationToken())
             {
                 //On envoi l'email
                 $subject = 'Modification du mot de passe oublié';
@@ -93,7 +93,7 @@ class ResetPasswordController extends AbstractController
     {
         // vérifier que le token fourni correspond bien à l'email donné
         $user = $manager->getRepository(User::class)->findOneByConfirmationToken($token);
-        //dd($user); die;
+        dd($user); die;
         if(null !== $user) $user->setConfirmationToken(null);
         // proposer un formulaire pour saisir le nouveau mot de passe
         $form = $this->createForm(LostPasswordType::class);

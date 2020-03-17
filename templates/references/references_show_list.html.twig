@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% set title = 'Liste des références' %}
+{% block contentFluid %}
+    <div class="container mb-4">
+        <div class="row carteHP">
+            {% for reference in references %}
+                <div class="col-md-5 carte_habitat_participatif mr-4 mb-4">
+                    <a href="{{ path('reference_info', { 'id' : reference.id }) }}">
+                        <div class="titleHabitatCard">
+                            {{ reference.titre }}
+                        </div>
+                        <div class="imgCardHP">
+                           <img src="{{ asset('images/web/') ~ reference.image }}" alt="{{ reference.titre }}" class="img-fluid">
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div><br>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function ()
+        {
+            $('#connect__without__modal').hide();
+        });
+    </script>
+{% endblock %}
+

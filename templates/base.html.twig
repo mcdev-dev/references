@@ -129,10 +129,12 @@
 						<li class="{{ (title == 'Habitat participatif') ? 'menuActive' : '' }}">
 							<a href="{{ path('habitat_participatif') }}">Habitat participatif</a>
 						</li>
-						<li id="angle__toggle__js" class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }} ddToggle">
-							<div id="subMenu__elevator">Références 
-								<i class="icon-down"></i>
-							</div>
+						<li class="{{ (title == 'Liste des références') ? 'menuActive' : '' }}">
+							<a href="{{ path('reference_liste') }}">Références</a>
+							{#								<i class="icon-down"></i>#}
+						</li>
+{#						<li id="angle__toggle__js" class="{{ (title == 'Références de logements participatifs' or title == 'Références en urbanisme collaboratif et concertation') ? 'menuActive' : '' }} ddToggle">
+
 							<ul id="submenu" class="submenu">
 								<li>
 									<a href="{{ path('logements_participatifs') }}">Références de logements participatifs</a>
@@ -141,7 +143,7 @@
 									<a href="">Références en urbanisme collaboratif et concertation</a>
 								</li>
 							</ul>
-						</li id="angle__toggle__js">
+						</li id="angle__toggle__js">#}
 						<li class="{{ (title == 'Contact') ? 'menuActive' : '' }}">
 							<a href="{{ path('contact_email') }}">Contact</a>
 						</li>
@@ -190,7 +192,9 @@
 			
 		</main>
 		
+{#
 		<div class="container">{{ render(url('connexion')) }}</div><br>
+#}
 
 		{% if app.session.get('cgu_lcz') is empty %}
 		<div class="d-flex align-items-center justify-content-between cgu__validation">
@@ -295,7 +299,6 @@
 
 						let url = $('#cgu_val__js').data('url');
 						console.log(url);
-						
 
 						$.ajax({
 							method: 'post',

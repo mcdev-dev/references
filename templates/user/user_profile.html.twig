@@ -18,11 +18,14 @@
                 <a class="{{ (title == 'Modification du mot de passe') ? 'menuUserInfosActive' : '' }}" href="{{ path('reset_password') }}">
                     Mot de passe
                 </a>
+                <a class="{{ (title == 'Calendrier') ? 'menuUserInfosActive' : '' }}" href="{{ path('calendrier_index') }}">
+                    Calendrier
+                </a>
             </div>
         </div>
         <div class="col-md-8 userInfosBlock">
             <div id="infos_perso" class="uibChild">
-                <h1>Informations personnelles</h1>
+                <h1>Informations personnelle$s</h1>
                 <hr>
                     <!--i class="icon-avatar-1 iconAvatar"></i-->
                     {% if user.userCoordonnees.avatar == 'default_avatar' and user.civilite == 'f' %}

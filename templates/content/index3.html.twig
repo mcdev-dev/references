@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'Accueil' %}
+
+{% block contentFluid %}
+	{% for article in article1 %}
+		<div class="fondoAccueil1">
+			<div class="container">
+				<h1 class="titleArtBgW">{{ article.titre }}</h1>
+				<div>{{ article.contenu | raw }}</div>
+				<div class="fondo__img1">
+					<img src="{{ asset('images/web/') ~ article.imageName }}" alt="{{ article.titre }}" class="img-fluid">
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="row">
+		<div class="fondoAccueil2 col-md-6">
+			{% for article in article2 %}
+				<div class="container">
+					<h2 class="titleArtBgColor2">{{ article.titre }}</h2>
+					<div>{{ article.contenu | raw }}
+						<button class="btn btnSubmit">
+							<a href="{{ path('fabrique_urbaine') }}">c’est par ici !</a>
+						</button>
+					</div>
+					<div class="illu__acceuil__fuc">
+						<img src="{{ asset('images/web/') ~ article.imageName }}" alt="{{ article.titre }}" class="img-fluid">
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="fondoAccueil3 col-md-6">
+			{% for article in article3 %}
+				<div class="container">
+					<h2 class="titleArtBgColor2">{{ article.titre }}</h2>
+					<div>{{ article.contenu | raw }}
+						<button class="btn btnSubmit">
+							<a href="{{ path('habitat_participatif') }}">c’est par ici !</a>
+						</button>
+					</div>
+					<div class="illu__acceuil__hp">
+						<img src="{{ asset('images/web/') ~ article.imageName }}" alt="{{ article.titre }}" class="img-fluid">
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<br><br>
+	
+	<!--div class="container">{{ render(url('articles_actualites')) }}</!--div><br-->
+	<div class="row partners">
+		<div class="container">
+			<h2 class="text-center titleArtBgColor">Ils nous font confiance</h2>
+			<div class="partnersLogo">
+				<a style="width:180px" class="logoSpondor" href="https://www.logeo-seine-estuaire.fr/" target="_blank"><img src="{{ asset('images/static/partners/logo_se.png') }}" alt="Logo logeo-seine-estuaire"></a>
+				<a style="width:140px" class="logoSpondor" href="https://www.reihabitat.com/" target="_blank"><img src="{{ asset('images/static/partners/logo-rei.png') }}" alt="Logo reihabitat"></a>
+				<a style="width:180px" class="logoSpondor" href="https://www.realites.com/" target="_blank"><img src="{{ asset('images/static/partners/logo_realites.svg') }}" alt="Logo realites"></a>
+				<a style="width:160px" class="logoSpondor" href="http://www.groupe-bremond.com/" target="_blank"><img src="{{ asset('images/static/partners/bremond.jpg') }}" alt="Logo groupe bremond"></a>
+				<a class="logoSpondor" href="http://www.eden-promotion.fr/" target="_blank"><img src="{{ asset('images/static/partners/eden-promotion.png') }}" alt="Logo eden promotion"></a>
+				<a class="logoSpondor" href="https://www.inli.fr/" target="_blank"><img src="{{ asset('images/static/partners/logo_inli.svg') }}" alt="Logo inli"></a>
+				<a style="width:220px" class="logoSpondor" href="https://www.pichet.com/" target="_blank"><img src="{{ asset('images/static/partners/pichet-immobilier.jpg') }}" alt="Logo pichet"></a>
+				<a style="width:100px" class="logoSpondor" href="https://www.emerige.com/" target="_blank"><img src="{{ asset('images/static/partners/logo_emerige.png') }}" alt="Logo emerige"></a>
+				<a style="width:80px" class="logoSpondor" href="https://www.groupegambetta.fr/" target="_blank"><img src="{{ asset('images/static/partners/logo_gambetta_group.png') }}" alt="Logo groupe gambetta"></a>
+				<a class="logoSpondor" href="https://www.icade.fr/" target="_blank"><img src="{{ asset('images/static/partners/icade-logo.svg') }}" alt="Logo icade"></a>
+				<a style="width:190px" class="logoSpondor" href="https://www.groupe-legendre.com/" target="_blank"><img src="{{ asset('images/static/partners/legendre.png') }}" alt="Logo groupe legendre"></a>
+				<a style="width:120px" class="logoSpondor" href="https://www.kaufmanbroad.fr/" target="_blank"><img src="{{ asset('images/static/partners/logo_kaufman.jpg') }}" alt="Logo groupe Kaufman & Broad"></a>
+				<a style="width:190px" class="logoSpondor" href="https://www.demathieu-bard.fr/" target="_blank"><img src="{{ asset('images/static/partners/demathieu.jpg') }}" alt="Logo demathieu bard"></a>
+				<a style="width:190px" class="logoSpondor" href="https://www.coopimmo.com/" target="_blank"><img src="{{ asset('images/static/partners/CoopImmo.jpg') }}" alt="Logo coopimmo"></a>
+				<a style="width:250px" class="logoSpondor" href="https://www.seqens.fr/mentions-legales" target="_blank"><img src="{{ asset('images/static/partners/france_habitation.png') }}" alt="Logo france habitation"></a>
+				<a class="logoSpondor" href="https://adim.fr/" target="_blank"><img src="{{ asset('images/static/partners/adim-logo.svg') }}" alt="Logo Adim"></a>
+				<a style="width:130px" class="logoSpondor" href="http://www.altareacogedim.com/" target="_blank"><img src="{{ asset('images/static/partners/altarea-cogedim.jpg') }}" alt="Logo ALTAREA COGEDIM"></a>
+				<a style="width:90px" class="logoSpondor" href="https://www.solidarites-nouvelles-logement.org/" target="_blank"><img src="{{ asset('images/static/partners/logo-snl.png') }}" alt="Logo SOLIDARITES NOUVELLES POUR LE LOGEMENT"></a>
+				<a style="width:190px" class="logoSpondor" href="http://www.neolia.fr/" target="_blank"><img src="{{ asset('images/static/partners/logo-neolia.jpg') }}" alt="Logo Néolia"></a>
+				<a style="width:220px" class="logoSpondor" href="https://www.keredes.coop/" target="_blank"><img src="{{ asset('images/static/partners/keredes.png') }}" alt="Logo keredes"></a>
+				<a style="width:220px" class="logoSpondor" href="https://www.groupe3f.fr/" target="_blank"><img src="{{ asset('images/static/partners/Logo-3F-new.jpg') }}" alt="Logo 3f"></a>
+				<a class="logoSpondor" href="http://www.idfhabitat.fr/" target="_blank"><img src="{{ asset('images/static/partners/logo_idfhabitat.jpeg') }}" alt="Logo idf habitat"></a>
+				<a style="width:200px" class="logoSpondor" href="http://www.paris-saclay.com/accueil-3.html" target="_blank"><img src="{{ asset('images/static/partners/paris_saclay.jpg') }}" alt="Logo paris saclay"></a>
+				<a class="logoSpondor" href="https://soreqa.fr/" target="_blank"><img src="{{ asset('images/static/partners/Sorega.png') }}" alt="Logo sorega"></a>
+				<a style="width:90px" class="logoSpondor" href="http://www.soreli.fr/" target="_blank"><img src="{{ asset('images/static/partners/soreli.jpg') }}" alt="Logo soreli"></a>
+				<a style="width:210px" class="logoSpondor" href="https://www.paris-sud-amenagement.fr/" target="_blank"><img src="{{ asset('images/static/partners/paris_sud_ame.png') }}" alt="Logo Paris sud aménagement"></a>
+				<a class="logoSpondor" href="https://www.parisetmetropole-amenagement.fr/fr" target="_blank"><img src="{{ asset('images/static/partners/logo_pma.svg') }}" alt="Logo Pma"></a>
+				<a class="logoSpondor" href="https://www.besancon.fr/" target="_blank"><img src="{{ asset('images/static/partners/logo_besancon.png') }}" alt="Logo Besançon"></a>
+				<a style="width:220px" class="logoSpondor" href="https://www.bordeaux-metropole.fr/" target="_blank"><img src="{{ asset('images/static/partners/Bordeaux_Metropole.svg') }}" alt="Logo bordeaux métropole"></a>
+				<a class="logoSpondor" href="https://www.sceaux.fr/" target="_blank"><img src="{{ asset('images/static/partners/logo-ville-sceaux.jpg') }}" alt="Logo ville de sceaux"></a>
+				<a style="width:80px" class="logoSpondor" href="http://www.ville-melun.fr/" target="_blank"><img src="{{ asset('images/static/partners/Logo_Ville_Melun.svg') }}" alt="Logo ville de melun"></a>
+
+			</div>
+		</div>
+	</div>
+	
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		$(function() 
+		{
+			$('#connect__without__modal').hide();
+		});
+	</script>
+{% endblock %}

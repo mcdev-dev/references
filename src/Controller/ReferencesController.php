@@ -7,6 +7,7 @@ use App\Form\RefLogementsType;
 use App\Repository\RefLogementsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -44,7 +45,7 @@ class ReferencesController extends AbstractController
         
         return $this->render('references/crud_references.html.twig', 
         [
-            'form' => $form->createView(),
+            'referenceForm' => $form->createView(),
             'action' => 'Ajouter',
         ]);
     }
@@ -93,6 +94,37 @@ class ReferencesController extends AbstractController
         }
 
         return $this->reidrectToRoute('references_view_all');
+    }
+
+    /**
+     * @param RefLogementsRepository $refLogementsRepository
+     * @return Response
+     * @Route("/references/liste", name="reference_liste")
+     */
+    public function referenceShow(RefLogementsRepository $refLogementsRepository)
+    {
+
+        $references = $refLogementsRepository->findAll();
+        return $this->render('references/references_show_list.html.twig',
+            [
+                'references' => $references
+            ]
+    );
+    }
+
+    /**
+     * @Route("reference/{id<\d+>}", name="reference_info")
+     * @param RefLogementsRepository $refLogementsRepository
+     * @return Response
+     */
+    public function referenceInfo($id, RefLogementsRepository $refLogementsRepository)
+    {
+        $reference = $refLogementsRepository->find($id);
+        return $this->render('references/reference_info.html.twig',
+            [
+                'reference' => $reference
+            ]
+        );
     }
 
 }

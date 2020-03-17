@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+{% set title = 'Informations reference' %}
+{% block content %}
+    <div class="mb-4">
+        <a class="undo" href="{{ path('reference_liste') }}">
+            <i class="icon-logout"></i>
+        </a>
+    </div>
+    <div class="titleArtBgColorNautral mb-4 head1">{{ reference.titre }}</div>
+    <br>
+    <div class="bd-example">
+        <div id="carouselHP" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselHP" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselHP" data-slide-to="1"></li>
+                <li data-target="#carouselHP" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ asset('images/web/') ~ reference.image }}" class="d-block w-100" alt="{{ reference.titre }}">
+                </div>
+                {% for image in reference.image %}
+                    {% if not loop.first %}
+                        <!-- !IMPORTANT : La condition "if not loop.first" permet de ne pas afficher le premier élément du tableau. -->
+                        <div class="carousel-item">
+                            <img src="{{ asset('images/web/') ~ image.imageName }}" class="d-block w-100" alt="articleMulti.titre">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselHP" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselHP" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="mt-4 mb-4 titleProject">
+        <div class="row">
+            <div class="col-md-7 block__left__project">
+                {{ reference.description | raw }}
+                <h2 class="sub__title__project">
+                    {{ articleMulti.contenu[0].titre }}
+                </h2>
+                {{ articleMulti.contenu[0].contenu | raw }}
+
+                <h2 class="sub__title__project">
+                    {{ articleMulti.contenu[1].titre }}
+                </h2>
+                {{ articleMulti.contenu[1].contenu | raw }}
+
+                <div class="img__project__illu">
+                    <img src="{{ asset('images/static/schema_st_ferjeux.svg') }}" alt="schéma du projet saint-ferjeux" class="img-fluid">
+                </div>
+
+                <h2 class="d-flex align-items-start sub__title__project2">
+                    <img src="{{ asset('images/static/curve-arrow.svg') }}" alt="curve arrow" width="36">
+                    <span>L’habitat participatif, en quelques mots...</span>
+                </h2>
+
+                <h2 class="sub__title__project">
+                    {{ articleMulti.contenu[2].titre }}
+                </h2>
+                {{ articleMulti.contenu[2].contenu | raw }}
+
+                <h2 class="sub__title__project">
+                    {{ articleMulti.contenu[3].titre }}
+                </h2>
+                {{ articleMulti.contenu[3].contenu | raw }}
+
+            </div>
+            <div class="col-md-5 flex-column encart__project">
+                <div class="bg-light px-4 pb-4 pt-2">
+                    <h2 class="sub__title__project">
+                        {{ articleMulti.contenu[4].titre }}
+                    </h2>
+                    {{ articleMulti.contenu[4].contenu | raw }}
+                </div>
+                <div class="bg-warning px-4 pb-4 pt-2">
+                    <h2 class="sub__title__project">
+                        {{ articleMulti.contenu[5].titre }}
+                    </h2>
+                    {{ articleMulti.contenu[5].contenu | raw }}
+                    <h2 class="sub__title__project">
+                        {{ articleMulti.contenu[6].titre }}
+                    </h2>
+                    {{ articleMulti.contenu[6].contenu | raw }}
+                    <div class="text-center">
+                        <a class="btn btnSubmit mt-2 col-12" href="{{ path('questionnaire_candidature') }}">Candidater !</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+

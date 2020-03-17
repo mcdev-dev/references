@@ -48,7 +48,7 @@ class SecurityController extends AbstractController
 
             $adresse->setAvatar('default_avatar');
             $user->setUserCoordonnees($adresse);
-            $user->setEnabled(false);
+            $user->setEnabled(true);
 
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             $user->setLastLogin(new \DateTime);
@@ -63,7 +63,7 @@ class SecurityController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $url = $this->generateUrl('confirm_account', [ 'token' => $token ], UrlGeneratorInterface::ABSOLUTE_URL);
+/*            $url = $this->generateUrl('confirm_account', [ 'token' => $token ], UrlGeneratorInterface::ABSOLUTE_URL);
             //dd($url); die;
             if(null !== $user->getConfirmationToken()) 
             {
@@ -87,9 +87,9 @@ class SecurityController extends AbstractController
                 ]);
 
                 $mailer->send($email);
-            }
+            }*/
 
-            $this->addFlash('success', '<strong>' . $user->getPrenom() . '</strong>, votre inscription a été validée, vous allez recevoir un email de confirmation pour activer votre compte et pouvoir vous connecter.');
+            $this->addFlash('success', '<strong>' . $user->getPrenom() . '</strong>, votre inscription a été validée.<!--, vous allez recevoir un email de confirmation pour activer votre compte et pouvoir vous connecter.-->');
             return $this->redirectToRoute('connexion');
         }
         

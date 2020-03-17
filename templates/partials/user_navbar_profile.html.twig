@@ -8,6 +8,9 @@
                 <li>
                     <a class="{{ title in ['Informations personnelles', 'Modification mot de passe'] ? 'user__profile__navbar__item__active' : '' }}" href="{{ path('user_profile') }}">Mon compte</a>
                 </li>
+                <li>
+                    <a class="{{ title in ['Calendrier'] ? 'user__profile__navbar__item__active' : '' }}" href="{{ path('calendrier_index') }}">Calendrier</a>
+                </li>
             </ul>
         </div>
     </div>

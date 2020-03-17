@@ -19,6 +19,7 @@ class AcquereurRepository extends ServiceEntityRepository
         parent::__construct($registry, Acquereur::class);
     }
 
+
     // /**
     //  * @return Acquereur[] Returns an array of Acquereur objects
     //  */

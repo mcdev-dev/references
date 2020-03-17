@@ -37,9 +37,15 @@ class UserType extends AbstractType
                 ],
                 'required' => true,
             ])
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('nom', TextType::class, [
+                'trim' => true,
+            ])
+            ->add('prenom', TextType::class, [
+                'trim' => true,
+            ])
+            ->add('email', EmailType::class, [
+                'trim' => true,
+            ])
             ->add('abonneNewsletter', CheckboxType::class, [
                 'required' => false,
                 'label' => false,

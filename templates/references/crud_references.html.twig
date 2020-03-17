@@ -6,16 +6,20 @@
 {% block content %}
 <div class="mt-4 mb-4">
     <a class="undo" href="{{ path('references_view_all') }}">
-        <i class="icon-logout1"></i>
+        <i class="icon-logout"></i>
     </a>
 </div>
 
 <h4 class="title">{{ action }} une référence</h4><br>
-{{ form_start(form) }}
 
-{{ form_row(form.imageFile, { 'label' : 'Photo de l\'article' }) }}
-
-{{ form_rest(form) }}
+{% form_theme referenceForm _self %}
+{{ form_start(referenceForm) }}
+{{ form_row(referenceForm.titre, {'label' : 'Titre de la référence'}) }}
+{{ form_row(referenceForm.description, {'label' :  'Chapeau de l\'article'}) }}
+{{ form_row(referenceForm.contenuReference) }}
+{{ form_rest(referenceForm) }}
+    <input type="hidden" id="tmpl__counter" value="0">
+    <input type="hidden" id="tmpl__img__counter" value="0">
 
 {% if action == 'Ajouter' %}
 <button type="submit" class="btn mb-4 btnSubmit">Ajouter</button>
@@ -23,6 +27,107 @@
 <button type="submit" class="btn mb-4 btnSubmit">Modifier</button>
 {% endif %}
 
-{{ form_end(form) }}
+{{ form_end(referenceForm) }}
 
+{% endblock %}
+
+{% block content %}
+    {% block _reference_contenu_entry_row %}
+        {{ form_widget(form) }}
+    {% endblock %}
+
+	{% block _reference_contenu_entry_widget %}
+        <div class="form-group" id="block_{{ id }}">
+            <div class="row">
+                <div class="col-11">
+                    {{ form_widget(form) }}
+                </div>
+                <div class="col-1 mt-4">
+                    <button id="reference" type="button" data-action="delete" data-target="block_{{id}}" class="btn btnSubmit">
+                        <i class="icon-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block _reference_contenu_widget %}
+        <p>Ici, vous pouvez ajouter le contenu de  votre article !</p>
+        {{ form_widget(fom) }}
+        <div class="form-group">
+            <button type="button" id="add_contents" class="btn btn-sm btnSubmit">Ajouter un contenu</button>
+        </div>
+    {% endblock %}
+
+    {% block _reference_images_entry_now %}
+        {{ form_widget(form) }}
+    {% endblock %}
+
+    {% block _reference_images_entry_widget %}
+        <div class="form-group" id="blockImg_{{ id }}">
+            div.row
+            <div class="col-11 pt_2">
+                {{ form_widget(form) }}
+            </div>
+            <div class="col-1">
+                <button id="image__multi" type="button" data-action="delete" data-target="blockImg_{{id}}" class="btn btnSubmit">
+                    <i class="icon-trash"></i>
+                </button>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block _reference_image_widget %}
+        <p>Ici, vous pouvez ajouter des images pour votre article !</p>
+        {{ form_widget(form) }}
+        <div class="form-group">
+            <button type="button" id="add__images" class="btn btn-sm btnSubmit">Ajouter une image</button>
+        </div>
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('#add__contents').click(() =>
+            {
+                const index = parseInt($('#tmpl__counter').val());
+                const tmpl = $('#reference_contenu').data('prototype').replace(/__name__/g, index);
+                $('#reference_contenu').append(tmpl);
+                $('#tmpl__counter').val(index + 1);
+                deleteTemplate();
+            });
+
+            function deleteTemplate() {
+                $('button[data-action="delete"]').each((key, btn) => {
+                    $(btn).click(() => {
+                        const data = $(btn).data('target');
+                        const blockDel = $(btn).parent().parent().parent().attr('id', data);
+                        $(blockDel).remove();
+                    });
+                });
+            }
+            deleteTemplate();
+
+            $('#add__images').click(() =>
+            {
+               const index = parseInt($('#tmpl__img__counter').val());
+               const tmpl = $('#reference_images').data('prototype').replace(/__name__/g, index);
+               $('#reference_images').append(tmpl);
+               $('#tmpl__img__counter').val(index + 1);
+               deleteTemplateImage();
+            });
+
+            function deleteTemplateImage(){
+                $('button[data-action="delete"]').each((key, btn) => {
+                    $(btn).click(() => {
+                        const data = $(btn).data('target');
+                        const blockDel = $(btn).parent().parent().parent().attr('id', data);
+                        $(blockDel).remove();
+                    });
+                });
+            }
+            deleteTemplateImage();
+        });
+    </script>
 {% endblock %}
