@@ -31,12 +31,12 @@
 
 {% endblock %}
 
-{% block content %}
-    {% block _reference_contenu_entry_row %}
+{% block collection__type__class %}
+    {% block _ref_logements_contenuReference_entry_row %}
         {{ form_widget(form) }}
     {% endblock %}
 
-	{% block _reference_contenu_entry_widget %}
+	{% block _ref_logements_contenuReference_entry_widget %}
         <div class="form-group" id="block_{{ id }}">
             <div class="row">
                 <div class="col-11">
@@ -51,33 +51,34 @@
         </div>
     {% endblock %}
 
-    {% block _reference_contenu_widget %}
+    {% block _ref_logements_contenuReference_widget %}
         <p>Ici, vous pouvez ajouter le contenu de  votre article !</p>
-        {{ form_widget(fom) }}
+        {{ form_widget(form) }}
         <div class="form-group">
             <button type="button" id="add_contents" class="btn btn-sm btnSubmit">Ajouter un contenu</button>
         </div>
     {% endblock %}
 
-    {% block _reference_images_entry_now %}
+    {% block _ref_logements_images_entry_now %}
         {{ form_widget(form) }}
     {% endblock %}
 
-    {% block _reference_images_entry_widget %}
+    {% block _ref_logements_images_entry_widget %}
         <div class="form-group" id="blockImg_{{ id }}">
-            div.row
-            <div class="col-11 pt_2">
-                {{ form_widget(form) }}
-            </div>
-            <div class="col-1">
-                <button id="image__multi" type="button" data-action="delete" data-target="blockImg_{{id}}" class="btn btnSubmit">
-                    <i class="icon-trash"></i>
-                </button>
+            <div class="row">
+                <div class="col-11 pt_2">
+                    {{ form_widget(form) }}
+                </div>
+                <div class="col-1">
+                    <button id="image__multi" type="button" data-action="delete" data-target="blockImg_{{id}}" class="btn btnSubmit">
+                        <i class="icon-trash"></i>
+                    </button>
+                </div>
             </div>
         </div>
     {% endblock %}
 
-    {% block _reference_image_widget %}
+    {% block _ref_logements_images_widget %}
         <p>Ici, vous pouvez ajouter des images pour votre article !</p>
         {{ form_widget(form) }}
         <div class="form-group">
@@ -89,11 +90,11 @@
 {% block javascripts %}
     <script>
         $(function () {
-            $('#add__contents').click(() =>
+            $('#add_contents').click(() =>
             {
                 const index = parseInt($('#tmpl__counter').val());
-                const tmpl = $('#reference_contenu').data('prototype').replace(/__name__/g, index);
-                $('#reference_contenu').append(tmpl);
+                const tmpl = $('#ref_logements_contenuReference').data('prototype').replace(/__name__/g, index);
+                $('#ref_logements_contenuReference').append(tmpl);
                 $('#tmpl__counter').val(index + 1);
                 deleteTemplate();
             });
@@ -112,8 +113,8 @@
             $('#add__images').click(() =>
             {
                const index = parseInt($('#tmpl__img__counter').val());
-               const tmpl = $('#reference_images').data('prototype').replace(/__name__/g, index);
-               $('#reference_images').append(tmpl);
+               const tmpl = $('#ref_logements_images').data('prototype').replace(/__name__/g, index);
+               $('#ref_logements_images').append(tmpl);
                $('#tmpl__img__counter').val(index + 1);
                deleteTemplateImage();
             });
