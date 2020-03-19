@@ -32,7 +32,7 @@ class RefLogementsType extends AbstractType
                     'allow_add' => true,
                     'prototype' =>true
                 ])
-            ->add('categorie', CategorieType::class, [ 'label' => false ])
+            ->add('filtre', FiltreType::class, [ 'label' => false ])
         ;
     }
 

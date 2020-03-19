@@ -16,11 +16,14 @@ class ReferencesController extends AbstractController
     /**
      * @Route("/admin/references/view-all", name="references_view_all")
      */
-    public function index(RefLogementsRepository $repo)
+    public function index(RefLogementsRepository $refLogementsRepository)
     {
+        $photos = null;
+        $references = $refLogementsRepository->findAll();
         return $this->render('references/references_list.html.twig', 
         [
-            'references' => $repo->findAll(),
+            'references' => $references,
+            'photos' => $photos
         ]);
     }
 
@@ -51,28 +54,39 @@ class ReferencesController extends AbstractController
     }
 
     /**
-     * @Route("/admin/references/update/{id<\d+>}", name="references_update")
+     * @Route("/admin/references/update/{id}", name="references_update")
+     * 
      */
-    public function referencesUpdate($id, Request $request, EntityManagerInterface $manager) 
+    public function referencesUpdate($id, Request $request, EntityManagerInterface $manager, RefLogementsRepository $refLogementsRepository)
     {
-        $reference = $manager->getRepository(RefLogements::class)->find($id);
+        $reference = $refLogementsRepository->find($id);
         $form = $this->createForm(RefLogementsType::class, $reference);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) 
+        if($form->isSubmitted() && $form->isValid())
         {
+            foreach ($reference->getImages() as $image) {
+                $image->setRefLogements($reference);
+                $manager->persist($image);
+            }
+            foreach ($reference->getContenuReference() as $contenuReference){
+                $contenuReference->setReference($reference);
+                $manager->persist($contenuReference);
+            }
             $manager->persist($reference);
             $manager->flush();
 
-            $this->addFlash('success', 'L\'article <strong>' . $reference->getTitre() . ',</strong> a été mis à jour avec sucès.');
+/*            $this->addFlash('success', 'L\'article <strong>' . $reference->getTitre() . ',</strong> a été mis à jour avec sucès.');
 
-            return $this->redirectToRoute('references_view_all');
+            return $this->redirectToRoute('references_view_all');*/
         }
 
-        return $this->render('references/crud_references.html.twig', 
+        return $this->render('references/crud_references.html.twig',
         [
-            'form' => $form->createView(),
-            'action' => 'Modifier'
+            'action' => 'Modifier',
+            'id' => $id,
+            'reference' => $reference,
+            'referenceForm' => $form->createView(),
         ]);
     }
 

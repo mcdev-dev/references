@@ -34,11 +34,6 @@ class Categorie
     private $articleActus;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\RefLogements", mappedBy="categorie", orphanRemoval=true)
-     */
-    private $reference;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Candidatures", mappedBy="categorie", cascade={"persist", "remove"})
      */
     private $candidatures;
@@ -140,36 +135,6 @@ class Categorie
         return $this;
     }
 
-    /**
-     * @return Collection|RefLogements[]
-     */
-    public function getReference(): Collection
-    {
-        return $this->reference;
-    }
-
-    public function addReference(RefLogements $reference): self
-    {
-        if (!$this->reference->contains($reference)) {
-            $this->reference[] = $reference;
-            $reference->setCategorie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReference(RefLogements $reference): self
-    {
-        if ($this->reference->contains($reference)) {
-            $this->reference->removeElement($reference);
-            // set the owning side to null (unless already changed)
-            if ($reference->getCategorie() === $this) {
-                $reference->setCategorie(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getCandidatures(): ?Candidatures
     {

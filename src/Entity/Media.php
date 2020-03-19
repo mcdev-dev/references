@@ -20,9 +20,7 @@ class Media
     private $id;
 
     /**
-     * 
      * @Vich\UploadableField(mapping="lescityzens_photos", fileNameProperty="imageName")
-     * 
      * @var File
      */
     private $imageFile;
@@ -34,7 +32,6 @@ class Media
 
     /**
      * @ORM\Column(type="datetime")
-     *
      * @var \DateTime
      */
     private $updatedAt;

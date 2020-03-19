@@ -31,7 +31,7 @@ class RefLogements
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MediaReference", mappedBy="RefLogements", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\MediaReference", mappedBy="refLogements", cascade={"persist", "remove"})
      */
     private $images;
 
@@ -41,16 +41,17 @@ class RefLogements
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="reference", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $categorie;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ContenuReference", mappedBy="RefLogements", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuReference", mappedBy="refLogements", cascade={"persist", "remove"})
      */
     private $contenuReference;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $filtre = [];
+
+
+    
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -135,18 +136,6 @@ class RefLogements
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(?Categorie $categorie): self
-    {
-        $this->categorie = $categorie;
-        return $this;
-    }
-
-
     /**
      * @return Collection|ContenuReference[]
      */
@@ -176,4 +165,15 @@ class RefLogements
         return $this;
     }
 
+    public function getFiltre(): ?array
+    {
+        return $this->filtre;
+    }
+
+    public function setFiltre(array $filtre): self
+    {
+        $this->filtre = $filtre;
+
+        return $this;
+    }
 }

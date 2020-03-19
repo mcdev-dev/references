@@ -99,6 +99,7 @@ class ArticleMultiController extends AbstractController
             }
 
             foreach($article->getContenu() as $contenu) {
+                dd($contenu);
                 $contenu->setArticleMulti($article);
                 $manager->persist($contenu);
             }
