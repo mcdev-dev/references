@@ -76,9 +76,9 @@ class ReferencesController extends AbstractController
             $manager->persist($reference);
             $manager->flush();
 
-/*            $this->addFlash('success', 'L\'article <strong>' . $reference->getTitre() . ',</strong> a été mis à jour avec sucès.');
+            $this->addFlash('success', 'L\'article <strong>' . $reference->getTitre() . ',</strong> a été mis à jour avec sucès.');
 
-            return $this->redirectToRoute('references_view_all');*/
+            return $this->redirectToRoute('references_view_all');
         }
 
         return $this->render('references/crud_references.html.twig',
