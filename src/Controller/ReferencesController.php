@@ -55,7 +55,7 @@ class ReferencesController extends AbstractController
 
     /**
      * @Route("/admin/references/update/{id}", name="references_update")
-     * 
+     *
      */
     public function referencesUpdate($id, Request $request, EntityManagerInterface $manager, RefLogementsRepository $refLogementsRepository)
     {
